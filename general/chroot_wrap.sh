@@ -12,9 +12,9 @@ cd $SRC_PATH
 
 echo "workdir is $(pwd)"
 . prod_build/general/pre-build.sh
+export_variables "prod_build/general/conf/*"
 . prod_build/general/mod-handler.sh
 mod_handler $MOD
-
 IFS=' '
 
 if [[ $CI_COMMIT_REF_NAME != "" ]] && [[ $CI_COMMIT_REF_NAME != "master" ]]; then
