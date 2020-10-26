@@ -1,3 +1,3 @@
-HOST_DISTR_VERSIONS="stretch buster"
+HOST_DISTR_VERSIONS="stretch"
 HOST_ARCH_VERSIONS="amd64"
 PACKAGE_PATH=builds/deb/
