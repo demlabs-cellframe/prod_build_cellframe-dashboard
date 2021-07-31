@@ -6,6 +6,7 @@ echo $wd
 CELLFRAME_REPO_CREDS="admin@debian.pub.demlabs.net"
 CELLFRAME_REPO_KEY="~/.ssh/demlabs_publish"
 CELLFRAME_REPO_PATH="~/web/debian.pub.demlabs.net/public_html"
+CELLFRAME_REPO_PORT=34768
 CELLFRAME_FILESERVER_CREDS="admin@pub.cellframe.net"
 CELLFRAME_FILESERVER_PATH="~/web/pub.cellframe.net/public_html/linux"
 pwd
@@ -32,7 +33,7 @@ for pkgfile in $PKGFILES; do
 	scp -i $CELLFRAME_REPO_KEY $wd/$PACKAGE_PATH/$pkgname$MOD.deb "$CELLFRAME_FILESERVER_CREDS:$CELLFRAME_FILESERVER_PATH/$SUBDIR/$pkgname_public$MOD.deb"
 	scp -r -i $CELLFRAME_REPO_KEY ../prod_build/general/essentials/$pkgname_weblink "$CELLFRAME_FILESERVER_CREDS:$CELLFRAME_FILESERVER_PATH/$SUBDIR/"
 	if [[ $CI_COMMIT_REF_NAME == "master" ]]; then
-		scp -i $CELLFRAME_REPO_KEY $wd/$PACKAGE_PATH/$pkgname$MOD.deb "$CELLFRAME_REPO_CREDS:~/aptly/repo_update/$pkgname_public$MOD.deb"
+		scp -p $CELLFRAME_REPO_PORT -i $CELLFRAME_REPO_KEY $wd/$PACKAGE_PATH/$pkgname$MOD.deb "$CELLFRAME_REPO_CREDS:~/aptly/repo_update/$pkgname_public$MOD.deb"
 #			ssh -i $CELLFRAME_REPO_KEY "$CELLFRAME_REPO_CREDS" -- "~/aptly/repo_update.sh"
 	fi
 #		ssh -i $CELLFRAME_REPO_KEY "$CELLFRAME_FILESERVER_CREDS" "ln -sf $CELLFRAME_FILESERVER_PATH/$pkgname$MOD.deb $CELLFRAME_FILESERVER_PATH/$pkgname$MOD-latest.deb"
