@@ -1,6 +1,6 @@
 #!/bin/bash
 
-make distclean
+#make distclean
 #rm -r prod_build/linux/debian/essentials/.debhelper/
 #rm prod_build/linux/debian/essentials/cellframe-dashboard.debhelper.log
 #rm prod_build/linux/debian/essentials/cellframe-dashboard.substvars
