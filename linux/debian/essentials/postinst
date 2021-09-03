@@ -10,7 +10,8 @@ case "$1" in
     cp -f /opt/cellframe-dashboard/share/CellFrameDashboard.desktop /usr/share/applications/CellFrameDashboard.desktop
 	cp -f /opt/cellframe-dashboard/share/CellFrameDashboard.ico	/usr/share/pixmaps/CellFrameFashboard.ico
     update-menus
-    echo "For start CellFrame Dashboard Service - run 'systemctl start cellframe-dashboard'"
+    service cellframe-dashboard restart
+#    echo "For start CellFrame Dashboard Service - run 'systemctl start cellframe-dashboard'"
 ;;
     abort-upgrade|abort-remove|abort-deconfigure)
     ;;
