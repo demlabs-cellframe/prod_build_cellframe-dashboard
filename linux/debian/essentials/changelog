@@ -1,3 +1,9 @@
+cellframe-dashboard (2.0-5) testing; urgency=medium
+
+  * Application update
+
+ -- Dmitriy Gerasimov <dmitriy.gerasimov@demlabs.net>  Fri, 3 Sep 2021 21:09:00 +0700
+
 cellframe-dashboard (2.0-4) develop; urgency=medium
 
   *     Added static build support
@@ -51,3 +57,4 @@ cellframe-dashboard (1.2-0) development; urgency=medium
   * Refactored the package
 
  -- Dmitriy Gerasimov <dmitriy.gerasimov@demlabs.net>  Fri, 02 Aug 2019 16:07:38 +0700
+
