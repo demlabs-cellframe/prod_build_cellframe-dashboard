@@ -28,7 +28,7 @@ error=0
 #2DO: add trap command to clean the sources on exit.
 trap cleanup SIGINT
 codename=$(lsb_release -a | grep Codename | cut -f2)
-dpkg-buildpackage -J -us --changes-option=--build=any -uc && mkdir -p build && rm ../*dbgsym*.deb && \
+dpkg-buildpackage -J -us --changes-option=--build=any -uc && mkdir -p build && { rm ../*dbgsym*.deb || true } && \
 for filepkg in $(ls .. | grep .deb | grep -v $codename); do
 	mv ../$filepkg build/$filepkg
 done || error=$?
