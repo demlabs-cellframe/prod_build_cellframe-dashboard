@@ -30,7 +30,7 @@ trap cleanup SIGINT
 codename=$(lsb_release -a | grep Codename | cut -f2)
 dpkg-buildpackage -J -us --changes-option=--build=any -uc
 if [[ $(ls .. | grep 'dbgsym') != "" ]]; then
-	rm -f *dbgsym*
+	rm -f ../*dbgsym*
 fi
 mkdir -p build && \
 for filepkg in $(ls .. | grep .deb | grep -v $codename); do
