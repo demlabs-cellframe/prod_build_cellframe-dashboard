@@ -1,3 +1,9 @@
+cellframe-dashboard (2.0-8) develop; urgency=medium
+
+  *	fixed changelog
+
+ -- kema <kema@kema>  Tue, 14 Sep 2021 18:48:46 +0300
+
 cellframe-dashboard (2.0-4) develop; urgency=medium
 
   *     Added static build support
