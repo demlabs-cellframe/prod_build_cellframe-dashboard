@@ -1,12 +1,10 @@
 #!/bin/bash
 
-PLATFORM_CANDIDATES=$2
+PLATFORM_CANDIDATES=$1
 CHROOT_PREFIX="builder"
-CHROOTS_PATH=$1
-[[ $CHROOTS_PATH == "null" ]] && echo "selected the option without chroot"
 PLATFORMS=""
-PKG_FORMAT=$3
-JOB=$4
+PKG_FORMAT=$2
+JOB=$3
 export wd=$(pwd)
 cd $SRC_PATH
 
@@ -86,30 +84,20 @@ for platform in $PLATFORMS; do
 
 
 		#Check if chroots are present
-		echo $HOST_DISTR_VERSIONS
-		echo $HOST_ARCH_VERSIONS
+		#echo $HOST_DISTR_VERSIONS
+		#echo $HOST_ARCH_VERSIONS
 
-		[[ -e prod_build/$platform/scripts/pre-build.sh ]] && prod_build/$platform/scripts/pre-build.sh $CHROOT_PREFIX $platform || echo "[WRN] No pre-build script detected. Moving on" #For actions before build not in chroot and in chroot (version update, install missing dependencies(under schroot))
+		[[ -e prod_build/$platform/scripts/pre-build.sh ]] && prod_build/$platform/scripts/pre-build.sh $platform || echo "[WRN] No pre-build script detected. Moving on" #For actions before build not in chroot and in chroot (version update, install missing dependencies(under schroot))
 			IFS=' '
 			PKG_TYPE=$(echo $PKG_FORMAT | cut -d ' ' -f1)
-		for distr in $HOST_DISTR_VERSIONS; do
-			for arch in $HOST_ARCH_VERSIONS; do
-				if [ -e $CHROOTS_PATH/$CHROOT_PREFIX-$distr-$arch ]; then
-					echo "working with $CHROOT_PREFIX-$distr-$arch on brand $brand"
-					schroot -c $CHROOT_PREFIX-$distr-$arch -- launcher.sh prod_build/$platform/scripts/$JOB.sh $PKG_TYPE $platform $brand $varpack || { errcode=$? && errstring="$errstring ${platform}_build $errcode" && echo "[ERR] $platform build on $HOST_DISTR_VERSIONS-$HOST_ARCH_VERSIONS errcode $errcode"; break 2; }
-#					echo "schroot stub $PKG_TYPE"
-				elif [[ $CHROOTS_PATH == "null" ]]; then
-					prod_build/$platform/scripts/$JOB.sh $PKG_TYPE $platform $brand $varpack || { errcode=$? && errstring="$errstring ${platform}_build $errcode" && echo "[ERR] $platform build on $HOST_DISTR_VERSIONS-$HOST_ARCH_VERSIONS errcode $errcode"; break 2; }
-				else
-					echo "chroot $CHROOT_PREFIX-$distr-$arch not found. You should install it first"
-				fi
-			done
-		done
+
+		prod_build/$platform/scripts/$JOB.sh $PKG_TYPE $platform $brand $varpack || { errcode=$? && errstring="$errstring ${platform}_build $errcode" && echo "[ERR] $platform build errcode $errcode"; break 2; }
+
 		fi
-		echo "workdir before postinstall is $(pwd)"
-		[[ -e prod_build/$platform/scripts/post-build.sh ]] && prod_build/$platform/scripts/post-build.sh $platform || { errcode=$? && errstring="$errstring ${platform}_postbuild errcode $errcode"; continue; } #For post-build actions not in chroot (global publish)
-		PKG_FORMAT=$(echo $PKG_FORMAT | cut -d ' ' -f2-)
-		unexport_variables "./prod_build/$platform/conf/*"
+		#echo "workdir before postinstall is $(pwd)"
+		#[[ -e prod_build/$platform/scripts/post-build.sh ]] && prod_build/$platform/scripts/post-build.sh $platform || { errcode=$? && errstring="$errstring ${platform}_postbuild errcode $errcode"; continue; } #For post-build actions not in chroot (global publish)
+		#PKG_FORMAT=$(echo $PKG_FORMAT | cut -d ' ' -f2-)
+		#unexport_variables "./prod_build/$platform/conf/*"
 done
 [[ $errstring != "" ]] && echo "$brand done with errors:" && echo "$errstring" >> ~/prod_log && errstring="" && errcode=5 ## General failure error
 
