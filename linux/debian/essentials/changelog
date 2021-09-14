@@ -1,3 +1,17 @@
+cellframe-dashboard (2.0-7) develop; urgency=medium
+
+  *     Fixed Master
+  *     Features 4881 and Bugs 4889
+
+ -- Denis Sumin <denis.smolov@demlabs.net>  Tue, 14 Sep 2021 15:022:00 +0500
+
+cellframe-dashboard (2.0-6) develop; urgency=medium
+
+  *     Fixed Master
+  *     Features 4881
+
+ -- Denis Sumin <denis.smolov@demlabs.net>  Wed, 8 Sep 2021 09:09:00 +0500
+
 cellframe-dashboard (2.0-4) develop; urgency=medium
 
   *     Added static build support
