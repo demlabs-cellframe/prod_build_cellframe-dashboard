@@ -57,10 +57,10 @@ pack() {
 . prod_build/general/conf/publish
 
 error=0
-codename=$(lsb_release -a | grep Codename | cut -f2)
+#codename=$(lsb_release -a | grep Codename | cut -f2)
 #2DO: add trap command to clean the sources on exit.
 trap cleanup SIGINT
-	cd cellfrmae-node && git checkout master && git pull && git submodule init && git submodule update
+	cd cellframe-node && git checkout master && git pull && git submodule init && git submodule update
 	mkdir build && cd build
 	x86_64-w64-mingw32.static-cmake .. && make
 	$WINDOWS_CROSS_QT/qmake && \
