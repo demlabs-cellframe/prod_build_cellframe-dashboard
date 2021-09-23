@@ -62,7 +62,6 @@ for platform in $PLATFORMS; do
 
 		if [[ $platform == "mac" ]]; then
 
-			[[ $(uname -a | cut -d ' ' -f1) == "Darwin" ]]; then
 				[ -e prod_build/$platform/scripts/pre-build.sh ] && prod_build/$platform/scripts/pre-build.sh $CHROOT_PREFIX $platform || { errcode=$? && errstring="$errstring macprebuild $errcode" && echo "[ERR] Mac host prefetch errcode $errcode. Skipping"; exit $errcode; } #Setting up brand in conf file
 
 				for conffile in $(find "./prod_build/$platform/conf" | grep conf/ | grep -v .bak); do
@@ -74,6 +73,7 @@ for platform in $PLATFORMS; do
 				PKG_TYPE=$(echo $PKG_FORMAT | cut -d ' ' -f1)
 				prod_build/$platform/scripts/$JOB.sh $PKG_TYPE || { errcode=$? && errstring="$errstring macbuild $errcode" && echo "[ERR] Mac host build errcode $errcode now. Skipping"; exit $errcode; }
 				exit 0
+			
 
 		else
 

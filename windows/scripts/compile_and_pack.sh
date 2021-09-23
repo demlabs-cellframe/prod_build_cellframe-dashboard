@@ -41,11 +41,11 @@ pack() {
 
 	mkdir -p ./build/
 	rm -r ./build/*
-	cp ./prod_build/windows/essentials/share/CellFrameDashboard.ico ./build/
+	cp ./CellFrameDashboardGUI/resources/icons/icon_windows.ico ./build/
 	#cp -r ./os/windows/drivers ./build/
-	#cp ./os/windows/build.nsi ./build/
-	#cp ./os/windows/ssl/libeay32.dll ./build/
-	#cp ./os/windows/ssl/ssleay32.dll ./build/	
+	cp ./os/windows/build.nsi ./build/
+	cp ./prod_build/windows/nsis/ibeay32.dll ./build/
+	cp ./prod_build/windows/nsis/ssleay32.dll ./build/	
 	VERSION=$(extract_version_number)
 	defines $1 $VERSION
 	cp ./CellFrameDashboardService/release/CellFrameDashboardService.exe ./build/
