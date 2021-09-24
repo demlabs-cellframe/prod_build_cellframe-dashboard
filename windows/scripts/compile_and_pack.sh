@@ -62,12 +62,12 @@ error=0
 cd cellframe-node && git submodule update --init && cd -
 sed -i 's/#nsis_build/nsis_build/g' CellFrameDashboardGUI/CellFrameDashboardGUI.pro
 sed -i 's/#nsis_build/nsis_build/g' CellFrameDashboardService/CellFrameDashboardService.pro
-sed -i 's/#compile.bash/compile.sh/g' CellFrameDashboardGUI/CellFrameDashboardGUI.pro
+sed -i 's/#compile.bat/compile.sh/g' CellFrameDashboardGUI/CellFrameDashboardGUI.pro
 sed -i 's/#makensis.exe/makensis/g' CellFrameDashboardGUI/CellFrameDashboardGUI.pro
 
 trap cleanup SIGINT
 	#[ -v BRAND ] && echo "Brand = $BRAND" || { echo "No brand defined"; BRAND="CellFrameDashboard"; } && \
-	$WINDOWS_CROSS_QT/qmake && make -j$(nproc)
+	$WINDOWS_CROSS_QT/qmake && make -j$(nproc) || error=$?
 	# pack $BRAND
 #	for filepkg in $(ls .. | grep .deb | grep -v $codename | grep -v "dbgsym"); do
 #		filename=$(echo $filepkg | sed 's/.deb$//')
@@ -75,5 +75,6 @@ trap cleanup SIGINT
 #		cd build && repack $filename\_$codename.deb $codename && cd ..
 #	done || error=$?
 	cleanup
+if [[ $error ]]
 error_explainer $error
 exit $error #2DO: Learn how to sign up the package.
