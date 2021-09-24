@@ -62,6 +62,8 @@ error=0
 cd cellframe-node && git submodule update --init && cd -
 sed -i 's/#nsis_build/nsis_build/g' CellFRameDashboardGUI/CellFRameDashboardGUI.pro
 sed -i 's/#nsis_build/nsis_build/g' CellFrameDashboardService/CellFrameDashboardService.pro
+sed -i 's/#compile.bash/compile.sh/g' CellFRameDashboardGUI/CellFRameDashboardGUI.pro
+sed -i 's/#makensis.exe/makensis/g' CellFRameDashboardGUI/CellFRameDashboardGUI.pro
 
 trap cleanup SIGINT
 	#[ -v BRAND ] && echo "Brand = $BRAND" || { echo "No brand defined"; BRAND="CellFrameDashboard"; } && \
