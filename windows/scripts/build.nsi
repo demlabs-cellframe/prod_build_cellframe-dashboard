@@ -88,10 +88,10 @@ yesWallet:
 	CreateDirectory "$ConfigPath\var\lib\ca"
 yesCa:
 	IfFileExists "$ConfigPath\log" yesDashLog 0
-	CreateDirectory "$CommonDocuments\CellframeDashboard\log"
+	CreateDirectory "$CommonDocuments\{APP_NAME}\log"
 yesDashLog:
 	IfFileExists "$ConfigPath\data" yesDashData 0
-	CreateDirectory "$CommonDocuments\CellframeDashboard\data"
+	CreateDirectory "$CommonDocuments\{APP_NAME}\data"
 yesDashData:
 !macroend
 
