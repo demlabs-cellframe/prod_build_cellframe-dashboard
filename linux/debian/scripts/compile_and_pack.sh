@@ -28,7 +28,7 @@ error=0
 #2DO: add trap command to clean the sources on exit.
 trap cleanup SIGINT
 codename=$(lsb_release -a | grep Codename | cut -f2)
-dpkg-buildpackage -J -us --changes-option=--build=any -uc
+dpkg-buildpackage -J -us --changes-option=--build=any -uc || error=$?
 if [[ $(ls .. | grep 'dbgsym') != "" ]]; then
 	rm -f ../*dbgsym*
 fi

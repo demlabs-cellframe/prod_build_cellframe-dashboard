@@ -7,8 +7,8 @@ Type=forking
 OOMScoreAdjust=-1000
 #PIDFile=/opt/cellframe-dashboard/CellFrameDashboardService.pid
 WorkingDirectory=/opt/cellframe-dashboard/
-ExecStart=/opt/cellframe-dashboard/bin/CellFrameDashboardService -D
-ExecStop=/opt/cellframe-dashboard/bin/CellFrameDashboardService --stop
+ExecStart=/opt/cellframe-dashboard/bin/CellFrame-DashboardService -D
+ExecStop=/opt/cellframe-dashboard/bin/CellFrame-DashboardService --stop
 Restart=always
 
 [Install] 
