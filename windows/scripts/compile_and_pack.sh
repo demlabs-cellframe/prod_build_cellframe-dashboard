@@ -75,6 +75,5 @@ trap cleanup SIGINT
 #		cd build && repack $filename\_$codename.deb $codename && cd ..
 #	done || error=$?
 	cleanup
-if [[ $error ]]
 error_explainer $error
 exit $error #2DO: Learn how to sign up the package.
