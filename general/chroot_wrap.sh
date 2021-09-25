@@ -98,9 +98,6 @@ for platform in $PLATFORMS; do
 			done
 		done
 		fi
-		echo "workdir before postinstall is $(pwd)"
-	#	[[ -e prod_build/$platform/scripts/post-build.sh ]] && prod_build/$platform/scripts/post-build.sh $platform || { errcode=$? && errstring="$errstring ${platform}_postbuild errcode $errcode"; continue; } #For post-build actions not in chroot (global publish)
-		PKG_FORMAT=$(echo $PKG_FORMAT | cut -d ' ' -f2-)
 		unexport_variables "./prod_build/$platform/conf/*"
 done
 [[ $errstring != "" ]] && echo "$brand done with errors:" && echo "$errstring" >> ~/prod_log && errstring="" && errcode=5 ## General failure error
