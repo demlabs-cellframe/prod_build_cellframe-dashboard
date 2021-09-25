@@ -41,8 +41,8 @@ sed -i 's/makensis.exe/makensis/g' CellFrameDashboardGUI/CellFrameDashboardGUI.p
 
 trap cleanup SIGINT
 	$WINDOWS_CROSS_QT/qmake && make -j$(nproc)  && mkdir build && 
-	[ -v BRAND ] && echo "Brand = $BRAND" || { echo "No brand defined"; BRAND="CellFrame-Dashboard"; } &&  \
-	VERSION=$(extract_version_number) && echo "Versiton = $VERSION" && \ 
+	[ -v BRAND ] && echo "Brand = $BRAND" || { echo "No brand defined"; BRAND="CellFrame-Dashboard"; } && \
+	VERSION=$(extract_version_number) && echo "Version = $VERSION" && \
 	mv ./build_win32/"$BRAND ${VERSION}.exe" ./build/"${BRAND}-${VERSION}.exe" || error=$?
 	cleanup
 error_explainer $error
