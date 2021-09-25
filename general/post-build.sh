@@ -10,9 +10,8 @@ export_variables "prod_build/general/conf/*"
 
 echo "Mod handler"
 if [[ $CI_COMMIT_REF_NAME != "" ]] && [[ $CI_COMMIT_REF_NAME != "master" ]]; then
-	export MOD="${MOD} ${CI_COMMIT_REF_NAME}"
+	export MOD="-${MOD}-${CI_COMMIT_REF_NAME}"
 fi
-MOD=$( echo $MOD | sed 's/ /-/g')
 
 
 [[ -e prod_build/$platform/scripts/post-build.sh ]] && prod_build/$platform/scripts/post-build.sh $platform || { errcode=$? && errstring="$errstring ${platform}_postbuild errcode $errcode"; } #For post-build actions not in chroot (global publish)
