@@ -20,7 +20,7 @@ error_explainer() {
 cleanup() {
 
 make distclean
-
+rm -r build_win32
 
 if [ "$1" == "--static" ]; then
 	export $QT_SELECT="default" #Returning back the shared library link
@@ -41,7 +41,8 @@ sed -i 's/compile.bat/compile.sh/g' CellFrameDashboardGUI/CellFrameDashboardGUI.
 sed -i 's/makensis.exe/makensis/g' CellFrameDashboardGUI/CellFrameDashboardGUI.pro
 
 trap cleanup SIGINT
-	$WINDOWS_CROSS_QT/qmake && make -j$(nproc) || error=$?
+	$WINDOWS_CROSS_QT/qmake && make -j$(nproc)  && mkdir build && \
+	mv ./build_win32/"$BRAND ${VERSION}.exe" ./build/"${BRAND}-${VERSION}.exe" || error=$?
 	cleanup
 error_explainer $error
 exit $error #2DO: Learn how to sign up the package.

@@ -8,7 +8,7 @@ CELLFRAME_FILESERVER_CREDS="admin@pub.cellframe.net"
 CELLFRAME_FILESERVER_PATH="~/web/pub.cellframe.net/public_html/windows"
 pwd
 
-cd build_win32
+cd build
 PKGFILES=$(ls . | grep .exe)
 
 [[ -v CI_COMMIT_REF_NAME ]] && [[ $CI_COMMIT_REF_NAME != "master" ]] && SUBDIR="${CI_COMMIT_REF_NAME}" || SUBDIR=""
