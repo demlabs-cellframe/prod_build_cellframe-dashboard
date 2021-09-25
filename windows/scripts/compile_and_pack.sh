@@ -41,7 +41,10 @@ sed -i 's/compile.bat/compile.sh/g' CellFrameDashboardGUI/CellFrameDashboardGUI.
 sed -i 's/makensis.exe/makensis/g' CellFrameDashboardGUI/CellFrameDashboardGUI.pro
 
 trap cleanup SIGINT
-	$WINDOWS_CROSS_QT/qmake && make -j$(nproc)  && mkdir build && \
+	$WINDOWS_CROSS_QT/qmake && make -j$(nproc)  && mkdir build && 
+	[ -v BRAND ] && echo "Brand = $BRAND" || { echo "No brand defined"; BRAND="CellFrame-Dashboard"; } &&  \
+	echo $BRAND
+	echo $VERSION
 	mv ./build_win32/"$BRAND ${VERSION}.exe" ./build/"${BRAND}-${VERSION}.exe" || error=$?
 	cleanup
 error_explainer $error
