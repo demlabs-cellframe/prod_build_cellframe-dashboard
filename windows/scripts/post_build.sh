@@ -5,5 +5,6 @@ echo "Entering post-build deployment and cleanup"
 platform=$1
 SCRIPTDIR="prod_build/$platform/scripts"
 
-$SCRIPTDIR/deploy.sh || { echo "[ERR] $platform deploy error" && $SCRIPTDIR/cleanup.sh && exit 20; } && \
+$SCRIPTDIR/deploy.sh || { echo "[ERR] $platform deploy error"; }
+#$SCRIPTDIR/deploy.sh || { echo "[ERR] $platform deploy error" && $SCRIPTDIR/cleanup.sh && exit 20; } && \
 #$SCRIPTDIR/cleanup.sh || { echo "[ERR] $platform cleanup error" && exit 21; }
