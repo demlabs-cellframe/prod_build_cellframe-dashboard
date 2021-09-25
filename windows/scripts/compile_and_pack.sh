@@ -29,9 +29,8 @@ fi
 }
 
 error=0
-#codename=$(lsb_release -a | grep Codename | cut -f2)
-#2DO: add trap command to clean the sources on exit.
 
+#2DO: add trap command to clean the sources on exit.
 mkdir -p build_win32/dist/share/
 
 cd cellframe-node && git submodule update --init && cd -
@@ -43,8 +42,7 @@ sed -i 's/makensis.exe/makensis/g' CellFrameDashboardGUI/CellFrameDashboardGUI.p
 trap cleanup SIGINT
 	$WINDOWS_CROSS_QT/qmake && make -j$(nproc)  && mkdir build && 
 	[ -v BRAND ] && echo "Brand = $BRAND" || { echo "No brand defined"; BRAND="CellFrame-Dashboard"; } &&  \
-	echo $BRAND
-	echo $VERSION
+	VERSION=$(extract_version_number) && echo "Versiton = $VERSION" && \ 
 	mv ./build_win32/"$BRAND ${VERSION}.exe" ./build/"${BRAND}-${VERSION}.exe" || error=$?
 	cleanup
 error_explainer $error
