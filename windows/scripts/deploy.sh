@@ -17,7 +17,7 @@ PKGFILES=$(ls . | grep .exe)
 #echo "On path $REPO_DIR_SRC we have exe files."
 for pkgfile in $PKGFILES; do
 	pkgname=$(echo $pkgfile | sed 's/.exe$//')
-	pkgname_public=$(echo $pkgname | cut -d '-' -f2-4,7-) #cutting away Debian-9.12
+	pkgname_public=$(echo $pkgname | cut -d '-' -f1-4,7-) #cutting away Debian-9.12
 	pkgname_weblink="$(echo $pkgname | cut -d '-' -f2,8 )-latest" #leaving only necessary entries
 	mv $pkgfile $wd/$PACKAGE_PATH/$pkgname$MOD.exe || { echo "[ERR] Something went wrong in publishing the package. Now aborting."; exit -4; }
 	CODENAME=$(echo $pkgname | rev | cut -d '-' -f1 | rev)
