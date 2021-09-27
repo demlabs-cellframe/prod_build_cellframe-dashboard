@@ -33,7 +33,6 @@ error=0
 #2DO: add trap command to clean the sources on exit.
 mkdir -p build_win32/dist/share/
 
-#cd cellframe-node && git submodule update --init && cd -
 sed -i 's/#nsis_build/nsis_build/g' CellFrameDashboardGUI/CellFrameDashboardGUI.pro
 sed -i 's/#nsis_build/nsis_build/g' CellFrameDashboardService/CellFrameDashboardService.pro
 sed -i 's/compile.bat/compile.sh/g' CellFrameDashboardGUI/CellFrameDashboardGUI.pro
