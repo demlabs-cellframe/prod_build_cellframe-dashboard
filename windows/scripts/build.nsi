@@ -38,7 +38,7 @@ Var ConfigPath
 VIProductVersion "${APP_VERSION}"
 VIAddVersionKey "ProductName"		"${APP_NAME}"
 VIAddVersionKey "CompanyName"		"${PUBLISHER}"
-VIAddVersionKey "LegalCopyright"	"${PUBLISHER} © 2021"
+VIAddVersionKey "LegalCopyright"	"${PUBLISHER} 2021"
 VIAddVersionKey "FileDescription"	"Cellframe Dashboard Application"
 VIAddVersionKey "FileVersion"		"${APP_VER}"
 
