@@ -10,7 +10,7 @@ case "$1" in
     ln -sf /opt/cellframe-dashboard/bin/$APP_NAME /usr/local/bin/$APP_NAME
     chmod +X /usr/local/bin/$APP_NAME
     cp -f /opt/cellframe-dashboard/share/CellFrameDashboard.desktop /usr/share/applications/CellFrameDashboard.desktop
-	cp -f /opt/cellframe-dashboard/share/CellFrameDashboard.ico	/usr/share/pixmaps/CellFrameFashboard.ico
+	cp -f /opt/cellframe-dashboard/share/CellFrameDashboard.ico	/usr/share/pixmaps/CellFrameDashboard.ico
     update-menus
     service cellframe-dashboard restart
 #    echo "For start CellFrame Dashboard Service - run 'systemctl start cellframe-dashboard'"
