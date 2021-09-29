@@ -1,11 +1,13 @@
 #!/bin/bash
 
+APP_NAME=Cellframe-Dashboard
+
 set -x
-sudo xattr -rd com.apple.quarantine /Applications/CellFrameDashboard.app
+sudo xattr -rd com.apple.quarantine /Applications/"$APP_NAME".app
 sudo killall -HUP mDNSResponder
 
-EXEC_PREFIX=/Users/`whoami`/Applications/Cellframe.app/Contents/MacOS
-SERVICE=com.demlabs.CellFrameDashboardService.plist
+EXEC_PREFIX=/Users/`whoami`/Applications/$APP_NAME.app/Contents/MacOS
+SERVICE=com.demlabs."$APP_NAME"Service.plist
 NODE=com.demlabs.cellframe-node.plist
 
 
@@ -30,8 +32,8 @@ echo $NODE
 sudo launchctl stop $NODE
 sudo launchctl unload -w /Library/LaunchDaemons/$NODE
 
-sudo ln -sf /Applications/CellFrameDashboard.app/Contents/Resources/$SERVICE /Library/LaunchDaemons/$SERVICE
-sudo ln -sf /Applications/CellFrameDashboard.app/Contents/Resources/$NODE /Library/LaunchDaemons/$NODE
+sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE /Library/LaunchDaemons/$SERVICE
+sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE /Library/LaunchDaemons/$NODE
 
 sudo chown root /Library/LaunchDaemons/$SERVICE
 sudo chmod 600 /Library/LaunchDaemons/$SERVICE
@@ -39,7 +41,7 @@ sudo chown root /Library/LaunchDaemons/$NODE
 sudo chmod 600 /Library/LaunchDaemons/$NODE
 sudo launchctl load -w /Library/LaunchDaemons/$SERVICE
 sudo launchctl load -w /Library/LaunchDaemons/$NODE
-[ ! -e /Library/LaunchDaemons/cleanup ] && sudo cp -r /Applications/CellFrameDashboard.app/Contents/resources/cleanup /Library/LaunchDaemons/
+[ ! -e /Library/LaunchDaemons/cleanup ] && sudo cp -r /Applications/"$APP_NAME".app/Contents/resources/cleanup /Library/LaunchDaemons/
 sudo chown -R root:wheel /Library/LaunchDaemons/cleanup
 sudo ln -sf /Library/LaunchDaemons/cleanup/com.demlabs.cleanup.plist /Library/LaunchDaemons/com.demlabs.cleanup.plist
 sudo chmod 600 /Library/LaunchDaemons/com.demlabs.cleanup.plist

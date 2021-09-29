@@ -21,8 +21,8 @@
         mv -f $wd/cellframe-node/build/"$NODE_NOOL_NAME"  $wd/$BUILD_PATH/$APP_NAME.app/Contents/MacOS
     fi
 
-    if [ -e $wd/prod_build/mac/essentials/com*CellframeDashboardService.plist ]; then
-         cp -f $wd/prod_build/mac/essentials/com*CellframeDashboardService.plist $wd/$BUILD_PATH/$APP_NAME.app/Contents/Resources/
+    if [ -e $wd/prod_build/mac/essentials/com*Cellframe-DashboardService.plist ]; then
+         cp -f $wd/prod_build/mac/essentials/com*Cellframe-DashboardService.plist $wd/$BUILD_PATH/$APP_NAME.app/Contents/Resources/
     fi
 
  	if [ -e $wd/prod_build/mac/essentials/com*cellframe-node.plist ]; then
@@ -35,12 +35,11 @@
 
      
     if [ -e $wd/prod_build/mac/essentials/$APP_NAME-pkginstall ]; then
-        cp -rf $wd/prod_build/mac/essentials/$APP_NAME-pkginstall $wd/$BUILD_PATH
+        cp -rf $wd/prod_build/mac/essentials/$APP_NAME-pkginstall/* $wd/$BUILD_PATH
     fi
 
 	cp -r $wd/cellframe-node/dist/share $wd/$BUILD_PATH/$APP_NAME.app/Contents/Resources
 	cp -r $wd/cellframe-node/dist.darwin/etc $wd/$BUILD_PATH/$APP_NAME.app/Contents/Resources
-	cp -f $wd/cellframe-node/scripts/* $wd/$BUILD_PATH/$APP_NAME.app/Contents/MacOS
 	cp -f $wd/cellframe-node/scripts/* $wd/$BUILD_PATH/$APP_NAME.app/Contents/MacOS
 	cp -f $wd/cellframe-node/scripts.darwin/* $wd/$BUILD_PATH/$APP_NAME.app/Contents/MacOS
 

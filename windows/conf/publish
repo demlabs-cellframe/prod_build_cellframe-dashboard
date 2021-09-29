@@ -1,3 +1,3 @@
 HOST_ARCH_VERSIONS="amd64"
 PACKAGE_PATH=/home/gitlab-runner/production-docker/builds/winexecs
-BRAND="CellFrame-Dashboard"
+BRAND="Cellframe-Dashboard"
