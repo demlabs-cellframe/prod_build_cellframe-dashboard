@@ -4,7 +4,7 @@ case "$1" in
     purge|remove|abort-upgrade|failed-upgrade|upgrade)
     [ -f /etc/init.d/cellframe-dashboard ] && service cellframe-dashboard stop
     [ -d /opt/cellframe-dashboard ] && rm -rf /opt/cellframe-dashboard/
-    [ -f /usr/local/bin/CellFrameDashboard ] && rm /usr/local/bin/CellFrameDashboard
+    [ -f /usr/local/bin/Cellframe-Dashboard ] && rm /usr/local/bin/Cellframe-Dashboard
     [ -f /etc/init.d/cellframe-dashboard ] && rm /etc/init.d/cellframe-dashboard
     systemctl daemon-reload
     [ -f /usr/share/applications/CellFrameDashboard.desktop ] && rm /usr/share/applications/CellFrameDashboard.desktop
