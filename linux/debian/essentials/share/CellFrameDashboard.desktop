@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=CellFrame Dashboard
-Exec=/opt/cellframe-dashboard/bin/CellFrame-Dashboard
-Icon=/opt/cellframe-dashboard/share/CellFrameDashboard.ico
+Exec=/opt/cellframe-dashboard/bin/Cellframe-Dashboard
+Icon=/opt/cellframe-dashboard/share/CellframeDashboard.ico
 Terminal=false
 Type=Application
 Encoding=UTF-8
