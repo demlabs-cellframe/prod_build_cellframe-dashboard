@@ -1,5 +1,8 @@
-APP_PATH=CellframeDashboardGUI/CellframeDashboard.app
+APP_PATH=CellframeDashboardGUI/bin/release/CellframeDashboard.app
 BUILD_PATH=build/CellframeDashboard/ROOT
 APP_NAME=CellframeDashboard
 APP_SERVICE_NAME=CellframeDashboardService
+NODE_NAME=cellframe-node
+NODE_CLI_NAME=cellframe-node-cli
+NODE_TOOL_NAME=cellframe-node-tool
 PKGSCRIPT_PATH=prod_build/mac/essentials/CellframeDashboard-pkginstall

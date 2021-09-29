@@ -1,19 +1,45 @@
 #!/bin/bash
 
 set -x
-sudo xattr -rd com.apple.quarantine /Applications/CellframeDashboard.app
+sudo xattr -rd com.apple.quarantine /Applications/CellFrameDashboard.app
 sudo killall -HUP mDNSResponder
 
-SERVICE=com.demlabs.CellframeDashboardService.plist
+EXEC_PREFIX=/Users/`whoami`/Applications/Cellframe.app/Contents/MacOS
+SERVICE=com.demlabs.CellFrameDashboardService.plist
+NODE=com.demlabs.cellframe-node.plist
+
+
+wd=$(pwd)
+cd $EXEC_PREFIX
+
+$EXEC_PREFIX/create_configs.sh
+
+for filename in $(ls . | grep -v '.'); do
+	if [ -L $filename ] && [ ! -e $filename ]; then
+		strip -u -r $filename
+	fi
+done
+
+cd $wd
+
 echo $SERVICE
 sudo launchctl stop $SERVICE
 sudo launchctl unload -w /Library/LaunchDaemons/$SERVICE
 
-sudo ln -sf /Applications/CellframeDashboard.app/Contents/Resources/$SERVICE /Library/LaunchDaemons/$SERVICE
+echo $NODE
+sudo launchctl stop $NODE
+sudo launchctl unload -w /Library/LaunchDaemons/$NODE
+
+sudo ln -sf /Applications/CellFrameDashboard.app/Contents/Resources/$SERVICE /Library/LaunchDaemons/$SERVICE
+sudo ln -sf /Applications/CellFrameDashboard.app/Contents/Resources/$NODE /Library/LaunchDaemons/$NODE
+
 sudo chown root /Library/LaunchDaemons/$SERVICE
 sudo chmod 600 /Library/LaunchDaemons/$SERVICE
+sudo chown root /Library/LaunchDaemons/$NODE
+sudo chmod 600 /Library/LaunchDaemons/$NODE
 sudo launchctl load -w /Library/LaunchDaemons/$SERVICE
-[ ! -e /Library/LaunchDaemons/cleanup ] && sudo cp -r /Applications/CellframeDashboard.app/Contents/resources/cleanup /Library/LaunchDaemons/
+sudo launchctl load -w /Library/LaunchDaemons/$NODE
+[ ! -e /Library/LaunchDaemons/cleanup ] && sudo cp -r /Applications/CellFrameDashboard.app/Contents/resources/cleanup /Library/LaunchDaemons/
 sudo chown -R root:wheel /Library/LaunchDaemons/cleanup
 sudo ln -sf /Library/LaunchDaemons/cleanup/com.demlabs.cleanup.plist /Library/LaunchDaemons/com.demlabs.cleanup.plist
 sudo chmod 600 /Library/LaunchDaemons/com.demlabs.cleanup.plist
@@ -30,6 +56,8 @@ sudo chmod 500 /Library/LaunchDaemons/cleanup/cleanup.sh
 #sudo chmod 600 /Library/LaunchDaemons/com.demlabs.DiveVPN-watchdog.plist 
 #sudo launchctl load -w /Library/LaunchDaemons/com.demlabs.DiveVPN-watchdog.plist #It is self-deleting thing
 
+
+sudo launchctl start $NODE
 sudo launchctl start $SERVICE
 #sudo launchctl start -w com.demlabs.DiveVPN-watchdog.plist
 
