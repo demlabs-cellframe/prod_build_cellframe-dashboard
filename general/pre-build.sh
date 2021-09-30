@@ -48,8 +48,7 @@ set +x
 	cd cellframe-node
 	git config user.email aleksandr.vodianov@demlabs.net
     git config user.name aleksandr.vodianov
-	git add .
-	git commit -m 'fixed local changes'
+	git stash save CMakeLists.txt */CMakeLists.txt
 	git checkout master && git submodule update --init --remote || { echo "error when update submodule" && exit $?; }
 	cd -
 set -x
