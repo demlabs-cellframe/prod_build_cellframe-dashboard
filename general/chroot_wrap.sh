@@ -15,6 +15,7 @@ export_variables "prod_build/general/conf/*"
 . prod_build/general/mod-handler.sh
 mod_handler $MOD
 IFS=' '
+update_cellframe-node
 
 if [[ $CI_COMMIT_REF_NAME != "" ]] && [[ $CI_COMMIT_REF_NAME != "master" ]]; then
 	export MOD="${MOD} ${CI_COMMIT_REF_NAME}"
