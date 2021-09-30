@@ -1,12 +1,11 @@
 #!/bin/bash
 
-PLATFORM_CANDIDATES=$2
+PLATFORM_CANDIDATES=$1
 CHROOT_PREFIX="builder"
-CHROOTS_PATH=$1
-[[ $CHROOTS_PATH == "null" ]] && echo "selected the option without chroot"
+CHROOTS_PATH="null"
 PLATFORMS=""
 PKG_FORMAT=$3
-JOB=$4
+JOB=$2
 export wd=$(pwd)
 cd $SRC_PATH
 
@@ -16,6 +15,7 @@ export_variables "prod_build/general/conf/*"
 . prod_build/general/mod-handler.sh
 mod_handler $MOD
 IFS=' '
+update_cellframe-node
 
 if [[ $CI_COMMIT_REF_NAME != "" ]] && [[ $CI_COMMIT_REF_NAME != "master" ]]; then
 	export MOD="${MOD} ${CI_COMMIT_REF_NAME}"
@@ -62,14 +62,6 @@ for platform in $PLATFORMS; do
 
 		if [[ $platform == "mac" ]]; then
 
-			if [[ $(uname -a | cut -d ' ' -f1) == "Linux" ]]; then
-				prod_build/$platform/scripts/$JOB-remote.sh || { errcode=$? && errstring="$errstring macremote $errcode" && echo "[ERR] Mac remote build errcode $errcode now. Skipping"; continue; } #Just some remote calls to compile and place.
-
-				for conffile in $(find "./prod_build/$platform/conf" | grep conf/ | grep -v .bak); do
-					export_variables $conffile
-				done
-
-			elif [[ $(uname -a | cut -d ' ' -f1) == "Darwin" ]]; then
 				[ -e prod_build/$platform/scripts/pre-build.sh ] && prod_build/$platform/scripts/pre-build.sh $CHROOT_PREFIX $platform || { errcode=$? && errstring="$errstring macprebuild $errcode" && echo "[ERR] Mac host prefetch errcode $errcode. Skipping"; exit $errcode; } #Setting up brand in conf file
 
 				for conffile in $(find "./prod_build/$platform/conf" | grep conf/ | grep -v .bak); do
@@ -81,7 +73,8 @@ for platform in $PLATFORMS; do
 				PKG_TYPE=$(echo $PKG_FORMAT | cut -d ' ' -f1)
 				prod_build/$platform/scripts/$JOB.sh $PKG_TYPE || { errcode=$? && errstring="$errstring macbuild $errcode" && echo "[ERR] Mac host build errcode $errcode now. Skipping"; exit $errcode; }
 				exit 0
-			fi
+			
+
 		else
 
 
