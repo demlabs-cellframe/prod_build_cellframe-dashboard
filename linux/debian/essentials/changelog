@@ -1,9 +1,8 @@
-cellframe-dashboard (2.0-6) develop; urgency=medium
+cellframe-dashboard (2.0-13) develop; urgency=medium
 
-  *     Fixed Master
-  *     Features 4881
+  *	fixed changelog
 
- -- Denis Sumin <denis.smolov@demlabs.net>  Wed, 8 Sep 2021 09:09:00 +0500
+ -- kema <kema@kema>  Tue, 14 Sep 2021 18:48:46 +0300
 
 cellframe-dashboard (2.0-4) develop; urgency=medium
 

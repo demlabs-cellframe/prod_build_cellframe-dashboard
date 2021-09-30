@@ -1,19 +1,16 @@
 #!/bin/bash
-#set up config
+#if [ -z "$1" ]; then
+#    echo "[ERR] Script needs argument - package name. Use one of next :"
+#    for i in `ls configs/build_dmg.pkg/| sed 's/\.cfg//'`; do
+#	echo "      $i"
+#    done
+#    exit 1
+#fi
 
-echo "[!] Build source as application $APP_NAME ( $BUILD_PATH )"
 
-echo "Qt path is on $QT_MAC_PATH with BRAND=$brand"
-echo "j$(nproc)"
-
-#change standart library's paths on mac to paths on osxcross
-sed -i "s/usr\/local/opt\/osxcross\/macports\/pkgs\/opt\/local/g" cellframe-node/cellframe-sdk/cmake/OS_Detection.cmake 
-sed -i "s/usr\/local/opt\/osxcross\/macports\/pkgs\/opt\/local/g" cellframe-node/cellframe-sdk/dap-sdk/net/server/http_server/CMakeLists.txt 
-sed -i "s/usr\/local/opt\/osxcross\/macports\/pkgs\/opt\/local/g" cellframe-node/cellframe-sdk/dap-sdk/core/libdap.pri 
-sed -i "s/usr\/local/opt\/osxcross\/macports\/pkgs\/opt\/local/g" cellframe-node/cellframe-sdk/dap-sdk/core/src/darwin/macos/macos.pri
-
-$QT_MAC_PATH/qmake *.pro -r -spec macx-clang CONFIG+=x86_64 BRAND=$brand BRAND_TARGET=$brand
-sed -i "/\/opt\/clang\/lib\/clang\/11.0.0\/include/d" .qmake.stash
-
-make -j$(nproc)
-
+./prod_build/mac/scripts/compile.sh $1 || { errcode=$?; echo "[ERR] Mac build errcode $errcode";exit $errcode; }
+./prod_build/mac/scripts/addqt.sh $1 || { errcode=$?; echo "[ERR] Mac addqtlibs errcode $errcode";exit $errcode; }
+./prod_build/mac/scripts/reloc.sh $1 || { errcode=$?; echo "[ERR] Mac reloc errcode $errcode"; exit $errcode; }
+#./prod_build/mac/scripts/sign.sh $1 || exit 6
+./prod_build/mac/scripts/pack.sh $1 || { errcode=$?; echo "[ERR] Mac pack errcode $errcode"; exit $errcode; }
+#exit 0

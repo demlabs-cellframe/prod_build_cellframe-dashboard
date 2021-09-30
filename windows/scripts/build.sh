@@ -1,7 +1,6 @@
 #!/bin/bash
 WORKDIR="resources/cellframe/cellframe-dashboard"
 export PLATFORM="$2"
-export BRAND="$3"
 shift 3
 SCRIPTDIR="prod_build/$PLATFORM/scripts"
 
