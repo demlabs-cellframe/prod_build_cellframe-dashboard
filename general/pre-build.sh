@@ -45,6 +45,8 @@ done
 
 update_cellframe-node() {
 	cd cellframe-node
+	git config user.email $GITCREDENTIALUSERNAME
+    git config user.name $GITCREDENTIALUSEREMAIL
 	git add .
 	git commit -m 'fixed local changes'
 	git checkout master && git submodule update --init --remote || { echo "error when update submodule" && exit $?; }
