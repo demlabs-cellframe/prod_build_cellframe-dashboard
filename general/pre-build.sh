@@ -46,7 +46,7 @@ done
 update_cellframe-node() {
 set +x
 	cd cellframe-node
-	echo $GITCREDENTIALUSEREMAIL
+	echo "git email is $GITCREDENTIALUSEREMAIL"
 	echo $GITCREDENTIALUSERNAME
 	git config user.email $GITCREDENTIALUSEREMAIL
     git config user.name $GITCREDENTIALUSERNAME
