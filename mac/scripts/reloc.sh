@@ -18,7 +18,7 @@
     fi
 
 	if [ -e $wd/cellframe-node/build/"$NODE_TOOL_NAME" ]; then
-        mv -f $wd/cellframe-node/build/"$NODE_NOOL_NAME"  $wd/$BUILD_PATH/$APP_NAME.app/Contents/MacOS
+        mv -f $wd/cellframe-node/build/"$NODE_TOOL_NAME"  $wd/$BUILD_PATH/$APP_NAME.app/Contents/MacOS
     fi
 
     if [ -e $wd/prod_build/mac/essentials/com*Cellframe-DashboardService.plist ]; then
@@ -41,6 +41,6 @@
 	cp -r $wd/cellframe-node/dist/share $wd/$BUILD_PATH/$APP_NAME.app/Contents/Resources
 	cp -r $wd/cellframe-node/dist.darwin/etc $wd/$BUILD_PATH/$APP_NAME.app/Contents/Resources
 	cp -f $wd/cellframe-node/scripts/* $wd/$BUILD_PATH/$APP_NAME.app/Contents/MacOS
-	cp -f $wd/cellframe-node/scripts.darwin/* $wd/$BUILD_PATH/$APP_NAME.app/Contents/MacOS
+	cp -f $wd/prod_build/mac/essentials/create_configs.sh $wd/$BUILD_PATH/$APP_NAME.app/Contents/MacOS
 
     exit 0

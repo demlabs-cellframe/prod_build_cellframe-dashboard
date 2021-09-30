@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>com.demlabs.cellframe-node</string>
+	<string>com.demlabs.CellframeDashboardService</string>
 	<key>Program</key>
-	<string>/Applications/CellframeDashboard.app/Contents/MacOS/cellframe-node</string>
+	<string>/Applications/CellframeDashboard.app/Contents/MacOS/CellFrameDashboardService</string>
 	<key>RunAtLoad</key>
 	<true/>
 	<key>KeepAlive</key>
@@ -14,5 +14,10 @@
 	<string>root</string>
 	<key>GroupName</key>
 	<string>wheel</string>
+	<key>PathState</key>
+	<dict>
+		<key>/tmp/CellFrameDashboardService</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

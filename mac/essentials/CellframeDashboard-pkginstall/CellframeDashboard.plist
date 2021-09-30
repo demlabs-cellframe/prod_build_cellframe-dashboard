@@ -12,7 +12,7 @@
 		<key>BundleOverwriteAction</key>
 		<string>upgrade</string>
 		<key>RootRelativeBundlePath</key>
-		<string>Cellframe-Dashboard.app</string>
+		<string>CellframeDashboard.app</string>
 	</dict>
 </array>
 </plist>

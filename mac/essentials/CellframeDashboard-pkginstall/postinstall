@@ -1,18 +1,21 @@
 #!/bin/bash
 
-APP_NAME=Cellframe-Dashboard
+APP_NAME=CellframeDashboard
 
 set -x
 sudo xattr -rd com.apple.quarantine /Applications/"$APP_NAME".app
 sudo killall -HUP mDNSResponder
 
-EXEC_PREFIX=/Users/`whoami`/Applications/$APP_NAME.app/Contents/MacOS
+EXEC_PREFIX=/Applications/$APP_NAME.app/Contents/MacOS
 SERVICE=com.demlabs."$APP_NAME"Service.plist
 NODE=com.demlabs.cellframe-node.plist
 
+cp -r /Applications/$APP_NAME.app/Contents/Resources/etc /Users/$USER/Applications/Cellframe.app/Contents/Resources/
+cp -r /Applications/$APP_NAME.app/Contents/Resources/share /Users/$USER/Applications/Cellframe.app/Contents/Resources/
 
 wd=$(pwd)
 cd $EXEC_PREFIX
+
 
 $EXEC_PREFIX/create_configs.sh
 

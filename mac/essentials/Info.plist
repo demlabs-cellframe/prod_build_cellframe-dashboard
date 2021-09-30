@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleExecutable</key>
-	<string>Cellframe-Dashboard</string>
+	<string>CellframeDashboard</string>
 	<key>CFBundleGetInfoString</key>
 	<string>Created by Qt/QMake</string>
 	<key>CFBundleIconFile</key>
-	<string>dashboard.icns</string>
+	<string>icon-win32.ico</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.Cellframe-Dashboard</string>
+	<string>com.yourcompany.CellframeDashboard</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
