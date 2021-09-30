@@ -46,10 +46,9 @@ done
 update_cellframe-node() {
 set +x
 	cd cellframe-node
-	git config user.email aleksandr.vodianov@demlabs.net
-    git config user.name aleksandr.vodianov
+	git config --global user.email aleksandr.vodianov@demlabs.net
+    git config --global user.name aleksandr.vodianov
 	cd cellframe-sdk && git stash save CMakeLists.txt && cd -
-	cd python-cellframe && git stash save CMakeLists.txt && cd -
 	git checkout master && git submodule update --init --remote || { echo "error when update submodule" && exit $?; }
 	cd -
 set -x
