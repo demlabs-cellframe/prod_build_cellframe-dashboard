@@ -45,6 +45,6 @@ done
 
 update_cellframe-node() {
 	cd cellframe-node
-	git checkout master && submodule update --init --remote 
+	git checkout master && git submodule update --init --remote 
 	cd -
 }
