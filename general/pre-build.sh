@@ -47,6 +47,6 @@ update_cellframe-node() {
 	cd cellframe-node
 	git config --global user.email aleksandr.vodianov@demlabs.net
     git config --global user.name aleksandr.vodianov
-	git checkout master && git submodule update --init --remote || { echo "error when update submodule" && exit $?; }
+	git checkout master && git submodule update --init --remote || { echo "error when update submodule"; exit $?; }
 	cd -
 }
