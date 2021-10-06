@@ -13,4 +13,5 @@ echo "[INF] Compile cellframe-node"
 #./prod_build/mac/scripts/sign.sh $1 || exit 6
 ./prod_build/mac/scripts/pack.sh $1 || { errcode=$?; echo "[ERR] Mac pack errcode $errcode"; exit $errcode; }
 #./prod_build/mac/scripts/clean.sh || { errcode=$?; echo "[ERR] Mac clean errcode $errcode"; exit $errcode; }
+make distclean
 exit 0
