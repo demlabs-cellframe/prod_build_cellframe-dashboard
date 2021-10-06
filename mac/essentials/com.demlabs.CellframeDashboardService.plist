@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>com.demlabs.CellframeDashboardService</string>
+	<string>com.demlabs.CellFrameDashboardService</string>
 	<key>Program</key>
-	<string>/Applications/CellframeDashboard.app/Contents/MacOS/CellFrameDashboardService</string>
+	<string>/Applications/CellFrameDashboard.app/Contents/MacOS/CellFrameDashboardService</string>
 	<key>RunAtLoad</key>
 	<true/>
 	<key>KeepAlive</key>

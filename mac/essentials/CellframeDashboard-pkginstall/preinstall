@@ -2,7 +2,7 @@
 
 echo "Installing time!" >> /tmp/debug_vpn.txt
 
-APP_NAME=CellframeDashboard
+APP_NAME=CellFrameDashboard
 
 RET=0
 echo "Installation logs" > /tmp/"$APP_NAME"_Install_Logs.txt

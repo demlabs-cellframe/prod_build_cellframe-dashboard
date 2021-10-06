@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP_NAME=CellframeDashboard
+APP_NAME=CellFrameDashboard
 
 set -x
 sudo xattr -rd com.apple.quarantine /Applications/"$APP_NAME".app
