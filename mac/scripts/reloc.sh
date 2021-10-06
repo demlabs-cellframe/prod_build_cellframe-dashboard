@@ -53,7 +53,7 @@
     if [ -e $wd/prod_build/mac/essentials/$APP_NAME-pkginstall ]; then
         cp -rf $wd/prod_build/mac/essentials/$APP_NAME-pkginstall/* $wd/$BUILD_PATH
     else
-        echo "[ERR] Not found $wd/prod_build/mac/essentials/$APP_NAME-pkginstall" && error 1;
+        echo "[ERR] Not found $wd/prod_build/mac/essentials/$APP_NAME-pkginstall" && error=1;
     fi
     
 
