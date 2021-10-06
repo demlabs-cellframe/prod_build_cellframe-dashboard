@@ -1,5 +1,5 @@
 APP_PATH=CellFrameDashboardGUI/bin/release/CellFrameDashboard.app
-BUILD_PATH=build/Cellframe-Dashboard/ROOT
+BUILD_PATH=build
 APP_NAME=CellFrameDashboard
 APP_SERVICE_NAME=CellFrameDashboardService
 NODE_NAME=cellframe-node

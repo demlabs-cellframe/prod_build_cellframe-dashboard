@@ -8,6 +8,8 @@ errcode=0
 export_variables $(find "./prod_build/$platform/conf" -maxdepth 1 -type f)
 export_variables "prod_build/general/conf/*"
 
+echo $platform
+echo $PACKAGE_PATH
 echo "Mod handler"
 if [[ $CI_COMMIT_REF_NAME != "" ]] && [[ $CI_COMMIT_REF_NAME != "master" ]]; then
 	export MOD="-${CI_COMMIT_REF_NAME}"
