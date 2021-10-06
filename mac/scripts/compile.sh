@@ -9,7 +9,8 @@ echo "j$(nproc)"
 brand=CellFrameDashboard
 #change standart library's paths on mac to paths on osxcross
 sed -i "s/usr\/local/opt\/osxcross\/macports\/pkgs\/opt\/local/g" cellframe-node/cellframe-sdk/cmake/OS_Detection.cmake 
-sed -i "s/usr\/local/opt\/osxcross\/macports\/pkgs\/opt\/local/g" cellframe-node/cellframe-sdk/dap-sdk/net/server/http_server/CMakeLists.txt 
+sed -i "s/usr\/local/opt\/osxcross\/macports\/pkgs\/opt\/local/g" cellframe-node/cellframe-sdk/dap-sdk/net/server/http_server/CMakeLists.txt
+sed -i "s/usr\/local/opt\/osxcross\/macports\/pkgs\/opt\/local/g" cellframe-node/CMakeLists.txt 
 sed -i "s/usr\/local/opt\/osxcross\/macports\/pkgs\/opt\/local/g" cellframe-node/cellframe-sdk/dap-sdk/core/libdap.pri 
 sed -i "s/usr\/local/opt\/osxcross\/macports\/pkgs\/opt\/local/g" cellframe-node/cellframe-sdk/dap-sdk/core/src/darwin/macos/macos.pri
 
