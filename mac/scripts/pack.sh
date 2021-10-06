@@ -33,9 +33,9 @@ echo $numberOfFiles
 sed -i "s/numberOfFiles=\"[0-9]\+\"/numberOfFiles=\"$numberOfFiles\"/g" $BUILD_PATH/PackageInfo
 sed -i "s/installKBytes=\"[0-9]\+\"/installKBytes=\"$installKBytes\"/g" $BUILD_PATH/PackageInfo
 
-#rm $BUILD_PATH/PackageInfobak
+rm $BUILD_PATH/PackageInfobak
 #clear and build pkg
-#rm -r $BUILD_PATH/payload_build $BUILD_PATH/scripts_build
+rm -r $BUILD_PATH/payload_build $BUILD_PATH/scripts_build
 (cd $BUILD_PATH && xar --compression none -cf ../"$APP_NAME"-"$VERSION_INFO".pkg *)
 (cd $BUILD_PATH && rm -r Bom PackageInfo Payload Scripts)
 # #make distclean
