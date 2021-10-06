@@ -36,7 +36,10 @@
      
     if [ -e $wd/prod_build/mac/essentials/$APP_NAME-pkginstall ]; then
         cp -rf $wd/prod_build/mac/essentials/$APP_NAME-pkginstall/* $wd/$BUILD_PATH
+    else
+        echo "[ERR] Not found pkginstall files" && exit 1;
     fi
+    
 
 	cp -r $wd/cellframe-node/dist/share $wd/$BUILD_PATH/$APP_NAME.app/Contents/Resources
 	cp -r $wd/cellframe-node/dist.darwin/etc $wd/$BUILD_PATH/$APP_NAME.app/Contents/Resources
