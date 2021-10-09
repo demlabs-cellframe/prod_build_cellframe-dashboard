@@ -10,6 +10,7 @@ EXEC_PREFIX=/Applications/$APP_NAME.app/Contents/MacOS
 SERVICE=com.demlabs."$APP_NAME"Service.plist
 NODE=com.demlabs.cellframe-node.plist
 
+mkdir -p /Users/$USER/Applications/Cellframe.app/Contents/Resources
 cp -r /Applications/$APP_NAME.app/Contents/Resources/etc /Users/$USER/Applications/Cellframe.app/Contents/Resources/
 cp -r /Applications/$APP_NAME.app/Contents/Resources/share /Users/$USER/Applications/Cellframe.app/Contents/Resources/
 
