@@ -25,8 +25,8 @@ done
 wd=$(pwd)
 cd $EXEC_PREFIX
 
-chmod +x $EXEC_PREFIX/create_configs.sh
-$EXEC_PREFIX/create_configs.sh
+sudo chmod +x $EXEC_PREFIX/create_configs.sh
+sudo $EXEC_PREFIX/create_configs.sh
 
 rm $EXEC_PREFIX/*.sh
 
@@ -53,28 +53,17 @@ sudo chown root /Library/LaunchDaemons/$SERVICE
 sudo chmod 600 /Library/LaunchDaemons/$SERVICE
 sudo chown root /Library/LaunchDaemons/$NODE
 sudo chmod 600 /Library/LaunchDaemons/$NODE
-sudo launchctl load -w /Library/LaunchDaemons/$SERVICE
 sudo launchctl load -w /Library/LaunchDaemons/$NODE
-[ ! -e /Library/LaunchDaemons/cleanup ] && sudo cp -r /Applications/"$APP_NAME".app/Contents/resources/cleanup /Library/LaunchDaemons/
-sudo chown -R root:wheel /Library/LaunchDaemons/cleanup
-sudo ln -sf /Library/LaunchDaemons/cleanup/com.demlabs.cleanup.plist /Library/LaunchDaemons/com.demlabs.cleanup.plist
-sudo chmod 600 /Library/LaunchDaemons/com.demlabs.cleanup.plist
-sudo launchctl load -w /Library/LaunchDaemons/com.demlabs.cleanup.plist
-sudo chmod 500 /Library/LaunchDaemons/cleanup/cleanup.sh
+sudo launchctl load -w /Library/LaunchDaemons/$SERVICE
+# [ ! -e /Library/LaunchDaemons/cleanup ] && sudo cp -r /Applications/"$APP_NAME".app/Contents/resources/cleanup /Library/LaunchDaemons/
+# sudo chown -R root:wheel /Library/LaunchDaemons/cleanup
+# sudo ln -sf /Library/LaunchDaemons/cleanup/com.demlabs.cleanup.plist /Library/LaunchDaemons/com.demlabs.cleanup.plist
+# sudo chmod 600 /Library/LaunchDaemons/com.demlabs.cleanup.plist
+# sudo launchctl load -w /Library/LaunchDaemons/com.demlabs.cleanup.plist
+# sudo chmod 500 /Library/LaunchDaemons/cleanup/cleanup.sh
 
-#sudo mkdir -p /Users/.DapVPN
-#touch /Users/.DapVPN/dap_brands
-#sudo cp -f /Applications/DiveVPN.app/Contents/Resources/*.sh /Users/.DapVPN/
-#sudo chown root /Users/.DapVPN/*.sh
-#sudo chmod 500 /Users/.DapVPN/*.sh
-#sudo cp -f /Applications/DiveVPN.app/Contents/Resources/com.demlabs.DiveVPN-watchdog.plist /Library/LaunchDaemons
-#sudo chown root /Library/LaunchDaemons/com.demlabs.DiveVPN-watchdog.plist
-#sudo chmod 600 /Library/LaunchDaemons/com.demlabs.DiveVPN-watchdog.plist 
-#sudo launchctl load -w /Library/LaunchDaemons/com.demlabs.DiveVPN-watchdog.plist #It is self-deleting thing
 
 
 sudo launchctl start $NODE
 sudo launchctl start $SERVICE
-#sudo launchctl start -w com.demlabs.DiveVPN-watchdog.plist
 
-set +x

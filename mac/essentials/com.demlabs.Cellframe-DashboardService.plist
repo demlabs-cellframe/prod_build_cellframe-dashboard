@@ -14,10 +14,5 @@
 	<string>root</string>
 	<key>GroupName</key>
 	<string>wheel</string>
-	<key>PathState</key>
-	<dict>
-		<key>/tmp/Cellframe-DashboardService</key>
-		<true/>
-	</dict>
 </dict>
 </plist>
