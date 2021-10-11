@@ -40,23 +40,23 @@ done
 
 cd $wd
 
-echo $SERVICE || exit $?
-sudo launchctl stop $SERVICE || true
-sudo launchctl unload -w /Library/LaunchDaemons/$SERVICE || exit $?
+echo $SERVICE
+sudo launchctl stop $SERVICE
+sudo launchctl unload -w /Library/LaunchDaemons/$SERVICE
 
 echo $NODE || exit $?
-sudo launchctl stop $NODE || true
-sudo launchctl unload -w /Library/LaunchDaemons/$NODE || exit $?
+sudo launchctl stop $NODE
+sudo launchctl unload -w /Library/LaunchDaemons/$NODE
 
-sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE /Library/LaunchDaemons/$SERVICE || exit $?
-sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE /Library/LaunchDaemons/$NODE || exit $?
+sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE /Library/LaunchDaemons/$SERVICE 2> /tmp/cellframe-dashboard_error.txt
+sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE /Library/LaunchDaemons/$NODE 2> /tmp/cellframe-dashboard_error.txt
 
-sudo chown root /Library/LaunchDaemons/$SERVICE || exit $?
-sudo chmod 600 /Library/LaunchDaemons/$SERVICE || exit $?
-sudo chown root /Library/LaunchDaemons/$NODE || exit $?
-sudo chmod 600 /Library/LaunchDaemons/$NODE || exit $?
-sudo launchctl load -w /Library/LaunchDaemons/$NODE || exit $?
-sudo launchctl load -w /Library/LaunchDaemons/$SERVICE || exit $?
+sudo chown root /Library/LaunchDaemons/$SERVICE 2> /tmp/cellframe-dashboard_error.txt
+sudo chmod 600 /Library/LaunchDaemons/$SERVICE 2> /tmp/cellframe-dashboard_error.txt
+sudo chown root /Library/LaunchDaemons/$NODE 2> /tmp/cellframe-dashboard_error.txt
+sudo chmod 600 /Library/LaunchDaemons/$NODE 2> /tmp/cellframe-dashboard_error.txt
+sudo launchctl load -w /Library/LaunchDaemons/$NODE 2> /tmp/cellframe-dashboard_error.txt
+sudo launchctl load -w /Library/LaunchDaemons/$SERVICE 2> /tmp/cellframe-dashboard_error.txt
 # [ ! -e /Library/LaunchDaemons/cleanup ] && sudo cp -r /Applications/"$APP_NAME".app/Contents/resources/cleanup /Library/LaunchDaemons/
 # sudo chown -R root:wheel /Library/LaunchDaemons/cleanup
 # sudo ln -sf /Library/LaunchDaemons/cleanup/com.demlabs.cleanup.plist /Library/LaunchDaemons/com.demlabs.cleanup.plist
@@ -66,6 +66,6 @@ sudo launchctl load -w /Library/LaunchDaemons/$SERVICE || exit $?
 
 
 
-sudo launchctl start $NODE || exit $?
-sudo launchctl start $SERVICE || exit $?
+sudo launchctl start $NODE 2> /tmp/cellframe-dashboard_error.txt
+sudo launchctl start $SERVICE 2> /tmp/cellframe-dashboard_error.txt
 
