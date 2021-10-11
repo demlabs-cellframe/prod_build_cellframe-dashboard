@@ -1,7 +1,7 @@
 #!/bin/bash
 # Global settings
-export DAP_PREFIX=/Users/`whoami`/Applications/Cellframe.app/Contents/Resources
-export DAP_PREFIX_TPL="\\/Users\\/`whoami`\\/Applications\\/Cellframe.app\\/Contents\\/Resources"
+export DAP_PREFIX=/Users/$USER/Applications/Cellframe.app/Contents/Resources
+export DAP_PREFIX_TPL="\\/Users\\/$USER\\/Applications\\/Cellframe.app\\/Contents\\/Resources"
 export DAP_APP_NAME=cellframe-node
 export DAP_CHAINS_NAME=core-t
 export DAP_CFG_TPL=/Applications/Cellframe-Dashboard.app/Contents/Resources/share/configs/$DAP_APP_NAME.cfg.tpl
