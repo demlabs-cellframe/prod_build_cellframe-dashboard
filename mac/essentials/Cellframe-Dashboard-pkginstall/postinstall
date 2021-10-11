@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP_NAME=CellFrameDashboard
+APP_NAME=Cellframe-Dashboard
 DAP_PREFIX=/Users/$USER/Applications/Cellframe.app/Contents/Resources
 set -x
 sudo xattr -rd com.apple.quarantine /Applications/"$APP_NAME".app

@@ -31,10 +31,10 @@
         echo "[ERR] Not found $wd/cellframe-node/build/"$NODE_TOOL_NAME"" && error=1;
     fi
 
-    if [ -e $wd/prod_build/mac/essentials/com*CellFrameDashboardService.plist ]; then
-         cp -f $wd/prod_build/mac/essentials/com*CellFrameDashboardService.plist $wd/$BUILD_PATH/$APP_NAME.app/Contents/Resources/
+    if [ -e $wd/prod_build/mac/essentials/com*Cellframe-DashboardService.plist ]; then
+         cp -f $wd/prod_build/mac/essentials/com*Cellframe-DashboardService.plist $wd/$BUILD_PATH/$APP_NAME.app/Contents/Resources/
      else
-        echo "[ERR] Not found $wd/prod_build/mac/essentials/com*CellFrameDashboardService.plist" && error=1;
+        echo "[ERR] Not found $wd/prod_build/mac/essentials/com*Cellframe-DashboardService.plist" && error=1;
     fi
 
  	if [ -e $wd/prod_build/mac/essentials/com*cellframe-node.plist ]; then
