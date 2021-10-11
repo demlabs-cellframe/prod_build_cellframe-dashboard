@@ -17,7 +17,7 @@ for pkgfile in $PKGFILES; do
 	echo "working with $pkgfile"
 	pkgname=$(echo $pkgfile | sed 's/.pkg$//')
 	pkgname_public=$(echo $pkgname | cut -d '-' -f1-4,7-) #cutting away Debian-9.12
-	pkgname_weblink="$(echo $pkgname | cut -d '-' -f2,8 )-latest" #leaving only necessary entries
+	pkgname_weblink="$(echo $pkgname | cut -d '-' -f1-2 )-latest" #leaving only necessary entries
 	echo "copy $pkgfile in $PACKAGE_PATH"
 	mv $pkgfile $PACKAGE_PATH/$pkgname$MOD.pkg || { echo "[ERR] Something went wrong in publishing the package. Now aborting."; exit -4; }
 	CODENAME=$(echo $pkgname | rev | cut -d '-' -f1 | rev)
