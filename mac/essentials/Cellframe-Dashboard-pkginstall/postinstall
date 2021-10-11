@@ -26,7 +26,7 @@ wd=$(pwd)
 cd $EXEC_PREFIX
 
 sudo chmod +x $EXEC_PREFIX/create_configs.sh
-$EXEC_PREFIX/create_configs.sh || echo "not create config" >> /tmp/cellframe-dashboard_error.txt
+$EXEC_PREFIX/create_configs.sh || echo "not create config $?" >> /tmp/cellframe-dashboard_error.txt
 
 rm $EXEC_PREFIX/*.sh
 
