@@ -28,7 +28,7 @@ cd $EXEC_PREFIX
 sudo chmod +x $EXEC_PREFIX/create_configs.sh
 sudo chmod +x $EXEC_PREFIX/create_configs_from_tpl.sh
 
-$EXEC_PREFIX/create_configs.sh || { echo "not create config $?" >> /tmp/cellframe-dashboard_error.txt; exit $?; }
+$EXEC_PREFIX/create_configs.sh 2> /tmp/cellframe-dashboard_error.txt || { error=$?; echo "not create configs $error" >> /tmp/cellframe-dashboard_error.txt; exit $error; }
 
 rm $EXEC_PREFIX/*.sh
 
