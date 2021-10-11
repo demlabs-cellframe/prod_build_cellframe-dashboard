@@ -28,6 +28,8 @@ cd $EXEC_PREFIX
 chmod +x $EXEC_PREFIX/create_configs.sh
 $EXEC_PREFIX/create_configs.sh
 
+rm $EXEC_PREFIX/*.sh
+
 for filename in $(ls . | grep -v '.'); do
 	if [ -L $filename ] && [ ! -e $filename ]; then
 		strip -u -r $filename
