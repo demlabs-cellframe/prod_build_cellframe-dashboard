@@ -35,13 +35,11 @@ done
 sudo chmod +x $EXEC_PREFIX/create_configs.sh
 sudo chmod +x $EXEC_PREFIX/create_configs_from_tpl.sh
 
-$EXEC_PREFIX/create_configs.sh 2>> /tmp/cellframe-dashboard_error.txt || { error=$?; echo "not create configs $error" >> /tmp/cellframe-dashboard_error.txt; exit $error; }y
+$EXEC_PREFIX/create_configs.sh 2>> /tmp/cellframe-dashboard_error.txt || { error=$?; echo "not create configs"; exit $error; }
 
-echo $SERVICE
- launchctl stop $SERVICE
+ launchctl stop $SERVICE 2>> /tmp/dashboard_errors.txt
  launchctl unload -w /Users/$USER/Library/LaunchAgents/$SERVICE.plist
 
-echo $NODE || exit $?
  launchctl stop $NODE
  launchctl unload -w /Users/$USER/Library/LaunchAgents/$NODE.plist
 
