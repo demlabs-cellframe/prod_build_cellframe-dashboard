@@ -40,13 +40,6 @@ done
 
 cd $wd
 
-[ ! -e /Library/LaunchDaemons/cleanup ] && sudo cp -r /Applications/"$APP_NAME".app/Contents/resources/cleanup /Library/LaunchDaemons/
- sudo chown -R root:wheel /Library/LaunchDaemons/cleanup
- sudo ln -sf /Library/LaunchDaemons/cleanup/com.demlabs.cleanup.plist /Library/LaunchDaemons/com.demlabs.cleanup.plist
- sudo chmod 600 /Library/LaunchDaemons/com.demlabs.cleanup.plist
- sudo launchctl load -w /Library/LaunchDaemons/com.demlabs.cleanup.plist
- sudo chmod 500 /Library/LaunchDaemons/cleanup/cleanup.sh
-
 echo $SERVICE
 sudo launchctl stop $SERVICE
 sudo launchctl unload -w ~/Library/LaunchAgents/$SERVICE.plist
@@ -58,16 +51,10 @@ sudo launchctl unload -w ~/Library/LaunchAgents/$NODE
 sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist ~/Library/LaunchAgents/$SERVICE.plist
 sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist ~/Library/LaunchAgents/$NODE.plist
 
-# sudo chown root /Library/LaunchDaemons/$SERVICE.plist
-# sudo chmod 600 /Library/LaunchDaemons/$SERVICE.plist
-# sudo chown root /Library/LaunchDaemons/$NODE.plist
-# sudo chmod 600 /Library/LaunchDaemons/$NODE.plist
-sudo launchctl load -w /Library/LaunchDaemons/$NODE.plist
-sudo launchctl load -w /Library/LaunchDaemons/$SERVICE.plist
+sudo launchctl load -w ~/Library/LaunchAgents/$NODE.plist
+sudo launchctl load -w ~/Library/LaunchAgents/$SERVICE.plist
 
 
-
-
-launchctl start $NODE || true
-launchctl start $SERVICE || true
+launchctl start $NODE
+launchctl start $SERVICE
 
