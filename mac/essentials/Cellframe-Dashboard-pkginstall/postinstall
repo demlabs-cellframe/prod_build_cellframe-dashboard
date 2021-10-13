@@ -51,9 +51,9 @@ sudo launchctl unload -w ~/Library/LaunchAgents/$NODE
 ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist ~/Library/LaunchAgents/$SERVICE.plist
 ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist ~/Library/LaunchAgents/$NODE.plist
 
-launchctl bootstrap gui/$UID ~/Library/LaunchAgents/$NODE.plist
-echo $UID > /tmp/my_uid
-launchctl bootstrap gui/$UID ~/Library/LaunchAgents/$SERVICE.plist
+launchctl bootstrap gui/${id -u $USER} ~/Library/LaunchAgents/$NODE.plist
+echo ${id -u $USER} > /tmp/my_uid
+launchctl bootstrap gui/${id -u $USER} ~/Library/LaunchAgents/$SERVICE.plist
 
 
 launchctl start $NODE
