@@ -51,8 +51,8 @@ sudo launchctl unload -w ~/Library/LaunchAgents/$NODE
 sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist ~/Library/LaunchAgents/$SERVICE.plist
 sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist ~/Library/LaunchAgents/$NODE.plist
 
-sudo launchctl load -w ~/Library/LaunchAgents/$NODE.plist
-sudo launchctl load -w ~/Library/LaunchAgents/$SERVICE.plist
+launchctl load -w ~/Library/LaunchAgents/$NODE.plist
+launchctl load -w ~/Library/LaunchAgents/$SERVICE.plist
 
 
 launchctl start $NODE
