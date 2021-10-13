@@ -53,7 +53,7 @@ ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist ~/Library/La
 
 launchctl bootstrap gui/$UID ~/Library/LaunchAgents/$NODE.plist
 echo $UID > /tmp/my_uid
-launchctl load -w ~/Library/LaunchAgents/$SERVICE.plist
+launchctl bootstrap gui/$UID ~/Library/LaunchAgents/$SERVICE.plist
 
 
 launchctl start $NODE
