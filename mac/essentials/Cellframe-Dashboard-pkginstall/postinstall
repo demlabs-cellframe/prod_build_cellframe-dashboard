@@ -2,6 +2,9 @@
 
 APP_NAME=Cellframe-Dashboard
 DAP_PREFIX=/Users/$USER/Applications/Cellframe.app/Contents/Resources
+SERVICE=com.demlabs."$APP_NAME"Service
+NODE=com.demlabs.cellframe-node
+
 set -x
 sudo xattr -rd com.apple.quarantine /Applications/"$APP_NAME".app
 sudo killall -HUP mDNSResponder
@@ -21,21 +24,41 @@ for filename in $(find $DAP_PREFIX | grep -v bugreport); do
 done
 
 wd=$(pwd)
-cd $EXEC_PREFIX
-
-sudo chmod +x $EXEC_PREFIX/create_configs.sh
-sudo chmod +x $EXEC_PREFIX/create_agents.sh
-sudo chmod +x $EXEC_PREFIX/create_configs_from_tpl.sh
-
-#$EXEC_PREFIX/create_configs.sh 2>> /tmp/cellframe-dashboard_error.txt || { error=$?; echo "not create configs $error" >> /tmp/cellframe-dashboard_error.txt; exit $error; }
-
+cd $EXEC_PREFIX/../MacOS
 
 for filename in $(ls . | grep -v '.'); do
 	if [ -L $filename ] && [ ! -e $filename ]; then
 		strip -u -r $filename
 	fi
 done
-exec("sudo -u user $EXEC_PREFIX/create_agents.sh")
+
+sudo chmod +x $EXEC_PREFIX/create_configs.sh
+sudo chmod +x $EXEC_PREFIX/create_configs_from_tpl.sh
+
+$EXEC_PREFIX/create_configs.sh 2>> /tmp/cellframe-dashboard_error.txt || { error=$?; echo "not create configs $error" >> /tmp/cellframe-dashboard_error.txt; exit $error; }y
+
+echo $SERVICE
+ launchctl stop $SERVICE
+ launchctl unload -w /Users/$USER/Library/LaunchAgents/$SERVICE.plist
+
+echo $NODE || exit $?
+ launchctl stop $NODE
+ launchctl unload -w /Users/$USER/Library/LaunchAgents/$NODE.plist
+
+sudo chown $USER /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist
+sudo chmod 644 /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist
+
+
+sudo chown $USER /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist
+sudo chmod 644 /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist
+
+ sudo -u $USER ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist /Users/$USER/Library/LaunchAgents/$SERVICE.plist
+ sudo -u $USER ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist /Users/$USER/Library/LaunchAgents/$NODE.plist
+ sudo -u $USER launchctl load -w ~/Library/LaunchAgents/$NODE.plist
+ sudo -u $USER launchctl load -w ~/Library/LaunchAgents/$SERVICE.plist
+
+ sudo -u $USER launchctl start $NODE
+ sudo -u $USER launchctl start $SERVICE
 
 rm $EXEC_PREFIX/*.sh
 cd $wd
