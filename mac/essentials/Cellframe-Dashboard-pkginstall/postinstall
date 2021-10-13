@@ -48,10 +48,11 @@ echo $NODE || exit $?
 sudo launchctl stop $NODE
 sudo launchctl unload -w ~/Library/LaunchAgents/$NODE
 
-sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist ~/Library/LaunchAgents/$SERVICE.plist
-sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist ~/Library/LaunchAgents/$NODE.plist
+ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist ~/Library/LaunchAgents/$SERVICE.plist
+ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist ~/Library/LaunchAgents/$NODE.plist
 
-launchctl load -w ~/Library/LaunchAgents/$NODE.plist
+launchctl bootstrap gui/$UID ~/Library/LaunchAgents/$NODE.plist
+echo $UID > /tmp/my_uid
 launchctl load -w ~/Library/LaunchAgents/$SERVICE.plist
 
 
