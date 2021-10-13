@@ -7,8 +7,8 @@ sudo xattr -rd com.apple.quarantine /Applications/"$APP_NAME".app
 sudo killall -HUP mDNSResponder
 
 EXEC_PREFIX=/Applications/$APP_NAME.app/Contents/MacOS
-SERVICE=com.demlabs."$APP_NAME"Service.plist
-NODE=com.demlabs.cellframe-node.plist
+SERVICE=com.demlabs."$APP_NAME"Service
+NODE=com.demlabs.cellframe-node
 
 mkdir -p $DAP_PREFIX
 sudo mv -f /Applications/$APP_NAME.app/Contents/Resources/etc $DAP_PREFIX
@@ -49,21 +49,21 @@ cd $wd
 
 echo $SERVICE
 sudo launchctl stop $SERVICE
-sudo launchctl unload -w /Library/LaunchDaemons/$SERVICE
+sudo launchctl unload -w /Library/LaunchDaemons/$SERVICE.plist
 
 echo $NODE || exit $?
 sudo launchctl stop $NODE
 sudo launchctl unload -w /Library/LaunchDaemons/$NODE
 
-sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE /Library/LaunchDaemons/$SERVICE
-sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE /Library/LaunchDaemons/$NODE
+sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist /Library/LaunchDaemons/$SERVICE.plist
+sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist /Library/LaunchDaemons/$NODE.plist
 
-sudo chown root /Library/LaunchDaemons/$SERVICE
-sudo chmod 600 /Library/LaunchDaemons/$SERVICE
-sudo chown root /Library/LaunchDaemons/$NODE
-sudo chmod 600 /Library/LaunchDaemons/$NODE
-sudo launchctl load -w /Library/LaunchDaemons/$NODE
-sudo launchctl load -w /Library/LaunchDaemons/$SERVICE
+sudo chown root /Library/LaunchDaemons/$SERVICE.plist
+sudo chmod 600 /Library/LaunchDaemons/$SERVICE.plist
+sudo chown root /Library/LaunchDaemons/$NODE.plist
+sudo chmod 600 /Library/LaunchDaemons/$NODE.plist
+sudo launchctl load -w /Library/LaunchDaemons/$NODE.plist
+sudo launchctl load -w /Library/LaunchDaemons/$SERVICE.plist
 
 
 

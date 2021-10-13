@@ -10,9 +10,5 @@
 	<true/>
 	<key>KeepAlive</key>
 	<true/>
-	<key>UserName</key>
-	<string>root</string>
-	<key>GroupName</key>
-	<string>wheel</string>
 </dict>
 </plist>
