@@ -64,7 +64,7 @@ codename=$(lsb_release -a | grep Codename | cut -f2)
 #2DO: add trap command to clean the sources on exit.
 trap cleanup SIGINT
 	mkdir -p /tmp/control_tmp/cellframe-dashboard/
-	cp debian/control /tmp/control_tmp/cellframe-dashboar/
+	cp debian/control /tmp/control_tmp/cellframe-dashboard/
 	cp debian/changelog /tmp/control_tmp/cellframe-dashboard/
 	[ ! -v QT_LINUX_PATH ] && add_postfix
 
