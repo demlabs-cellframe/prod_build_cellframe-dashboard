@@ -29,7 +29,8 @@ error=0
 trap cleanup SIGINT
 codename=$(lsb_release -a | grep Codename | cut -f2)
 # fixed changelog
-sed  -i "s/\(HEAD detached at .*\)/${CI_COMMIT_REF_NAME}/" debian/changelog
+echo "name of branch $CI_COMMIT_REF_NAME"
+sed  -i "s/(HEAD detached at .*)/$CI_COMMIT_REF_NAME/" debian/changelog
 cat debian/changelog
 dpkg-buildpackage -J -us --changes-option=--build=any -uc || error=$?
 if [[ $(ls .. | grep 'dbgsym') != "" ]]; then
