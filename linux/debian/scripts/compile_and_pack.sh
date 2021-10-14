@@ -39,8 +39,9 @@ error_explainer() {
 add_postfix() {
 
 sed "s/$VERSION/${VERSION}-${DISTR_CODENAME}/" debian/control
+cat debian/control
 sed "s/$VERSION/${VERSION}-${DISTR_CODENAME}/" debian/changelog
-
+cat debian/changelog
 }
 
 
