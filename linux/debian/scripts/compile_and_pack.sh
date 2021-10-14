@@ -14,8 +14,41 @@ error_explainer() {
 	esac
 }
 
+# repack() {
+
+# DEBNAME=$1
+# DISTR_CODENAME=$2
+# echo "Renaming controlde on $DEBNAME"
+# mkdir tmp && cd tmp
+
+# #Просматриваем архив и ищем строку с control.tar
+# #Результат заносим в переменную
+# CONTROL=$(ar t ../${DEBNAME} | grep control.tar)
+
+# ar x ../$DEBNAME $CONTROL
+# tar xf $CONTROL
+# VERSION=$(cat control | grep Version | cut -d ':' -f2)
+# echo "Version is $VERSION"
+# sed -i "s/$VERSION/${VERSION}-${DISTR_CODENAME}/" control
+# rm $CONTROL && tar czf $CONTROL *
+# ar r ../$DEBNAME $CONTROL
+# cd ..
+# rm -rf tmp
+# }
+
+add_postfix() {
+
+sed "s/$VERSION/${VERSION}-${DISTR_CODENAME}/" debian/control
+sed "s/$VERSION/${VERSION}-${DISTR_CODENAME}/" debian/changelog
+
+}
+
+
 cleanup () {
 
+cp /tmp/control_tmp/cellframe-dashboard/control debian/control
+cp /tmp/control_tmp/cellframe-dashboard/changelog debian/changelog
+rm -r /tmp/control_tmp
 make distclean
 
 if [ "$1" == "--static" ]; then
@@ -24,19 +57,26 @@ fi
 
 }
 
+. prod_build/general/conf/publish
 error=0
+codename=$(lsb_release -a | grep Codename | cut -f2)
+
 #2DO: add trap command to clean the sources on exit.
 trap cleanup SIGINT
-codename=$(lsb_release -a | grep Codename | cut -f2)
-dpkg-buildpackage -J -us --changes-option=--build=any -uc || error=$?
-if [[ $(ls .. | grep 'dbgsym') != "" ]]; then
-	rm -f ../*dbgsym*
-fi
-mkdir -p build && \
-for filepkg in $(ls .. | grep .deb | grep -v $codename); do
-	mv ../$filepkg build/$filepkg
-done || error=$?
-cleanup
-error_explainer $error
+	mkdir -p /tmp/control_tmp/cellframe-dashboard/
+	cp debian/control /tmp/control_tmp/cellframe-dashboar/
+	cp debian/changelog /tmp/control_tmp/cellframe-dashboard/
+	[ ! -v QT_LINUX_PATH ] && add_postfix
+
+	dpkg-buildpackage -J -us --changes-option=--build=any -uc || error=$?
+	if [[ $(ls .. | grep 'dbgsym') != "" ]]; then
+		rm -f ../*dbgsym*
+	fi
+	mkdir -p build && \
+	for filepkg in $(ls .. | grep .deb | grep -v $codename); do
+		mv ../$filepkg build/$filepkg
+	done || error=$?
+	cleanup
+	error_explainer $error
 set +x
 exit $error #2DO: Learn how to sign up the package.
