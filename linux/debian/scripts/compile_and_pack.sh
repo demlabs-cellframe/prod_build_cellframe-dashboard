@@ -28,17 +28,15 @@ error=0
 #2DO: add trap command to clean the sources on exit.
 trap cleanup SIGINT
 codename=$(lsb_release -a | grep Codename | cut -f2)
-# fixed changelog
-echo "name of branch $CI_COMMIT_REF_NAME"
 
+# fixed changelog
 versionMaj=$(cat config.pri | grep 'VER_MAJ =' | cut -d'=' -f 2 | sed s/' '//g)
 versionMin=$(cat config.pri | grep 'VER_MIN =' | cut -d'=' -f 2 | sed s/' '//g)
 versionPatch=$(cat config.pri | grep 'VER_PAT =' | cut -d'=' -f 2 | sed s/' '//g)
-
 sed  -i "0,/$versionMaj.$versionMin-[0-9]\+/{s//$versionMaj.$versionMin-$versionPatch/}" debian/changelog
 sed  -i "s/$versionMaj.$versionMin-[0-9]\+/$versionMaj.$versionMin-$versionPatch/" debian/control
+#cat debian/changelog
 
-cat debian/changelog
 dpkg-buildpackage -J -us --changes-option=--build=any -uc || error=$?
 if [[ $(ls .. | grep 'dbgsym') != "" ]]; then
 	rm -f ../*dbgsym*

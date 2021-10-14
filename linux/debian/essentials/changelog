@@ -1,8 +1,3 @@
-cellframe-dashboard (2.0-15) (HEAD detached at fsdaf); urgency=medium
-
-  *	fixed changelog
-
- -- kema <kema@kema>  Tue, 14 Sep 2021 18:48:46 +0300
 cellframe-dashboard (2.0-15) develop; urgency=medium
 
   *	fixed changelog
