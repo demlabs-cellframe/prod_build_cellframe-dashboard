@@ -1,3 +1,6 @@
+cellframe-dashboard (2.0-16) (HEAD detached at b7ddf3a); urgency=medium
+  *     testing
+ -- GitLab Runner <gitlab-runner@gitlab-runner>  Thu, 14 Oct 2021 12:46:14 +0000
 cellframe-dashboard (2.0-15) develop; urgency=medium
 
   *	fixed changelog
