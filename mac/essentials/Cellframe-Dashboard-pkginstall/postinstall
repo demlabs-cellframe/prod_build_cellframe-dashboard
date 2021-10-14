@@ -37,7 +37,7 @@ sudo chmod +x $EXEC_PREFIX/create_configs_from_tpl.sh
 
 $EXEC_PREFIX/create_configs.sh 2>> /tmp/cellframe-dashboard_error.txt || { error=$?; echo "not create configs"; exit $error; }
 
- launchctl stop $SERVICE 2>> /tmp/dashboard_errors.txt
+ launchctl stop $SERVICE 
  launchctl unload -w /Users/$USER/Library/LaunchAgents/$SERVICE.plist
 
  launchctl stop $NODE
@@ -58,5 +58,12 @@ sudo chmod 644 /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist
  sudo -u $USER launchctl start $NODE
  sudo -u $USER launchctl start $SERVICE
 
-rm $EXEC_PREFIX/*.sh
+sudo rm $EXEC_PREFIX/*.sh
+sudo rm /Applications/$APP_NAME.plist
+sudo rm /Applications/Cellframe.app
+
+
+echo "node agent: $(launchctl list | grep cell)" > /tmp/cellframe-dashboard_install_logs.txt
+echo "service agent: $(launchctl list | grep cell)" > /tmp/cellframe-dashboard_install_logs.txt
+
 cd $wd
