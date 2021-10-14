@@ -40,6 +40,8 @@ codename=$(lsb_release -a | grep Codename | cut -f2)
 
 changelog_fix
 
+sed -i "s/#BUILD_TYPE/BUILD_TYPE/" config.pri 
+ 
 dpkg-buildpackage -J -us --changes-option=--build=any -uc || error=$?
 if [[ $(ls .. | grep 'dbgsym') != "" ]]; then
 	rm -f ../*dbgsym*
