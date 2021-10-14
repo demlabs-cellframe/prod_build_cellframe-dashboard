@@ -38,8 +38,10 @@ error_explainer() {
 
 add_postfix() {
 
+cat debian/control
 sed "s/$VERSION/${VERSION}-${DISTR_CODENAME}/" debian/control
 cat debian/control
+cat debian/changelog
 sed "s/$VERSION/${VERSION}-${DISTR_CODENAME}/" debian/changelog
 cat debian/changelog
 }
@@ -67,7 +69,7 @@ trap cleanup SIGINT
 	mkdir -p /tmp/control_tmp/cellframe-dashboard/
 	cp debian/control /tmp/control_tmp/cellframe-dashboard/
 	cp debian/changelog /tmp/control_tmp/cellframe-dashboard/
-	[ ! -v QT_LINUX_PATH ] && add_postfix
+	[ -v QT_LINUX_PATH ] && add_postfix
 
 	dpkg-buildpackage -J -us --changes-option=--build=any -uc || error=$?
 	if [[ $(ls .. | grep 'dbgsym') != "" ]]; then
