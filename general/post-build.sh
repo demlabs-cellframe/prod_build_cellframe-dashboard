@@ -5,7 +5,10 @@ errstring=""
 errcode=0
 
 . prod_build/general/pre-build.sh
-export_variables $(find "./prod_build/$platform/conf" -maxdepth 1 -type f)
+for conffile in $(find "./prod_build/$platform/conf" | grep conf/ | grep -v .bak); do
+	export_variables $conffile
+	echo "export variables from $conffile"
+done
 export_variables "prod_build/general/conf/*"
 
 echo "Mod handler"
