@@ -42,9 +42,3 @@ for variable in $(cat $1); do
 done
 
 }
-
-update_cellframe-node() {
-	cd cellframe-node
-	git checkout master && git submodule update --init --remote 
-	cd -
-}
