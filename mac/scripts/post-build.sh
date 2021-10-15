@@ -1,11 +1,9 @@
 #!/bin/bash
 
-echo "VERSION_INFO"
-export -n VERSION_INFO
-
+#echo "Stub for post-build actions"
+echo "Entering post-build deployment and cleanup"
 platform=$1
-SCRIPTDIR=prod_build/$platform/scripts/
-errcode=0
-$SCRIPTDIR/deploy.sh || { errcode=$?; echo "[ERR] MacOS deployment errcode $errcode"; }
-[ -e "prod_build/$platform/conf/PATHS.bak" ] && mv -v prod_build/$platform/conf/PATHS.bak prod_build/$platform/conf/PATHS
-exit $errcode
+SCRIPTDIR="prod_build/$platform/scripts"
+
+$SCRIPTDIR/deploy.sh || { echo "[ERR] $platform deploy error" && exit 20; }
+#$SCRIPTDIR/cleanup.sh || { echo "[ERR] $platform cleanup error" && exit 21; }

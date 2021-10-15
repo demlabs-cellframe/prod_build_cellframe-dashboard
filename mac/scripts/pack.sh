@@ -2,34 +2,44 @@
 
 echo "packing things"
 
-mkdir -p $wd/$BUILD_PATH
 
-ls $wd
-ls $wd/$BUILD_PATH
-cp -r $APP_PATH $wd/$BUILD_PATH/
-
-##### -- REMOVE AFTER VARIABLE SCOPE IS RIGHT -- #####
-cd $wd/$SRC_PATH
-. "$wd/$SRC_PATH/prod_build/general/pre-build.sh"
-VERSION_INFO=$(extract_version_number)
 cd $wd
-##### -- PATCH_END -- #####
 
-pkgbuild --analyze --root $wd/$BUILD_PATH/ $wd/$BUILD_PATH/$APP_NAME.plist
+. prod_build/general/pre-build.sh
+VERSION_INFO=$(extract_version_number)
 
-plutil -replace BundleIsRelocatable -bool NO $wd/$BUILD_PATH/$APP_NAME.plist
+#prepare
+mkdir -p $BUILD_PATH/payload_build
+mkdir -p $BUILD_PATH/scripts_build
 
-pkgbuild --install-location /Applications --identifier com.demlabs.$APP_NAME --scripts $wd/$SRC_PATH/$PKGSCRIPT_PATH --component-plist $wd/$BUILD_PATH/$APP_NAME.plist --root $wd/$BUILD_PATH/ $wd/$BUILD_PATH/$APP_NAME-$VERSION_INFO.pkg
+mv -f $BUILD_PATH/"$APP_NAME".plist $BUILD_PATH/"$APP_NAME".app $BUILD_PATH/payload_build
+mv -f $BUILD_PATH/preinstall $BUILD_PATH/postinstall $BUILD_PATH/scripts_build
 
-#### For creating dmg
-#macdeployqt $APP_PATH -verbose=2 -no-strip -no-plugins -dmg
+# create mkbom file
+#mkbom -u 0 -g 80 $BUILD_PATH/payload_build $BUILD_PATH/Bom
+mkbom -u 0 -g 80 $BUILD_PATH/payload_build $BUILD_PATH/Bom
 
-#if [ -e $BUILD_PATH/SapNetGUI/$APP_NAME.dmg ]; then
-#    mv -f $BUILD_PATH/SapNetGUI/$APP_NAME.dmg $BUILD_PATH
-#    echo "[*] Success"
-#else
-#    echo "[ERR] Nothing was build examine build.log for details"
-#    exit 2
-#fi
+# create Payload
+#  --format odc --owner 0:80
+(cd $BUILD_PATH/payload_build && find . | cpio -o --format odc --owner 0:80 | gzip -c) > $BUILD_PATH/Payload
+# create Scripts
+(cd $BUILD_PATH/scripts_build && find . | cpio -o --format odc --owner 0:80 | gzip -c) > $BUILD_PATH/Scripts
 
-exit 0
+#update PkgInfo
+numberOfFiles=$(find $BUILD_PATH/payload_build | wc -l)
+installKBytes=$(du -k -s $BUILD_PATH/payload_build | cut -d"$(echo -e '\t')" -f1)
+
+echo $numberOfFiles
+sed -i "s/numberOfFiles=\"[0-9]\+\"/numberOfFiles=\"$numberOfFiles\"/g" $BUILD_PATH/PackageInfo
+sed -i "s/installKBytes=\"[0-9]\+\"/installKBytes=\"$installKBytes\"/g" $BUILD_PATH/PackageInfo
+
+#rm $BUILD_PATH/PackageInfobak
+#clear and build pkg
+rm -r $BUILD_PATH/payload_build $BUILD_PATH/scripts_build
+(cd $BUILD_PATH && xar --compression none -cf ../"$APP_NAME"-"$VERSION_INFO".pkg *)
+(cd $BUILD_PATH && rm -r Bom PackageInfo Payload Scripts)
+# #make distclean
+
+# exit 0
+
+
