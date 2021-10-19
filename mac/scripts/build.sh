@@ -6,7 +6,8 @@ NODE_PATH=./cellframe-node
 export QT_MAC_PATH=${OSXCROSS_PATH}/$arch/${QT_PATH}
 export CROSS_COMPILE=${arch}${OSX_COMPILE}
 
-echo ""
+sed -i "s/arm64/arm64e/g" cellframe-node/cellframe-sdk/3rdparty/monero_crypto/CMakeLists.txt
+
 # compile cellframe-dashboard
 ./prod_build/mac/scripts/compile.sh $arch || { errcode=$?; echo "[ERR] Mac build errcode $errcode";exit $errcode; }
 # compile cellframe-node

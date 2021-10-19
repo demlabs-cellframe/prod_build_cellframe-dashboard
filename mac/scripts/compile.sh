@@ -15,7 +15,8 @@ sed -i "s/usr\/local/opt\/osxcross\/macports\/pkgs\/opt\/local/g" cellframe-node
 
 $QT_MAC_PATH/qmake *.pro -r -spec macx-clang CONFIG+=$arch
 sed -i "/\/opt\/clang\/lib\/clang\/13.0.0\/include/d" .qmake.stash
-sed -i "s/x86_64/$arch/g" .qmake.stash
+sed -i "s/x86_64/$arch/g" Makefile CellframeDashboardGUI/Makefile CellframeDashboardService/Makefile
+
 
 make -j$(nproc)
 
