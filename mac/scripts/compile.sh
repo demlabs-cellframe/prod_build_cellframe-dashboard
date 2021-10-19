@@ -14,7 +14,8 @@ sed -i "s/usr\/local/opt\/osxcross\/macports\/pkgs\/opt\/local/g" cellframe-node
 sed -i "s/usr\/local/opt\/osxcross\/macports\/pkgs\/opt\/local/g" cellframe-node/cellframe-sdk/dap-sdk/core/src/darwin/macos/macos.pri
 
 $QT_MAC_PATH/qmake *.pro -r -spec macx-clang CONFIG+=$arch
-sed -i "/\/opt\/clang\/lib\/clang\/11.0.0\/include/d" .qmake.stash
+sed -i "/\/opt\/clang\/lib\/clang\/13.0.0\/include/d" .qmake.stash
+sed -i "s/x86_64/$arch/g" .qmake.stash
 
 make -j$(nproc)
 

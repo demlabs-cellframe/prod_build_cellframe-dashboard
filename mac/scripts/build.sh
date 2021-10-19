@@ -6,6 +6,7 @@ NODE_PATH=./cellframe-node
 export QT_MAC_PATH=${OSXCROSS_PATH}/$arch/${QT_PATH}
 export CROSS_COMPILE=${arch}${OSX_COMPILE}
 
+echo ""
 # compile cellframe-dashboard
 ./prod_build/mac/scripts/compile.sh $arch || { errcode=$?; echo "[ERR] Mac build errcode $errcode";exit $errcode; }
 # compile cellframe-node
