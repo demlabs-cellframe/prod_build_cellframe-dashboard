@@ -61,6 +61,5 @@
 	cp -r $wd/cellframe-node/dist.darwin/etc $wd/$BUILD_PATH/$APP_NAME.app/Contents/Resources
 	cp -f $wd/cellframe-node/scripts/*.sh $wd/$BUILD_PATH/$APP_NAME.app/Contents/Resources
 	cp -f $wd/prod_build/mac/essentials/create_configs.sh $wd/$BUILD_PATH/$APP_NAME.app/Contents/Resources
-	cp -f $wd/prod_build/mac/essentials/create_agents.sh $wd/$BUILD_PATH/$APP_NAME.app/Contents/Resources
 
     exit $error
