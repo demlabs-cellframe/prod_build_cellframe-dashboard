@@ -24,21 +24,10 @@ fi
 
 }
 
-changelog_fix () {
-	versionMaj=$(cat config.pri | grep 'VER_MAJ =' | cut -d'=' -f 2 | sed s/' '//g)
-	versionMin=$(cat config.pri | grep 'VER_MIN =' | cut -d'=' -f 2 | sed s/' '//g)
-	versionPatch=$(cat config.pri | grep 'VER_PAT =' | cut -d'=' -f 2 | sed s/' '//g)
-	sed  -i "0,/[0-9]*.[0-9]*-[0-9]\+/{s//$versionMaj.$versionMin-$versionPatch/}" debian/changelog
-	#sed  -i "s/[0-9]*.[0-9]*-[0-9]\+/$versionMaj.$versionMin-$versionPatch/" debian/control
-	sed -i 's/(HEAD detached at .*)/develop/g' debian/changelog
-}
-
 error=0
 #2DO: add trap command to clean the sources on exit.
 trap cleanup SIGINT
 codename=$(lsb_release -a | grep Codename | cut -f2)
-
-changelog_fix
 
 sed -i "s/#BUILD_TYPE/BUILD_TYPE/" config.pri 
  

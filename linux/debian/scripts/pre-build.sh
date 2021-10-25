@@ -50,25 +50,25 @@ install_dependencies() {
 
 }
 
-#extract_version_number() {
+extract_version_number() {
 
-#IFS=" "
-#for entry in $VERSION_ENTRIES; do
-#	VERSION_STRING=$(echo $VERSION_STRING | sed "s/$entry/$( cat $VERSION_FILE | grep $entry | sed 's/ //g' | cut -d '=' -f2 )/") #Replacing templates with numbers
-#done
-#echo -e "project version is $VERSION_STRING"
-#
-#}
+IFS=" "
+for entry in $VERSION_ENTRIES; do
+	VERSION_STRING=$(echo $VERSION_STRING | sed "s/$entry/$( cat $VERSION_FILE | grep $entry | sed 's/ //g' | cut -d '=' -f2 )/") #Replacing templates with numbers
+done
+echo -e "project version is $VERSION_STRING"
 
-#extract_gitlog_text() {
-#
-#borders=$( git log | grep -n 'commit\|Date' | head -n 3 | tail -n 2 | cut -d ':' -f1)
-#upb=$(echo $borders | cut -d $'\n' -f1)
-#dwnb=$(echo $borders | cut -d $'\n' -f2)
-#text=$(git log | head -n $( expr $dwnb - 2 ) | tail -n $( expr $dwnb - $upb - 3 ) )
-#echo $text
-#
-#}
+}
+
+extract_gitlog_text() {
+
+borders=$( git log | grep -n 'commit\|Date' | head -n 3 | tail -n 2 | cut -d ':' -f1)
+upb=$(echo $borders | cut -d $'\n' -f1)
+dwnb=$(echo $borders | cut -d $'\n' -f2)
+text=$(git log | head -n $( expr $dwnb - 2 ) | tail -n $( expr $dwnb - $upb - 3 ) )
+echo $text
+
+}
 
 #. prod_build/general/install_dependencies
 . prod_build/general/pre-build.sh #VERSIONS and git
@@ -79,10 +79,6 @@ VERSION_STRING=$(echo $VERSION_FORMAT | sed "s/\"//g" ) #Removing quotes
 VERSION_ENTRIES=$(echo $VERSION_ENTRIES | sed "s/\"//g" )
 VERSION_STRING=$(extract_version_number)
 last_version_string=$(cat prod_build/linux/debian/essentials/changelog | head -n 1 | cut -d '(' -f2 | cut -d ')' -f1)
-
-
-#if [ $ONBUILDSERVER = 0 ]; then 
-#	echo "[WRN] on build platform. Version won't be changed"
 
 if [[ "$last_version_string" == "$VERSION_STRING" ]]; then
 	echo "[INF] Version $last_version_string is equal to $VERSION_STRING. Nothing to change"
@@ -104,7 +100,7 @@ else
 	branch=$(git branch | grep "*" | cut -c 3- )
 	case branch in
 		"master" ) branch="stable";;
-		"develop" ) branch="testing";;
+		* ) branch="testing";;
 	esac
 	dch -r --distribution "$branch" --force-distribution ignored
 	controlfile_version=$(cat prod_build/linux/debian/essentials/control | grep "Standards" | cut -d ' ' -f2) #Add to control info.
