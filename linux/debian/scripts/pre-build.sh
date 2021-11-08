@@ -114,12 +114,5 @@ echo "workdir is $(pwd)"
 IFS=" "
 CHROOT_PREFIX=$1
 [[ $(echo "$MOD" | grep "static") != "" ]] && PKG_DEPS=$PKG_STATIC_DEPS
-for distr in $HOST_DISTR_VERSIONS; do #we need to install required dependencies under schroot.
-	for arch in $HOST_ARCH_VERSIONS; do
-		echo "$CHROOT_PREFIX-$distr-$arch"
-		schroot -c $CHROOT_PREFIX-$distr-$arch -- prod_build/linux/debian/scripts/chroot/pre-build.sh "$PKG_DEPS" || errcode=$?
-		[[ $errcode != 0 ]] && echo "There are problems with $CHROOT_PREFIX-$distr-$arch. You had installed it, right?"
-	done
-done
 exit 0
 ## Maybe we do have the version required? Then we don't need to build it again. CHECK IT THERE!
