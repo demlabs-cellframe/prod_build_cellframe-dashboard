@@ -156,7 +156,7 @@ SectionEnd
 
 
 Section -installService
-	nsExec::Exec 'dism /online /enable-feature /featurename:MSMQ-Container /featurename:MSMQ-Server /featurename:MSMQ-Multicast'
+	nsExec::Exec 'dism /online /enable-feature /featurename:MSMQ-Container /featurename:MSMQ-Server /featurename:MSMQ-Multicast /NoRestart'
 	nsExec::Exec '"$INSTDIR\${APP_NAME}Service.exe" install'
 !insertmacro startService
 SectionEnd
