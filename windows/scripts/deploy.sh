@@ -22,7 +22,7 @@ for pkgfile in $PKGFILES; do
 	mv $pkgfile $wd/$PACKAGE_PATH/$pkgname$MOD.exe || { echo "[ERR] Something went wrong in publishing the package. Now aborting."; exit -4; }
 	CODENAME=$(echo $pkgname | rev | cut -d '-' -f1 | rev)
 	cp -r ../prod_build/general/essentials/weblink-latest ../prod_build/general/essentials/$pkgname_weblink
-	sed -i "/document/s/cellframe.*deb/$pkgname_public$MOD.exe/" ../prod_build/general/essentials/$pkgname_weblink/index.php
+	sed -i "/document/s/cellframe.*deb/$pkgname_public$MOD.exe/" ../prod_build/general/essentials/$pkgname_weblink/index.html
 	echo "REF_NAME is $CI_COMMIT_REF_NAME"
 	ssh -i $CELLFRAME_REPO_KEY "$CELLFRAME_FILESERVER_CREDS" "mkdir -p $CELLFRAME_FILESERVER_PATH/$SUBDIR"
 	scp -i $CELLFRAME_REPO_KEY $wd/$PACKAGE_PATH/$pkgname$MOD.exe "$CELLFRAME_FILESERVER_CREDS:$CELLFRAME_FILESERVER_PATH/$SUBDIR/$pkgname_public$MOD.exe"
