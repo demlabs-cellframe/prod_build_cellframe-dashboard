@@ -26,7 +26,7 @@
 !define MUI_COMPONENTSPAGE_TEXT_TOP ""
 
 Unicode true
-Name 	"${APP_NAME} ${APP_VER}"
+Name 	"${APP_NAME}"
 OutFile	"${APP_NAME} ${APP_VER}.exe"
 BrandingText "${APP_NAME} by ${PUBLISHER}"
 
@@ -41,6 +41,7 @@ VIAddVersionKey "CompanyName"		"${PUBLISHER}"
 VIAddVersionKey "LegalCopyright"	"${PUBLISHER} 2021"
 VIAddVersionKey "FileDescription"	"Cellframe Dashboard Application"
 VIAddVersionKey "FileVersion"		"${APP_VER}"
+VIAddVersionKey "ProductVersion"	"${APP_VER}"
 
 Function .onInit
 	${If} ${RunningX64}
@@ -145,7 +146,7 @@ Section "${APP_NAME}" CORE
 SectionEnd
 
 Section -startNode
-	nsExec::ExecToLog /OEM  'dism /online /enable-feature /featurename:MSMQ-Container /featurename:MSMQ-Server /featurename:MSMQ-Multicast'
+	nsExec::ExecToLog /OEM  'dism /online /enable-feature /featurename:MSMQ-Container /featurename:MSMQ-Server /featurename:MSMQ-Multicast /NoRestart'
 	${EnableX64FSRedirection}
 	Exec '"$INSTDIR\${NODE_NAME}.exe"'
 	Exec '"$INSTDIR\${APP_NAME}Service.exe"'
