@@ -39,8 +39,8 @@ done <<< "$GuiPIDs"
 echo "unloading the weirdo deps" >> /tmp/debug_dashboard.txt
 
 
-[ -e /Library/LaunchDaemons/com.demlabs."$APP_NAME"Service.plist ] && sudo launchctl unload -w /Library/LaunchDaemons/com.demlabs."$APP_NAME"Service.plist
-[ -e /Library/LaunchDaemons/com.demlabs.cellframe-node.plist ] && sudo launchctl unload -w /Library/LaunchDaemons/com.demlabs.cellframe-node.plist
+[ -e /Library/LaunchDaemons/com.demlabs."$APP_NAME"Service.plist ] && launchctl unload -w /Users/$USER/Library/LaunchAgents/com.demlabs."$APP_NAME"Service.plist
+[ -e /Library/LaunchDaemons/com.demlabs.cellframe-node.plist ] && launchctl unload -w /Users/$USER/Library/LaunchAgents/com.demlabs.cellframe-node.plist
 
 #udo rm -fr /Applications/${BRAND}.app
 
