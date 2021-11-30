@@ -26,7 +26,7 @@ done
 wd=$(pwd)
 cd $EXEC_PREFIX/../MacOS
 
-for filename in $(ls . | grep -v '.'); do
+for filename in $(ls . | grep -v '.');
 	if [ -L $filename ] && [ ! -e $filename ]; then
 		strip -u -r $filename
 	fi
@@ -51,13 +51,13 @@ sudo chmod 644 /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist
 sudo chown $USER /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist
 sudo chmod 644 /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist
 
- sudo -u $USER ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist /Users/$USER/Library/LaunchAgents/$SERVICE.plist
- sudo -u $USER ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist /Users/$USER/Library/LaunchAgents/$NODE.plist
- sudo -u $USER launchctl load -w /Users/$USER/Library/LaunchAgents/$NODE.plist
- sudo -u $USER launchctl load -w /Users/$USER/Library/LaunchAgents/$SERVICE.plist
+ sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist /Users/$USER/Library/LaunchAgents/$SERVICE.plist
+ sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist /Users/$USER/Library/LaunchAgents/$NODE.plist
+ launchctl load -w /Users/$USER/Library/LaunchAgents/$NODE.plist
+ launchctl load -w /Users/$USER/Library/LaunchAgents/$SERVICE.plist
 
- sudo -u $USER launchctl start $NODE
- sudo -u $USER launchctl start $SERVICE
+ launchctl start $NODE
+ launchctl start $SERVICE
 
 sudo rm $EXEC_PREFIX/*.sh
 sudo rm /Applications/$APP_NAME.plist
