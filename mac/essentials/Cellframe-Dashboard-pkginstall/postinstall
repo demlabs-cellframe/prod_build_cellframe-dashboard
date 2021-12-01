@@ -51,8 +51,8 @@ sudo chmod 644 /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist
 sudo chown $USER /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist
 sudo chmod 644 /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist
 
- sudo -u $USER ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist /Users/$USER/Library/LaunchAgents/$SERVICE.plist
- sudo -u $USER ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist /Users/$USER/Library/LaunchAgents/$NODE.plist
+ sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist /Users/$USER/Library/LaunchAgents/$SERVICE.plist
+ sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist /Users/$USER/Library/LaunchAgents/$NODE.plist
  sudo -u $USER launchctl load -w /Users/$USER/Library/LaunchAgents/$NODE.plist
  sudo -u $USER launchctl load -w /Users/$USER/Library/LaunchAgents/$SERVICE.plist
 
