@@ -8,7 +8,7 @@ Homepage: https://cellframe.net
 
 Package: cellframe-dashboard
 Architecture: any
-Depends: psmisc, menu, ${shlibs:Depends}, ${misc:Depends}, qml-module-qtquick-controls, qml-module-qtquick-controls2, qml-module-qtqml-models2, qml-module-qt-labs-platform, openssl
+Depends: psmisc, menu, ${shlibs:Depends}, ${misc:Depends}, qml-module-qtquick-controls, qml-module-qtquick-controls2, qml-module-qtqml-models2
 Description: CellFrame Dashboard
  CelLFrame Dashboard
 

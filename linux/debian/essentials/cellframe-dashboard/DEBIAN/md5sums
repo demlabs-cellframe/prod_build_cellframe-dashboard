@@ -1,6 +1,0 @@
-2e1c896cfdf154102fe68664117143b3  opt/cellframe-dashboard/bin/Cellframe-Dashboard
-524321b0409defb6ac52779244747b76  opt/cellframe-dashboard/bin/Cellframe-DashboardService
-f1825f55af7cf44463354da8f8cb3c27  opt/cellframe-dashboard/share/CellFrameDashboard.desktop
-1cca7121b0ec5c7f5173da7dd1fcfbfd  opt/cellframe-dashboard/share/CellFrameDashboard.ico
-6fe863ef22427e5d4e045b1aeb939668  opt/cellframe-dashboard/share/init.d/cellframe-dashboard.service
-6374c4712ec842a964f808148ff660bd  usr/share/doc/cellframe-dashboard/changelog.Debian.gz
