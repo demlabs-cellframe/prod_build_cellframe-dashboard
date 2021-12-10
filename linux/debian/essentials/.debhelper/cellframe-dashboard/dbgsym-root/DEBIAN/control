@@ -1,0 +1,13 @@
+Package: cellframe-dashboard-dbgsym
+Package-Type: ddeb
+Source: cellframe-dashboard
+Version: 2.0-16
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Demlabs Support <support@demlabs.net>
+Installed-Size: 17339
+Depends: cellframe-dashboard (= 2.0-16)
+Section: debug
+Priority: optional
+Description: debug symbols for cellframe-dashboard
+Build-Ids: 61f414a36c4f2cecc1f07c5f376ed1092b451776
