@@ -49,25 +49,20 @@ for platform in $PLATFORMS; do
 			export_variables "./prod_build/$platform/conf/*"
 		fi
 
-
-		if [[ ! -z ${ENV} ]]; then
-			HOST_DISTR_VERSIONS=$(echo ${!ENV} | cut -d '-' -f1)
-			HOST_ARCH_VERSIONS=$(echo ${!ENV} | cut -d '-' -f2)
-		fi
-
 		if [[ $platform == "mac" ]]; then
 
-				[ -e prod_build/$platform/scripts/pre-build.sh ] && prod_build/$platform/scripts/pre-build.sh $CHROOT_PREFIX $platform || { errcode=$? && errstring="$errstring macprebuild $errcode" && echo "[ERR] Mac host prefetch errcode $errcode. Skipping"; exit $errcode; } #Setting up brand in conf file
+			[ -e prod_build/$platform/scripts/pre-build.sh ] && prod_build/$platform/scripts/pre-build.sh $CHROOT_PREFIX $platform || { errcode=$? && errstring="$errstring macprebuild $errcode" && echo "[ERR] Mac host prefetch errcode $errcode. Skipping"; exit $errcode; } #Setting up brand in conf file
 
-				for conffile in $(find "./prod_build/$platform/conf" | grep conf/ | grep -v .bak); do
-					export_variables $conffile
-				done
+			for conffile in $(find "./prod_build/$platform/conf" | grep conf/ | grep -v .bak); do
+				export_variables $conffile
+			done
 
 
-				IFS=' '
-				PKG_TYPE=$(echo $PKG_FORMAT | cut -d ' ' -f1)
-				prod_build/$platform/scripts/$JOB.sh $PKG_TYPE || { errcode=$? && errstring="$errstring macbuild $errcode" && echo "[ERR] Mac host build errcode $errcode now. Skipping"; exit $errcode; }
-				exit 0
+			IFS=' '
+			for arch in $ARCH_VERSIONS; do
+				prod_build/$platform/scripts/$JOB.sh $arch || { errcode=$? && errstring="$errstring macbuild $errcode" && echo "[ERR] Mac host build errcode $errcode now. Skipping"; exit $errcode; }
+			done
+			exit 0
 			
 
 		else
