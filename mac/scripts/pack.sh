@@ -2,6 +2,7 @@
 
 echo "packing things"
 
+arch=$1
 
 cd $wd
 
@@ -36,7 +37,7 @@ sed -i "s/installKBytes=\"[0-9]\+\"/installKBytes=\"$installKBytes\"/g" $BUILD_P
 #rm $BUILD_PATH/PackageInfobak
 #clear and build pkg
 rm -r $BUILD_PATH/payload_build $BUILD_PATH/scripts_build
-(cd $BUILD_PATH && xar --compression none -cf ../"$APP_NAME"-"$VERSION_INFO".pkg *)
+(cd $BUILD_PATH && xar --compression none -cf ../"$APP_NAME"-"$VERSION_INFO"-$arch.pkg *)
 (cd $BUILD_PATH && rm -r Bom PackageInfo Payload Scripts)
 # #make distclean
 
