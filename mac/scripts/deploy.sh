@@ -25,7 +25,7 @@ for pkgfile in $PKGFILES; do
 	sed -i "/document/s/cellframe.*deb/$pkgname.pkg/" ../prod_build/general/essentials/$pkgname_weblink/index.html
 	echo "REF_NAME is $CI_COMMIT_REF_NAME"
 	ssh -i $CELLFRAME_REPO_KEY "$CELLFRAME_FILESERVER_CREDS" "mkdir -p $CELLFRAME_FILESERVER_PATH/$SUBDIR"
-	scp -i $CELLFRAME_REPO_KEY $PACKAGE_PATH/$pkgname$MOD.pkg "$CELLFRAME_FILESERVER_CREDS:$CELLFRAME_FILESERVER_PATH/$SUBDIR/$pkgname.pkg"
+	scp -i $CELLFRAME_REPO_KEY $PACKAGE_PATH/$pkgname.pkg "$CELLFRAME_FILESERVER_CREDS:$CELLFRAME_FILESERVER_PATH/$SUBDIR/$pkgname.pkg"
 	scp -r -i $CELLFRAME_REPO_KEY ../prod_build/general/essentials/$pkgname_weblink "$CELLFRAME_FILESERVER_CREDS:$CELLFRAME_FILESERVER_PATH/$SUBDIR/"
 	rm -r ../prod_build/general/essentials/$pkgname_weblink
 done
