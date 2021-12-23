@@ -116,7 +116,7 @@ FunctionEnd
 !insertmacro modifyConfigEntry "{SERVER_ENABLED}"		"true"		"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "{SERVER_ADDR}" 			"0.0.0.0" 	"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "{SERVER_PORT}" 			"8079"		"$ConfigPath\etc\${NODE_NAME}.cfg"
-!insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\private.cfg"
+!insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\private.cfg.tpl"
 !insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\core-t.cfg.tpl"
 !insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\subzero.cfg"
 
