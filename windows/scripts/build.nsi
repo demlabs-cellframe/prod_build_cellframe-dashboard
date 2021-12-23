@@ -126,6 +126,7 @@ Section "${APP_NAME}" CORE
 	File /r "dist\"
 	Rename "$ConfigPath\etc\${NODE_NAME}.cfg.tpl" "$ConfigPath\etc\${NODE_NAME}.cfg"
 	Var /GLOBAL net1
+	Var /GLOBAL net2
 	StrCpy $net1 "private"
 	Rename "$ConfigPath\etc\network\$net1.cfg.tpl" "$ConfigPath\etc\network\$net1.cfg"
 	StrCpy $net2 "subzero"
