@@ -31,7 +31,7 @@ codename=$(lsb_release -a | grep Codename | cut -f2)
 
 sed -i "s/#BUILD_TYPE/BUILD_TYPE/" config.pri 
  
-CC=clang-11 CXX=clang++-11 dpkg-buildpackage -J -us --changes-option=--build=any -uc || error=$?
+dpkg-buildpackage -J -us --changes-option=--build=any -uc || error=$?
 if [[ $(ls .. | grep 'dbgsym') != "" ]]; then
 	rm -f ../*dbgsym*
 fi
