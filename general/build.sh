@@ -44,17 +44,15 @@ if [[ $platform == "mac" ]]; then
 
 	IFS=' '
 	for arch in $ARCH_VERSIONS; do
-		prod_build/$platform/scripts/$JOB.sh $arch || { errcode=$? && errstring="$errstring macbuild $errcode" && echo "[ERR] Mac host build errcode $errcode now. Skipping"; exit $errcode; }
+		prod_build/$platform/scripts/build.sh $arch || { errcode=$? && errstring="$errstring macbuild $errcode" && echo "[ERR] Mac host build errcode $errcode now. Skipping"; exit $errcode; }
 	done
 	exit 0
 	
 
 else
-	[[ -e prod_build/$platform/scripts/pre-build.sh ]] && prod_build/$platform/scripts/pre-build.sh $CHROOT_PREFIX $platform || echo "[WRN] No pre-build script detected. Moving on" #For actions before build not in chroot and in chroot (version update, install missing dependencies(under schroot))
-		IFS=' '
-		PKG_TYPE=$(echo $PKG_FORMAT | cut -d ' ' -f1)
-		prod_build/$platform/scripts/$JOB.sh $PKG_TYPE $platform $brand $varpack || { errcode=$? && errstring="$errstring ${platform}_build $errcode" && echo "[ERR] $platform build on $HOST_DISTR_VERSIONS-$HOST_ARCH_VERSIONS errcode $errcode"; break 2; }
-	fi
+	[[ -e prod_build/$platform/scripts/pre-build.sh ]] && prod_build/$platform/scripts/pre-build.sh $platform || echo "[WRN] No pre-build script detected. Moving on" #For actions before build not in chroot and in chroot (version update, install missing dependencies(under schroot))
+		prod_build/$platform/scripts/build.sh || { errcode=$? && errstring="$errstring ${platform}_build $errcode" && echo "[ERR] $platform build on $HOST_DISTR_VERSIONS-$HOST_ARCH_VERSIONS errcode $errcode"; break 2; }
+fi
 	unexport_variables "./prod_build/$platform/conf/*"
 done
 [[ $errstring != "" ]] && echo "$brand done with errors:" && echo "$errstring" >> ~/prod_log && errstring="" && errcode=5 ## General failure error

@@ -2,7 +2,6 @@
 
 WORKDIR="resources/cellframe/cellframe-dashboard"
 SCRIPTDIR="prod_build/linux/debian/scripts"
-PLATFORM=$2
 shift 2
 
 for var in $@; do
