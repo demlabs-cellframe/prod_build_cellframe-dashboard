@@ -54,7 +54,7 @@ else
 	prod_build/$platform/scripts/build.sh || { errcode=$? && errstring="$errstring ${platform}_build $errcode" && echo "[ERR] $platform build on $HOST_DISTR_VERSIONS-$HOST_ARCH_VERSIONS errcode $errcode"; break 2; }
 fi
 	unexport_variables "./prod_build/$platform/conf/*"
-done
+
 [[ $errstring != "" ]] && echo "$brand done with errors:" && echo "$errstring" >> ~/prod_log && errstring="" && errcode=5 ## General failure error
 
 cd $wd
