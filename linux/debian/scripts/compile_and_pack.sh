@@ -6,7 +6,7 @@ set -x
 build_node() {
 	cd cellframe-node && mkdir build && cd build
 	sed -i 's/target_link_libraries(${NODE_TARGET}      ${NODE_LIBRARIES} pthread )/target_link_libraries(${NODE_TARGET}      ${NODE_LIBRARIES} pthread z util expat )/' ../CMakeLists.txt
-	cmake ../ && make -j$(nrpoc)
+	${CMAKE_PATH}/cmake ../ && make -j$(nrpoc)
 	cd ../../
 	pwd
 }
