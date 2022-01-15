@@ -5,6 +5,7 @@ NODE_PATH=./cellframe-node
 
 export QT_MAC_PATH=${OSXCROSS_PATH}/$arch/${QT_PATH}
 export CROSS_COMPILE=${arch}${OSX_COMPILE}
+export wd=$(pwd)
 
 sed -i "s/arm64/arm64e/g" cellframe-node/cellframe-sdk/3rdparty/monero_crypto/CMakeLists.txt
 

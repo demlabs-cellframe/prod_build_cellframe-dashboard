@@ -2,8 +2,7 @@
     #set up config
 
     error=0
-    wd=$(pwd)
-    
+
     mkdir -p $wd/$BUILD_PATH
     cp -r $APP_PATH $wd/$BUILD_PATH
 
