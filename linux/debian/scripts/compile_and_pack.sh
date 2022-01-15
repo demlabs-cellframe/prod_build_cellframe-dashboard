@@ -4,8 +4,9 @@ set -x
 [ -v QT_LINUX_PATH ] && export QT_SELECT=$(qtchooser -l | grep static)
 
 build_node() {
+	cd cellframe-node && mkdir build && cd build
 	sed -i 's/target_link_libraries(${NODE_TARGET}      ${NODE_LIBRARIES} pthread )/target_link_libraries(${NODE_TARGET}      ${NODE_LIBRARIES} pthread z util expat )/' ../CMakeLists.txt
-	cd cellframe-node && mkdir build && cd build && make -j$(nrpoc)
+	make -j$(nrpoc)
 	cd ../../
 	pwd
 }
