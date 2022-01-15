@@ -1,0 +1,5 @@
+*.debhelper*
+*.substvars
+linux/debian/essentials/cellframe-dashboard
+linux/debian/essentials/files
+stamp*
