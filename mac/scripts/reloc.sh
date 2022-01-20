@@ -3,7 +3,6 @@
 
     error=0
 
-  
     mkdir -p $wd/$BUILD_PATH
     cp -r $APP_PATH $wd/$BUILD_PATH
 

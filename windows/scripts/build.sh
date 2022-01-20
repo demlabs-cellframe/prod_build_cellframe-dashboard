@@ -1,8 +1,7 @@
 #!/bin/bash
 WORKDIR="resources/cellframe/cellframe-dashboard"
-export PLATFORM="$2"
 shift 3
-SCRIPTDIR="prod_build/$PLATFORM/scripts"
+SCRIPTDIR="prod_build/windows/scripts"
 
 for var in $@; do
 	export ${var//\"/} #export variables without quotes

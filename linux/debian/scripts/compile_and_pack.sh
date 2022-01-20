@@ -1,9 +1,15 @@
 #!/bin/bash
-
+cd ~/demlabs/projects/cellframe-dashboard
 set -x
 [ -v QT_LINUX_PATH ] && export QT_SELECT=$(qtchooser -l | grep static)
 
-
+build_node() {
+	cd cellframe-node && mkdir build && cd build
+	sed -i 's/target_link_libraries(${NODE_TARGET}      ${NODE_LIBRARIES} pthread )/target_link_libraries(${NODE_TARGET}      ${NODE_LIBRARIES} pthread z util expat )/' ../CMakeLists.txt
+	${CMAKE_PATH}/cmake ../ && make -j$(nrpoc)
+	cd ../../
+	pwd
+}
 error_explainer() {
 
 	case "$1" in
@@ -16,6 +22,7 @@ error_explainer() {
 
 cleanup () {
 
+rm -rf cellframe-node/build
 make distclean
 
 if [ "$1" == "--static" ]; then
@@ -30,8 +37,8 @@ trap cleanup SIGINT
 codename=$(lsb_release -a | grep Codename | cut -f2)
 
 sed -i "s/#BUILD_TYPE/BUILD_TYPE/" config.pri 
- 
-CC=clang-11 CXX=clang++-11 dpkg-buildpackage -J -us --changes-option=--build=any -uc || error=$?
+build_node
+ dpkg-buildpackage -J -us --changes-option=--build=any -uc || error=$?
 if [[ $(ls .. | grep 'dbgsym') != "" ]]; then
 	rm -f ../*dbgsym*
 fi
