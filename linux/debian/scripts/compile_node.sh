@@ -3,7 +3,7 @@
 wd=$1
 #kostyl'
 if [[ ${CMAKE_PATH} != "" ]]; then
-	${CMAKE_PATH}=${CMAKE_PATH}/cmake
+	${CMAKE_PATH}=${CMAKE_PATH}/
 fi
 
 cd $wd
