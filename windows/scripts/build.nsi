@@ -100,10 +100,13 @@ yesDashData:
 
 !macro killAll
 	nsExec::ExecToLog /OEM  'taskkill /f /im ${EXE_NAME}'
-	nsExec::ExecToLog /OEM  'taskkill /f /im ${APP_NAME}Service.exe'
+	nsExec::ExecToLog /OEM  'taskkill /f /im ${APP_NAME}Service.exe' ;Legacy
 	nsExec::ExecToLog /OEM  'taskkill /f /im ${NODE_NAME}.exe'
-	nsExec::ExecToLog /OEM  'schtasks /Delete /TN "${APP_NAME}Service" /F'
-	nsExec::ExecToLog /OEM  'schtasks /Delete /TN "${NODE_NAME}" /F'
+	${DisableX64FSRedirection}
+	nsExec::ExecToLog /OEM  'schtasks /Delete /TN "${APP_NAME}Service" /F' ;Legacy
+	nsExec::ExecToLog /OEM  'schtasks /Delete /TN "${NODE_NAME}" /F'	
+    ${EnableX64FSRedirection}
+	nsExec::ExecToLog /OEM 'sc stop ${APP_NAME}Service'
 !macroend
 
 InstallDir "$PROGRAMFILES64\${APP_NAME}"
@@ -136,12 +139,12 @@ Section "${APP_NAME}" CORE
 	WriteRegStr HKLM "${UNINSTALL_PATH}" "DisplayIcon" "$INSTDIR\${EXE_NAME}"
 	
 	WriteRegStr HKCU "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\${NODE_NAME}.exe" 		"RUNASADMIN"
-	WriteRegStr HKCU "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\${APP_NAME}Service.exe" "RUNASADMIN"
+	;WriteRegStr HKCU "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\${APP_NAME}Service.exe" "RUNASADMIN"
 	WriteUninstaller "$INSTDIR\Uninstall.exe"
 	CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${EXE_NAME}"
     ${DisableX64FSRedirection}
 	nsExec::ExecToLog /OEM  'schtasks /Create /F /RL highest /SC onlogon /TR "$INSTDIR\${NODE_NAME}.exe" /TN "${NODE_NAME}"'
-	nsExec::ExecToLog /OEM  'schtasks /Create /F /RL highest /SC onlogon /TR "$INSTDIR\${APP_NAME}Service.exe" /TN "${APP_NAME}Service"'
+	;nsExec::ExecToLog /OEM  'schtasks /Create /F /RL highest /SC onlogon /TR "$INSTDIR\${APP_NAME}Service.exe" /TN "${APP_NAME}Service"'
 	;CreateShortCut "$DESKTOP\${APP_NAME}Service.lnk" "$INSTDIR\${APP_NAME}Service.exe"
 SectionEnd
 
@@ -149,21 +152,20 @@ Section -startNode
 	nsExec::ExecToLog /OEM  'dism /online /enable-feature /featurename:MSMQ-Container /featurename:MSMQ-Server /featurename:MSMQ-Multicast /NoRestart'
 	${EnableX64FSRedirection}
 	Exec '"$INSTDIR\${NODE_NAME}.exe"'
-	Exec '"$INSTDIR\${APP_NAME}Service.exe"'
+	;Exec '"$INSTDIR\${APP_NAME}Service.exe"'
+	nsExec::ExecToLog /OEM '"$INSTDIR\${APP_NAME}Service.exe" install'
+	nsExec::ExecToLog /OEM 'sc start ${APP_NAME}Service'
 SectionEnd
 
 Section "Uninstall"
 	SetRegView 64
 	!insertmacro killAll
+	nsExec::ExecToLog /OEM 'sc delete ${APP_NAME}Service'
 	Delete "$INSTDIR\${APP_NAME}.exe"
 	Delete "$INSTDIR\${APP_NAME}Service.exe"
 	Delete "$INSTDIR\${NODE_NAME}.exe"
 	Delete "$INSTDIR\${NODE_NAME}-tool.exe"
 	Delete "$INSTDIR\${NODE_NAME}-cli.exe"
-	${DisableX64FSRedirection}
-	nsExec::ExecToLog /OEM  'schtasks /Delete /TN "${APP_NAME}Service" /F'
-	nsExec::ExecToLog /OEM  'schtasks /Delete /TN "${NODE_NAME}" /F'	
-    ${EnableX64FSRedirection}
 	DeleteRegKey HKLM "${UNINSTALL_PATH}"
 	DeleteRegKey HKCU "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers\$INSTDIR\${NODE_NAME}.exe"
 	DeleteRegKey HKCU "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers\$INSTDIR\${APP_NAME}Service.exe"
