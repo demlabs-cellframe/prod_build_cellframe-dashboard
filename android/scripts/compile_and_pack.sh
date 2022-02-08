@@ -55,7 +55,7 @@ for arch in $ARCH_VERSIONS; do
 	$ANDROID_ANDRQT_HOME/qmake -r -spec android-clang BUILD_VARIANT=$BUILD_VARIANT CONFIG+=release CONFIG+=qml_release BRAND=$BRAND BRAND_TARGET=$BRAND $SRC_DIR/*.pro && \
 	$ANDROID_NDK_ROOT/prebuilt/$ANDROID_NDKHOST/bin/make -j$(nproc) && \
 	$ANDROID_NDK_ROOT/prebuilt/$ANDROID_NDKHOST/bin/make install INSTALL_ROOT=$(pwd)/android && \
-	echo "Deploying in " && pwd && $ANDROID_ANDRQT_HOME/androiddeployqt --output android --verbose --release --input DapChainVpnApplication/*.json --jdk $ANDROID_JAVA_HOME --gradle && echo "androiddeployqt complete" && \
+	echo "Deploying in " && pwd && ls && $ANDROID_ANDRQT_HOME/androiddeployqt --output android --verbose --release --input DapChainVpnApplication/*.json --jdk $ANDROID_JAVA_HOME --gradle && echo "androiddeployqt complete" && \
 	$ANDROID_SDK/build-tools/$ANDROID_BUILD_TOOLS_VERSION/zipalign -f -v 4 $(pwd)/$APK_PATH/android-release-unsigned.apk $(pwd)/$APK_PATH/android-release-unsigned-aligned.apk && echo "zipalign complete" && \
 	$ANDROID_SDK/build-tools/$ANDROID_BUILD_TOOLS_VERSION/apksigner sign -ks $SRC_DIR/prod_build/android/essentials/key/release-key.jks --ks-key-alias $ALIAS --ks-pass pass:$PASS  \
 	--v1-signing-enabled true --v2-signing-enabled true \
