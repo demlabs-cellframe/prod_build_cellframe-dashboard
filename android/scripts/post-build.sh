@@ -4,5 +4,4 @@
 echo "Entering post-build deployment and cleanup"
 SCRIPTDIR="prod_build/android/scripts"
 
-$SCRIPTDIR/deploy.sh || exit 10 && \
-$SCRIPTDIR/cleanup.sh || exit 11
+$SCRIPTDIR/deploy.sh || { errcode=$?; echo "[ERR] Android deploy errcode $errcode"; exit 30; }
