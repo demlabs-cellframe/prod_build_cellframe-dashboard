@@ -42,6 +42,7 @@ cd $WORK_PATH
 [ -v WORK_PATH ] && rm -rf * || { echo "WORK_PATH variable is undefined. Indirect launch detected."; exit -1; }
 
 APK_PATH=android/build/outputs/apk/release
+KEY_PATH=/release-key.jks
 mkdir -p $APK_PATH
 echo "arch-versions are $ARCH_VERSIONS"
 IFS=" "
@@ -57,7 +58,7 @@ for arch in $ARCH_VERSIONS; do
 	$ANDROID_NDK_ROOT/prebuilt/$ANDROID_NDKHOST/bin/make install INSTALL_ROOT=$(pwd)/android && \
 	echo "Deploying in " && pwd && ls && $ANDROID_ANDRQT_HOME/androiddeployqt --output android --verbose --release --input CellFrameDashboardGUI/*.json --jdk $ANDROID_JAVA_HOME --gradle && echo "androiddeployqt complete" && \
 	$ANDROID_SDK/build-tools/$ANDROID_BUILD_TOOLS_VERSION/zipalign -f -v 4 $(pwd)/$APK_PATH/android-release-unsigned.apk $(pwd)/$APK_PATH/android-release-unsigned-aligned.apk && echo "zipalign complete" && \
-	$ANDROID_SDK/build-tools/$ANDROID_BUILD_TOOLS_VERSION/apksigner sign -ks /demlabs-key/release-key.jks --ks-key-alias $ALIAS --ks-pass pass:$PASS  \
+	$ANDROID_SDK/build-tools/$ANDROID_BUILD_TOOLS_VERSION/apksigner sign -ks $KEY_PATH --ks-key-alias $ALIAS --ks-pass pass:$PASS  \
 	--v1-signing-enabled true --v2-signing-enabled true \
 	--out $(pwd)/$APK_PATH/android-release-signed.apk $(pwd)/$APK_PATH/android-release-unsigned-aligned.apk && \
 	mv -v $(pwd)/$APK_PATH/android-release-signed.apk $SRC_DIR/build/apk/"$APK_NAME-${VERSION}-$arch$MOD.apk" || \
