@@ -22,9 +22,9 @@ for pkgfile in $PKGFILES; do
 	cp -r ../../prod_build/general/essentials/weblink-latest ../../prod_build/general/essentials/$pkgname_weblink
 	sed -i "/document/s/\/.*deb/\/$pkgname.apk/" ../../prod_build/general/essentials/$pkgname_weblink/index.html
 	echo "attempting to publish new Cellframe-Dashboard"
-	[[ $SUBDIR != "" ]] && ssh -i $CELLFRAME_FILESERVER_KEY "$CELLFRAME_FILESERVER_CREDS" "mkdir -p $CELLFRAME_FILESERVER_PATH/android/$SUBDIR"
-	scp -i $CELLFRAME_FILESERVER_KEY $PACKAGE_PATH/$pkgname$MODNAME.apk "$CELLFRAME_FILESERVER_CREDS:$CELLFRAME_FILESERVER_PATH/android/$SUBDIR"
-	scp -r -i $CELLFRAME_FILESERVER_KEY ../../prod_build/general/essentials/$pkgname_weblink "$CELLFRAME_FILESERVER_CREDS:$CELLFRAME_FILESERVER_PATH/android/$SUBDIR"
+	[[ $SUBDIR != "" ]] && ssh -i $CELLFRAME_FILESERVER_KEY "$CELLFRAME_FILESERVER_CREDS" "mkdir -p $CELLFRAME_FILESERVER_PATH/$SUBDIR"
+	scp -i $CELLFRAME_FILESERVER_KEY $PACKAGE_PATH/$pkgname$MODNAME.apk "$CELLFRAME_FILESERVER_CREDS:$CELLFRAME_FILESERVER_PATH/$SUBDIR"
+	scp -r -i $CELLFRAME_FILESERVER_KEY ../../prod_build/general/essentials/$pkgname_weblink "$CELLFRAME_FILESERVER_CREDS:$CELLFRAME_FILESERVER_PATH/$SUBDIR"
 	rm -r ../../prod_build/general/essentials/$pkgname_weblink
 done
 cd ../..
