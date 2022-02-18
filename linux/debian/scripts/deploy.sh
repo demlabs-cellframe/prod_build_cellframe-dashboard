@@ -22,7 +22,7 @@ PKGFILES=$(ls . | grep .deb)
 for pkgfile in $PKGFILES; do
 	pkgname=$(echo $pkgfile | sed 's/.deb$//')
 	pkgname_public=$(echo $pkgname | cut -d '-' -f1-4,7-) #cutting away Debian-9.12
-	pkgname_weblink="$(echo $pkgname | cut -d '-' -f2,7 )-latest" #leaving only necessary entries
+	pkgname_weblink="$(echo $pkgname | cut -d '_' -f1 )-latest" #leaving only necessary entries
 	mv $pkgfile $wd/$PACKAGE_PATH/$pkgname.deb || { echo "[ERR] Something went wrong in publishing the package. Now aborting."; exit -4; }
 	CODENAME=$(echo $pkgname | rev | cut -d '-' -f1 | rev)
 	cp -r ../prod_build/general/essentials/weblink-latest ../prod_build/general/essentials/$pkgname_weblink
