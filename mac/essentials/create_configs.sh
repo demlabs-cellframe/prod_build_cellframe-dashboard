@@ -25,5 +25,11 @@ export DAP_KELVIN_TESTNET_ROLE=full
 export DAP_SUBZERO_ENABLED=true
 export DAP_SUBZERO_ROLE=full
 
+
+# Minkowski testnet
+export DAP_KELVPN_MINKOWSKI_ENABLED=true
+export DAP_KELVPN_MINKOWSKI_ROLE=full
+
+
 echo "Init configs with prefix " $DAP_PREFIX
 /Applications/Cellframe-Dashboard.app/Contents/Resources/create_configs_from_tpl.sh
