@@ -119,6 +119,7 @@ FunctionEnd
 !insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\private.cfg.tpl"
 !insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\core-t.cfg.tpl"
 !insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\subzero.cfg"
+!insertmacro modifyConfigEntry "{NODE_TYPE}" 			"full"		"$ConfigPath\etc\network\kelvpn-minkowski.cfg"
 
 !insertmacro modifyConfigEntry "listen_unix_socket_path" 	"#listen_unix_socket_path" 	"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "#listen_port_tcp=12345"		"listen_port_tcp=12345"		"$ConfigPath\etc\${NODE_NAME}.cfg"
@@ -130,12 +131,16 @@ FunctionEnd
 !insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\core-t\chain-plasma.cfg"
 !insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\subzero\chain-0.cfg"
 !insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\subzero\support-chain.cfg"
+!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\kelvpn-minkowski\chain-0.cfg"
+!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\kelvpn-minkowski\support-chain.cfg"
 
 !insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\core-t\chain-0.cfg"
 !insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\core-t\chain-plasma.cfg"
 !insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\subzero\chain-0.cfg"
 !insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\subzero\support-chain.cfg"
+!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\kelvpn-minkowski\chain-0.cfg"
+!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\kelvpn-minkowski\support-chain.cfg"
 
 !macroend
 
