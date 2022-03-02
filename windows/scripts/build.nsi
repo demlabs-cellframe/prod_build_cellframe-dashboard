@@ -104,6 +104,8 @@ yesDashData:
 	nsExec::ExecToLog /OEM  'taskkill /f /im ${NODE_NAME}.exe'
 	nsExec::ExecToLog /OEM  'schtasks /Delete /TN "${APP_NAME}Service" /F'
 	nsExec::ExecToLog /OEM  'schtasks /Delete /TN "${NODE_NAME}" /F'
+	nsExec::Exec 'sc stop ${APP_NAME}Service'
+	nsExec::Exec 'sc delete ${APP_NAME}Service'
 !macroend
 
 InstallDir "$PROGRAMFILES64\${APP_NAME}"
@@ -153,7 +155,8 @@ Section -startNode
 	nsExec::ExecToLog /OEM  'dism /online /enable-feature /featurename:MSMQ-Container /featurename:MSMQ-Server /featurename:MSMQ-Multicast /NoRestart'
 	${EnableX64FSRedirection}
 	Exec '"$INSTDIR\${NODE_NAME}.exe"'
-	Exec '"$INSTDIR\${APP_NAME}Service.exe"'
+	nsExec::Exec 'sc failure ${APP_NAME}Service reset= 3600 actions= restart/1000/restart/1000/restart/1000'
+	nsExec::Exec 'sc start ${APP_NAME}Service'
 SectionEnd
 
 Section "Uninstall"
