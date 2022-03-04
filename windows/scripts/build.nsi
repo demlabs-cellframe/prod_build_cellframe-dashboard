@@ -35,13 +35,13 @@ BrandingText "${APP_NAME} by ${PUBLISHER}"
 Var CommonDocuments
 Var ConfigPath
 
-VIProductVersion "${APP_VERSION}"
 VIAddVersionKey "ProductName"		"${APP_NAME}"
 VIAddVersionKey "CompanyName"		"${PUBLISHER}"
-VIAddVersionKey "LegalCopyright"	"${PUBLISHER} 2021"
+VIAddVersionKey "LegalCopyright"	"${PUBLISHER} 2022"
 VIAddVersionKey "FileDescription"	"Cellframe Dashboard Application"
 VIAddVersionKey "FileVersion"		"${APP_VER}"
 VIAddVersionKey "ProductVersion"	"${APP_VER}"
+VIProductVersion "${APP_VERSION}"
 
 Function .onInit
 	${If} ${RunningX64}
@@ -111,6 +111,13 @@ yesDashData:
 
 InstallDir "$PROGRAMFILES64\${APP_NAME}"
 
+!define PRODUCT_NAME "${APP_NAME}"
+!define PRODUCT_VERSION "${APP_VER}"
+!define PRODUCT_FULLNAME "${APP_NAME} ${APP_VER}"
+!define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_FULLNAME}"
+!define PRODUCT_UNINST_ROOT_KEY "HKLM"
+!define PRODUCT_UNINSTALL_EXE "uninstall.exe"
+
 Section -UninstallPrevious
     Call UninstPrev
 SectionEnd
@@ -127,12 +134,15 @@ Section "${APP_NAME}" CORE
 !insertmacro varPaths
 	SetOutPath "$ConfigPath"
 	File /r "dist\"
+	Delete "$ConfigPath\etc\${NODE_NAME}.cfg"
 	Rename "$ConfigPath\etc\${NODE_NAME}.cfg.tpl" "$ConfigPath\etc\${NODE_NAME}.cfg"
 	Var /GLOBAL net1
 	Var /GLOBAL net2
 	StrCpy $net1 "subzero"
 	StrCpy $net2 "kelvpn-minkowski"
+	Delete "$ConfigPath\etc\network\$net1.cfg"
 	Rename "$ConfigPath\etc\network\$net1.cfg.tpl" "$ConfigPath\etc\network\$net1.cfg"
+	Delete "$ConfigPath\etc\network\$net2.cfg"
 	Rename "$ConfigPath\etc\network\$net2.cfg.tpl" "$ConfigPath\etc\network\$net2.cfg"
 
 !insertmacro modifyConfigFiles
