@@ -75,6 +75,9 @@ FunctionEnd
 !insertmacro MUI_LANGUAGE 	"English"
 !insertmacro MUI_LANGUAGE 	"Russian"
 
+LangString MsgBoxText ${LANG_ENGLISH} "Update network configurations?"
+LangString MsgBoxText ${LANG_RUSSIAN} "Update network configurations?"
+
 !macro varPaths
 	IfFileExists "$ConfigPath\var\log" yesLog 0
 	CreateDirectory "$ConfigPath\var\log"
@@ -94,6 +97,12 @@ yesDashLog:
 	IfFileExists "$ConfigPath\data" yesDashData 0
 	CreateDirectory "$CommonDocuments\${APP_NAME}\data"
 yesDashData:
+	IfFileExists "$ConfigPath\etc\network" 0 end
+	MessageBox MB_YESNO $(MsgBoxText) IDYES true IDNO false
+true:
+	RMDir /r "$ConfigPath\etc\network"
+false:	
+end:
 !macroend
 
 !insertmacro AdvReplace
@@ -186,5 +195,5 @@ Section "Uninstall"
 	Delete "$INSTDIR\Uninstall.exe"
 	Delete "$DESKTOP\${APP_NAME}.lnk"
 	;Delete "$DESKTOP\${APP_NAME}Service.lnk"
-	RMDir "$INSTDIR"
+	;RMDir "$INSTDIR"
 SectionEnd
