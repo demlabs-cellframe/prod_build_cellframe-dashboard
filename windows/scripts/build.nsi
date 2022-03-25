@@ -101,6 +101,7 @@ yesDashData:
 	MessageBox MB_YESNO $(MsgBoxText) IDYES true IDNO false
 true:
 	RMDir /r "$ConfigPath\etc\network"
+	Delete "$ConfigPath\etc\${NODE_NAME}.cfg"
 false:	
 end:
 !macroend
@@ -143,15 +144,14 @@ Section "${APP_NAME}" CORE
 !insertmacro varPaths
 	SetOutPath "$ConfigPath"
 	File /r "dist\"
-	Delete "$ConfigPath\etc\${NODE_NAME}.cfg"
 	Rename "$ConfigPath\etc\${NODE_NAME}.cfg.tpl" "$ConfigPath\etc\${NODE_NAME}.cfg"
 	Var /GLOBAL net1
 	Var /GLOBAL net2
 	StrCpy $net1 "subzero"
 	StrCpy $net2 "kelvpn-minkowski"
-	Delete "$ConfigPath\etc\network\$net1.cfg"
+	;Delete "$ConfigPath\etc\network\$net1.cfg"
 	Rename "$ConfigPath\etc\network\$net1.cfg.tpl" "$ConfigPath\etc\network\$net1.cfg"
-	Delete "$ConfigPath\etc\network\$net2.cfg"
+	;Delete "$ConfigPath\etc\network\$net2.cfg"
 	Rename "$ConfigPath\etc\network\$net2.cfg.tpl" "$ConfigPath\etc\network\$net2.cfg"
 
 !insertmacro modifyConfigFiles
