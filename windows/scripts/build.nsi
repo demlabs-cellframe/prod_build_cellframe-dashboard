@@ -145,14 +145,14 @@ Section "${APP_NAME}" CORE
 	SetOutPath "$ConfigPath"
 	File /r "dist\"
 	Rename "$ConfigPath\etc\${NODE_NAME}.cfg.tpl" "$ConfigPath\etc\${NODE_NAME}.cfg"
-	Var /GLOBAL net1
-	Var /GLOBAL net2
-	StrCpy $net1 "subzero"
-	StrCpy $net2 "kelvpn-minkowski"
+	StrCpy $net1 "Backbone"
+	StrCpy $net2 "mileena"
+	StrCpy $net3 "subzero"
 	;Delete "$ConfigPath\etc\network\$net1.cfg"
 	Rename "$ConfigPath\etc\network\$net1.cfg.tpl" "$ConfigPath\etc\network\$net1.cfg"
 	;Delete "$ConfigPath\etc\network\$net2.cfg"
 	Rename "$ConfigPath\etc\network\$net2.cfg.tpl" "$ConfigPath\etc\network\$net2.cfg"
+	Rename "$ConfigPath\etc\network\$net3.cfg.tpl" "$ConfigPath\etc\network\$net3.cfg"
 
 !insertmacro modifyConfigFiles
 	WriteRegStr HKLM "${UNINSTALL_PATH}" "DisplayName" "${APP_NAME} ${APP_VER}"
