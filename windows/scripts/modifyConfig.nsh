@@ -1,3 +1,7 @@
+Var /GLOBAL net1
+Var /GLOBAL net2
+Var /GLOBAL net3
+
 !macro AdvReplace
 Function AdvReplaceInFile
 	Exch $0
@@ -120,29 +124,39 @@ FunctionEnd
 !insertmacro modifyConfigEntry "{NOTIFY_SRV_PORT}"		"8080"		"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\private.cfg.tpl"
 !insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\core-t.cfg.tpl"
-!insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\subzero.cfg"
-!insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\kelvpn-minkowski.cfg"
+!insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\$net1.cfg"
+!insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\kelvpn-minkowski.cfg.tpl"
+!insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\$net2.cfg"
+!insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\$net3.cfg"
 
 !insertmacro modifyConfigEntry "listen_unix_socket_path" 	"#listen_unix_socket_path" 	"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "#listen_port_tcp=12345"		"listen_port_tcp=12345"		"$ConfigPath\etc\${NODE_NAME}.cfg"
 
 !insertmacro modifyConfigEntry "{PREFIX}" 	"$ConfigPath"	"$ConfigPath\etc\${NODE_NAME}.cfg"
-!insertmacro modifyConfigEntry "{PREFIX}"	"$ConfigPath"	"$ConfigPath\etc\network\core-t\chain-0.cfg"
-!insertmacro modifyConfigEntry "{PREFIX}"	"$ConfigPath"	"$ConfigPath\etc\network\core-t\chain-plasma.cfg"
-!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\core-t\chain-0.cfg"
-!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\core-t\chain-plasma.cfg"
-!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\subzero\chain-0.cfg"
-!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\subzero\support-chain.cfg"
-!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\kelvpn-minkowski\chain-0.cfg"
-!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\kelvpn-minkowski\support-chain.cfg"
+#!insertmacro modifyConfigEntry "{PREFIX}"	"$ConfigPath"	"$ConfigPath\etc\network\core-t\chain-0.cfg"
+#!insertmacro modifyConfigEntry "{PREFIX}"	"$ConfigPath"	"$ConfigPath\etc\network\core-t\chain-plasma.cfg"
+!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\$net1\chain-0.cfg"
+!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\$net1\main.cfg"
+!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\$net1\support.cfg"
+
+!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\$net3\chain-0.cfg"
+!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\$net3\support-chain.cfg"
+
+!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\$net2\chain-0.cfg"
+!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\$net2\chain-plasma.cfg"
+!insertmacro modifyConfigEntry "/opt/cellframe-node"	"$ConfigPath"	"$ConfigPath\etc\network\$net2\chain-support.cfg"
 
 !insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\${NODE_NAME}.cfg"
-!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\core-t\chain-0.cfg"
-!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\core-t\chain-plasma.cfg"
-!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\subzero\chain-0.cfg"
-!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\subzero\support-chain.cfg"
-!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\kelvpn-minkowski\chain-0.cfg"
-!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\kelvpn-minkowski\support-chain.cfg"
 
+!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\$net1\chain-0.cfg"
+!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\$net1\main.cfg"
+!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\$net1\support.cfg"
+
+!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\$net2\chain-0.cfg"
+!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\$net2\chain-plasma.cfg"
+!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\$net2\chain-support.cfg"
+
+!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\$net3\chain-0.cfg"
+!insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\network\$net3\support-chain.cfg"
 !macroend
 
