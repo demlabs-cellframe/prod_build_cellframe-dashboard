@@ -197,7 +197,6 @@ FunctionEnd
 !insertmacro modifyConfigEntry "{SERVER_PORT}" 			"8079"		"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "{NOTIFY_SRV_ADDR}"		"127.0.0.1"	"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "{NOTIFY_SRV_PORT}"		"8080"		"$ConfigPath\etc\${NODE_NAME}.cfg"
-!insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\private.cfg.tpl"
 !insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\core-t.cfg.tpl"
 !insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\$net1.cfg"
 !insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\kelvpn-minkowski.cfg.tpl"
@@ -207,10 +206,6 @@ FunctionEnd
 !insertmacro modifyConfigEntry "#listen_port_tcp=12345"		"listen_port_tcp=12345"		"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "{PREFIX}" 	"$ConfigPath"	"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "/" "\" "$ConfigPath\etc\${NODE_NAME}.cfg"
-
-#!insertmacro modifyChainConfigs "$ConfigPath" "*.cfg" "$ConfigPath\etc\network\$net1\"
-#!insertmacro modifyChainConfigs "$ConfigPath" "*.cfg" "$ConfigPath\etc\network\$net2\"
-#!insertmacro modifyChainConfigs "$ConfigPath" "*.cfg" "$ConfigPath\etc\network\$net3\"
 
 !insertmacro modifyNetworks "$ConfigPath" "*.cfg" "$ConfigPath\etc\network"
 
