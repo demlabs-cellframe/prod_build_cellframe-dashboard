@@ -160,7 +160,7 @@ fi
 # Init mileena
 NET_NAME="mileena"
 
-db_get cellframe-node/backbone_enabled || true
+db_get cellframe-node/mileena_enabled || true
 if [ "$RET" = "true" ]; then
     DAP_CFG_NET="$DAP_PREFIX/etc/network/$NET_NAME.cfg"
     DAP_CFG_NET_TPL="$DAP_PREFIX/share/configs/network/$NET_NAME.cfg.tpl"
