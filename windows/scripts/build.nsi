@@ -11,6 +11,7 @@
 ;!include "MultiUser.nsh"
 !include "MUI2.nsh"
 !include "x64.nsh"
+Unicode true
 !include "Nsis.defines.nsh"
 !include "modifyConfig.nsh"						   
 
@@ -25,7 +26,6 @@
 
 !define MUI_COMPONENTSPAGE_TEXT_TOP ""
 
-Unicode true
 Name 	"${APP_NAME}"
 OutFile	"${APP_NAME} ${APP_VER}.exe"
 BrandingText "${APP_NAME} by ${PUBLISHER}"
@@ -106,8 +106,6 @@ false:
 end:
 !macroend
 
-!insertmacro AdvReplace
-
 !macro killAll
 	nsExec::ExecToLog /OEM  'taskkill /f /im ${EXE_NAME}'
 	nsExec::ExecToLog /OEM  'taskkill /f /im ${APP_NAME}Service.exe' ;Legacy
@@ -143,7 +141,7 @@ Section "${APP_NAME}" CORE
 	File "${NODE_NAME}-tool.exe"
 !insertmacro varPaths
 	SetOutPath "$ConfigPath"
-	File /r "dist\"
+	File /r "dist\*"
 	Rename "$ConfigPath\etc\${NODE_NAME}.cfg.tpl" "$ConfigPath\etc\${NODE_NAME}.cfg"
 	StrCpy $net1 "Backbone"
 	StrCpy $net2 "mileena"
@@ -153,7 +151,6 @@ Section "${APP_NAME}" CORE
 	;Delete "$ConfigPath\etc\network\$net2.cfg"
 	Rename "$ConfigPath\etc\network\$net2.cfg.tpl" "$ConfigPath\etc\network\$net2.cfg"
 	Rename "$ConfigPath\etc\network\$net3.cfg.tpl" "$ConfigPath\etc\network\$net3.cfg"
-
 !insertmacro modifyConfigFiles
 	WriteRegStr HKLM "${UNINSTALL_PATH}" "DisplayName" "${APP_NAME} ${APP_VER}"
 	WriteRegStr HKLM "${UNINSTALL_PATH}" "UninstallString" "$INSTDIR\Uninstall.exe"
