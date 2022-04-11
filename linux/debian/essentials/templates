@@ -139,7 +139,7 @@ Description: Backbone: Node role
  archive - Sync all the network
  root - Special predefined root nodes, usualy produces zerochain and act like archive as well
 
- Template: cellframe-node/mileena_enabled
+Template: cellframe-node/mileena_enabled
 Default: true
 Choices: true, false
 Type: select
