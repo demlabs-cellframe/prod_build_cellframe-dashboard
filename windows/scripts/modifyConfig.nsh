@@ -161,7 +161,6 @@ Function modifyNetworksIter
 	FindFirst $R3 $R4 "$R0\*.*"
 Loop:
 	IfErrors Done
-	DetailPrint "OMFG $0 $1"
 	StrCmp $R4 "." +5
 	StrCmp $R4 ".." +4
 	${If} ${FileExists} "$0\$R4\*.*"

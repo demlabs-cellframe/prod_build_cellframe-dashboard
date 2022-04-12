@@ -63,7 +63,24 @@ Function UninstPrev
 	DetailPrint "Uninstall older version" 
 	ExecWait '"$R0" /S'
 	Fin:
-FunctionEnd				   
+FunctionEnd
+
+Function EnableMSMQ
+	Push $R0
+	Push $R1
+	ReadRegStr $R0 HKLM "SOFTWARE\Microsoft\Windows NT\CurrentVersion" CurrentVersion
+	${DisableX64FSRedirection}
+	StrCpy $R1 $R0 3
+	DetailPrint "WinNT version: $R1"
+	StrCmp $R1 '6.0' +1 0
+	StrCmp $R1 '6.1' 0 +1
+	nsExec::ExecToLog /OEM  'dism /online /enable-feature /featurename:MSMQ-Container /featurename:MSMQ-Server /featurename:MSMQ-Multicast /NoRestart'
+	Goto +2
+	nsExec::ExecToLog /OEM  'dism /online /enable-feature /featurename:MSMQ-Server /All /NoRestart'
+	Pop $R1
+	Pop $R0
+FunctionEnd
+
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
@@ -162,15 +179,16 @@ Section "${APP_NAME}" CORE
 	;WriteRegStr HKCU "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\${APP_NAME}Service.exe" "RUNASADMIN"
 	WriteUninstaller "$INSTDIR\Uninstall.exe"
 	CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${EXE_NAME}"
-    ${DisableX64FSRedirection}
-	nsExec::ExecToLog /OEM  'schtasks /Create /F /RL highest /SC onlogon /TR "$INSTDIR\${NODE_NAME}.exe" /TN "${NODE_NAME}"'
+	StrCpy $0 "'$INSTDIR\${NODE_NAME}.exe'"
+	${DisableX64FSRedirection}
+	nsExec::ExecToLog /OEM  'schtasks /Create /F /RL highest /SC onlogon /TR "$0" /TN "${NODE_NAME}"'
+	${EnableX64FSRedirection}
 	;nsExec::ExecToLog /OEM  'schtasks /Create /F /RL highest /SC onlogon /TR "$INSTDIR\${APP_NAME}Service.exe" /TN "${APP_NAME}Service"'
 	;CreateShortCut "$DESKTOP\${APP_NAME}Service.lnk" "$INSTDIR\${APP_NAME}Service.exe"
 SectionEnd
 
 Section -startNode
-	nsExec::ExecToLog /OEM  'dism /online /enable-feature /featurename:MSMQ-Container /featurename:MSMQ-Server /featurename:MSMQ-Multicast /NoRestart'
-	${EnableX64FSRedirection}
+	Call EnableMSMQ
 	Exec '"$INSTDIR\${NODE_NAME}.exe"'
 	;Exec '"$INSTDIR\${APP_NAME}Service.exe"'
 	nsExec::ExecToLog /OEM '"$INSTDIR\${APP_NAME}Service.exe" install'
