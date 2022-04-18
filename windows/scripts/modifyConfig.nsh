@@ -190,7 +190,7 @@ FunctionEnd
 !macro modifyConfigFiles
 !insertmacro modifyConfigEntry "{DEBUG_MODE}" 			"false" "$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "{DEBUG_STREAM_HEADERS}"	"false" "$ConfigPath\etc\${NODE_NAME}.cfg"
-!insertmacro modifyConfigEntry "{AUTO_ONLINE}"			"false"		"$ConfigPath\etc\${NODE_NAME}.cfg"
+!insertmacro modifyConfigEntry "{AUTO_ONLINE}"			"true"		"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "{SERVER_ENABLED}"		"true"		"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "{SERVER_ADDR}" 			"0.0.0.0" 	"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "{SERVER_PORT}" 			"8079"		"$ConfigPath\etc\${NODE_NAME}.cfg"
