@@ -152,3 +152,6 @@ if [ "$DAP_MILEENA_ENABLED"="true" ]; then
     sed -i .old "s/{NODE_TYPE}/$DAP_MILEENA_ROLE/" $DAP_NET_CFG  || true
     rm $DAP_NET_CFG.old
 fi
+
+chmod 0666 $DAP_CFG
+chmod 0666 $DAP_CFG_TPL
