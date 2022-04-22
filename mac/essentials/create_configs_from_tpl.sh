@@ -38,6 +38,9 @@ else
     DAP_CFG="$DAP_PREFIX/etc/$DAP_APP_NAME.cfg"
 fi
 
+chmod 0660 $DAP_CFG
+chmod 0660 $DAP_CFG_TPL
+
 cat $DAP_CFG_TPL > $DAP_CFG || true
 sed -i .old "s/{DEBUG_MODE}/$DAP_DEBUG_MODE/g" $DAP_CFG  || true
 sed -i .old "s/{AUTO_ONLINE}/$DAP_AUTO_ONLINE/g" $DAP_CFG  || true
