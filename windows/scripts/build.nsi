@@ -119,6 +119,7 @@ yesDashData:
 true:
 	RMDir /r "$ConfigPath\etc\network"
 	Delete "$ConfigPath\etc\${NODE_NAME}.cfg"
+    RMDir /r "$ConfigPath\var\lib\global_db\gdb-cdb"
 false:	
 end:
 !macroend
