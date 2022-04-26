@@ -221,8 +221,8 @@ else
             chmod 0664 $filename || true
         fi
     done
-    chmod 0666 $DAP_DASHBOARD_PREFIX/log/
-    chmod 0776 $DAP_PREFIX/var/lib/ca/
+    chmod 0777 $DAP_DASHBOARD_PREFIX/log/
+    chmod 0777 $DAP_PREFIX/var/lib/ca/
     chmod 0666 $DAP_CFG
     chmod 0666 $DAP_CFG_TPL
     chmod 0774 $DAP_PREFIX/bin/* || true
