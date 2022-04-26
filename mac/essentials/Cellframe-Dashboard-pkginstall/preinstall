@@ -4,6 +4,12 @@ echo "Installing time!" >> /tmp/debug_vpn.txt
 
 APP_NAME=Cellframe-Dashboard
 
+NODE=com.demlabs.cellframe-node
+SERVICE=com.demlabs.Cellframe-DashboardService
+
+launchctl stop $NODE
+launchctl stop $SERVICE
+
 RET=0
 echo "Installation logs" > /tmp/"$APP_NAME"_Install_Logs.txt
 

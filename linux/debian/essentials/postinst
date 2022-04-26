@@ -4,7 +4,9 @@
 
 DAP_CHAINS_NAME="cellframe"
 DAP_APP_NAME="$DAP_CHAINS_NAME-node"
+DAP_DASHBOARD_NAME="$DAP_CHAINS_NAME-dashboard"
 DAP_PREFIX="/opt/$DAP_APP_NAME"
+DAP_DASHBOARD_PREFIX="/opt/$DAP_DASHBOARD_NAME"
 
 DAP_CFG_TPL="$DAP_PREFIX/share/configs/$DAP_APP_NAME.cfg.tpl"
 
@@ -207,8 +209,9 @@ else
     for username in $(cat /etc/passwd | grep "/home" | cut -d ':' -f1); do
         usermod -aG cellframe-node $username || true
     done
-    mkdir -p $DAP_PREFIX/var/{run,lib/wallet,lib/global_db,var/plugins} || true
- #mkdir -p $DAP_PREFIX/var/{run,lib/ca,lib/wallet,lib/global_db,var/plugins} || true
+    #mkdir -p $DAP_PREFIX/var/{run,lib/wallet,lib/global_db,var/plugins} || true
+    mkdir -p $DAP_DASHBOARD_PREFIX/log || true
+    mkdir -p $DAP_PREFIX/var/{run,lib/ca,lib/wallet,lib/global_db,var/plugins} || true
     touch $DAP_PREFIX/var/run/cellframe-node.pid || true
     #chown -R $USERMAN:$USERMAN $DAP_PREFIX
     for filename in $(find $DAP_PREFIX | grep -v bugreport); do
@@ -218,10 +221,13 @@ else
             chmod 0664 $filename || true
         fi
     done
+    chmod 0666 $DAP_DASHBOARD_PREFIX/log/
+    chmod 0776 $DAP_PREFIX/var/lib/ca/
     chmod 0666 $DAP_CFG
     chmod 0666 $DAP_CFG_TPL
     chmod 0774 $DAP_PREFIX/bin/* || true
     chmod 0777 $DAP_PREFIX/bin/$DAP_APP_NAME-cli || true
+    rm  -r $DAP_PREFIX/var/lib/global_db/gdb-cdb/
     service cellframe-node start || true
     systemctl restart cellframe-node || true
     echo "[!] Done"
