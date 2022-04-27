@@ -1,7 +1,23 @@
 #!/bin/bash
 
+INSTALLER_USER=$(stat -f '%Su' $HOME)
+[ -n "${USER}" ] && USER=${INSTALLER_USER}
+
+LOG_FILE=/tmp/postinstall.log
+
+# Close standard output file descriptor
+exec 1<&-
+# Close standard error file descriptor
+exec 2<&-
+
+# Open standard output as $LOG_FILE file for read and write.
+exec 1<>$LOG_FILE
+
+# Redirect standard error to standard output
+exec 2>&1
+
 APP_NAME=Cellframe-Dashboard
-DAP_PREFIX=/Users/$USER/Applications/Cellframe.app/Contents/Resources
+DAP_PREFIX=$HOME/Applications/Cellframe.app/Contents/Resources
 SERVICE=com.demlabs."$APP_NAME"Service
 NODE=com.demlabs.cellframe-node
 
@@ -37,12 +53,7 @@ sudo chmod +x $EXEC_PREFIX/create_configs_from_tpl.sh
 
 $EXEC_PREFIX/create_configs.sh
 
- mkdir -p /Users/$USER/Library/LaunchAgents
- launchctl stop $SERVICE 
- launchctl unload -w /Users/$USER/Library/LaunchAgents/$SERVICE.plist
-
- launchctl stop $NODE
- launchctl unload -w /Users/$USER/Library/LaunchAgents/$NODE.plist
+ mkdir -p $HOME/Library/LaunchAgents
 
 sudo chown $USER /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist
 sudo chmod 644 /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist
@@ -51,12 +62,12 @@ sudo chmod 644 /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist
 sudo chown $USER /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist
 sudo chmod 644 /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist
 
- sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist /Users/$USER/Library/LaunchAgents/$SERVICE.plist
- sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist /Users/$USER/Library/LaunchAgents/$NODE.plist
- sudo -u $USER launchctl load -w /Users/$USER/Library/LaunchAgents/$NODE.plist
- sudo -u $USER launchctl load -w /Users/$USER/Library/LaunchAgents/$SERVICE.plist
+ sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist $HOME/Library/LaunchAgents/$SERVICE.plist
+ sudo ln -sf /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist $HOME/Library/LaunchAgents/$NODE.plist
+ sudo -u $USER launchctl load -w $HOME/Library/LaunchAgents/$NODE.plist
+ sudo -u $USER launchctl load -w $HOME/Library/LaunchAgents/$SERVICE.plist
 
- rm -r /Users/$USER/Applications/"$APP_NAME".app/Contents/Resources/var/lib/global_db/gdb-cdb/
+ rm -r $HOME/Applications/"$APP_NAME".app/Contents/Resources/var/lib/global_db/gdb-cdb/
 
  sudo -u $USER launchctl start $NODE
  sudo -u $USER launchctl start $SERVICE
