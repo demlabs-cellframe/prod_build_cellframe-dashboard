@@ -158,8 +158,12 @@ Section "${APP_NAME}" CORE
 	File "${NODE_NAME}-cli.exe"
 	File "${NODE_NAME}-tool.exe"
 !insertmacro varPaths
-	SetOutPath "$ConfigPath"
+	InitPluginsDir
+	SetOutPath "$PLUGINSDIR"
 	File /r "dist\*"
+	;SetOutPath "$ConfigPath"
+	CopyFiles "$PLUGINSDIR\etc" "$ConfigPath"
+	CopyFiles "$PLUGINSDIR\share" "$ConfigPath"
 	Rename "$ConfigPath\etc\${NODE_NAME}.cfg.tpl" "$ConfigPath\etc\${NODE_NAME}.cfg"
 	StrCpy $net1 "Backbone"
 	StrCpy $net2 "mileena"
