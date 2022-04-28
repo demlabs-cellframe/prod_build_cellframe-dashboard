@@ -65,6 +65,7 @@ sudo rm $EXEC_PREFIX/*.sh
 sudo rm /Applications/$APP_NAME.plist
 sudo rm /Applications/Cellframe.app
 
+ln -s /Applications/$APP_NAME.app/Contents/Resources/uninstall.sh /Applications
 
 echo "node agent: $(launchctl list | grep cell)" > /tmp/cellframe-dashboard_install_logs.txt
 echo "service agent: $(launchctl list | grep cell)" > /tmp/cellframe-dashboard_install_logs.txt
