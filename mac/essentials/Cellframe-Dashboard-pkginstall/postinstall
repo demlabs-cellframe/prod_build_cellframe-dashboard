@@ -27,9 +27,9 @@ wd=$(pwd)
 cd $EXEC_PREFIX/../MacOS
 
 for filename in $(ls . | grep -v '.'); do
-	if [ -L $filename ] && [ ! -e $filename ]; then
-		strip -u -r $filename
-	fi
+    if [ -L $filename ] && [ ! -e $filename ]; then
+        strip -u -r $filename
+    fi
 done
 
 sudo chmod +x $EXEC_PREFIX/create_configs.sh
@@ -39,10 +39,10 @@ $EXEC_PREFIX/create_configs.sh
 
  mkdir -p /Users/$USER/Library/LaunchAgents
  launchctl stop $SERVICE 
- launchctl unload -w /Users/$USER/Library/LaunchAgents/$SERVICE.plist
+ sudo -u $USER launchctl unload -w /Users/$USER/Library/LaunchAgents/$SERVICE.plist
 
  launchctl stop $NODE
- launchctl unload -w /Users/$USER/Library/LaunchAgents/$NODE.plist
+ sudo -u $USER launchctl unload -w /Users/$USER/Library/LaunchAgents/$NODE.plist
 
 sudo chown $USER /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist
 sudo chmod 644 /Applications/"$APP_NAME".app/Contents/Resources/$SERVICE.plist
