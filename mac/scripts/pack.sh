@@ -16,7 +16,7 @@ mkdir -p $BUILD_PATH/scripts_build
 mv -f $BUILD_PATH/"$APP_NAME".plist $BUILD_PATH/"$APP_NAME".app $BUILD_PATH/payload_build
 mv -f $BUILD_PATH/preinstall $BUILD_PATH/postinstall $BUILD_PATH/scripts_build
 
-mv -f $BUILD_PATH/uninstall.sh $BUILD_PATH/payload_build/$APP_NAME.app/Contents/Resources/
+mv -f $BUILD_PATH/uninstall $BUILD_PATH/payload_build/$APP_NAME.app/Contents/Resources/
 
 # create mkbom file
 #mkbom -u 0 -g 80 $BUILD_PATH/payload_build $BUILD_PATH/Bom
