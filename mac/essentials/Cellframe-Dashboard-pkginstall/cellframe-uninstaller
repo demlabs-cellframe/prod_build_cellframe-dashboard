@@ -11,6 +11,5 @@ sudo -u $USER launchctl stop $SERVICE
 sudo -u $USER launchctl stop $NODE
 
 rm -r $HOME/Applications/Cellframe.app
-rm /Applications/cellframe-uninstaller
 
 exit 0

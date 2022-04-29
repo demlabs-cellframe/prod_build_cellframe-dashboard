@@ -96,5 +96,7 @@ echo "cleanup done" >> /tmp/debug_dashboard.txt
 
 sudo pkgutil --forget com.demlabs.$APP_NAME
 
+rm /Applications/cellframe-uninstaller
+
 #	<domains enable_localSystem="false" enable_anywhere="true" enable_currentUserHome="true"/>
 
