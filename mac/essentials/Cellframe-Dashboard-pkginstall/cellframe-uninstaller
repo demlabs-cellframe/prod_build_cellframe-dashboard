@@ -11,4 +11,8 @@ sudo -u $USER launchctl stop $SERVICE
 sudo -u $USER launchctl stop $NODE
 
 rm -r $HOME/Applications/Cellframe.app
+rm /Applications/cellframe-uninstaller
+
+sudo pkgutil --forget com.demlabs.$APP_NAME
+
 exit 0
