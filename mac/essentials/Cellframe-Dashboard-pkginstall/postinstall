@@ -66,7 +66,7 @@ sudo rm /Applications/$APP_NAME.plist
 sudo rm /Applications/Cellframe.app
 
 cp /Applications/$APP_NAME.app/Contents/Resources/cellframe-uninstaller /Applications
-Rez -append uninstall_icon.rsrc -o /Applications/cellframe-uninstaller
+Rez -append /Applications/$APP_NAME.app/Contents/Resources/uninstall_icon.rsrc -o /Applications/cellframe-uninstaller
 SetFile -a C /Applications/cellframe-uninstaller
 
 echo "node agent: $(launchctl list | grep cell)" > /tmp/cellframe-dashboard_install_logs.txt

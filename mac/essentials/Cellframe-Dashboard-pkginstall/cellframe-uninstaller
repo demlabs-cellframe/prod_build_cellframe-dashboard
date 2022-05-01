@@ -11,6 +11,6 @@ sudo -u $USER launchctl stop $SERVICE
 sudo -u $USER launchctl stop $NODE
 
 rm -rf $HOME/Applications/Cellframe.app
-rm -- "$0"
+rm -f "$0"
 
 exit 0
