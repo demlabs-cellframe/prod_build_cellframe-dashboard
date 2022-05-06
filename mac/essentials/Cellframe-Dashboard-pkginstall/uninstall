@@ -73,6 +73,7 @@ sudo rm -r /Applications/$APP_NAME.app
 
 sudo rm -r $HOME/Applications/Cellframe.app
 
+sudo rm -r /tmp/"$APP_NAME"_dapps
 
 #delete "$APP_NAME"s from com.apple.dock.plist
 echo "path to dock $HOME/Library/Preferences/com.apple.dock.plist" >> /tmp/"$APP_NAME"_Install_Logs.txt
