@@ -71,7 +71,16 @@ rm -r /Applications/Cellframe.app
 
 sudo rm -r /Applications/$APP_NAME.app
 
-sudo rm -r $HOME/Applications/Cellframe.app
+sudo rm -r $HOME/Applications/Cellframe.app/Contents/Resources/cache
+sudo rm -r $HOME/Applications/Cellframe.app/Contents/Resources/etc
+sudo rm -r $HOME/Applications/Cellframe.app/Contents/Resources/share
+sudo rm -r $HOME/Applications/Cellframe.app/var/data
+sudo rm -r $HOME/Applications/Cellframe.app/var/log
+sudo rm -r $HOME/Applications/Cellframe.app/var/run
+sudo rm $HOME/Applications/Cellframe.app/var/lib/backup_global_db_ver.0_22.05.12-14_46_32.tar
+sudo rm -r $HOME/Applications/Cellframe.app/var/lib/global_db
+sudo rm -r $HOME/Applications/Cellframe.app/var/lib/ca
+sudo rm -r $HOME/Applications/Cellframe.app/var/lib
 
 sudo rm -r /tmp/"$APP_NAME"_dapps
 
