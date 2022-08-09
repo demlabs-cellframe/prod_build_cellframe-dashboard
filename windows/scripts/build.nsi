@@ -168,11 +168,13 @@ Section "${APP_NAME}" CORE
 	StrCpy $net1 "Backbone"
 	StrCpy $net2 "mileena"
 	StrCpy $net3 "subzero"
+	StrCpy $net4 "kelvpn-minkowski"
 	;Delete "$ConfigPath\etc\network\$net1.cfg"
 	Rename "$ConfigPath\etc\network\$net1.cfg.tpl" "$ConfigPath\etc\network\$net1.cfg"
 	;Delete "$ConfigPath\etc\network\$net2.cfg"
 	Rename "$ConfigPath\etc\network\$net2.cfg.tpl" "$ConfigPath\etc\network\$net2.cfg"
 	Rename "$ConfigPath\etc\network\$net3.cfg.tpl" "$ConfigPath\etc\network\$net3.cfg"
+	Rename "$ConfigPath\etc\network\$net4.cfg.tpl" "$ConfigPath\etc\network\$net4.cfg"
 !insertmacro modifyConfigFiles
 	WriteRegStr HKLM "${UNINSTALL_PATH}" "DisplayName" "${APP_NAME} ${APP_VER}"
 	WriteRegStr HKLM "${UNINSTALL_PATH}" "UninstallString" "$INSTDIR\Uninstall.exe"
