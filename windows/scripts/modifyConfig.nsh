@@ -1,6 +1,7 @@
 Var /GLOBAL net1
 Var /GLOBAL net2
 Var /GLOBAL net3
+Var /GLOBAL net4
 
 Function AdvReplaceInFile
 	Exch $0
@@ -198,9 +199,9 @@ FunctionEnd
 !insertmacro modifyConfigEntry "{NOTIFY_SRV_PORT}"		"8080"		"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\core-t.cfg.tpl"
 !insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\$net1.cfg"
-!insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\kelvpn-minkowski.cfg.tpl"
 !insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\$net2.cfg"
 !insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\$net3.cfg"
+!insertmacro modifyConfigEntry "{NODE_TYPE}" 			"master"	"$ConfigPath\etc\network\$net4.cfg"
 !insertmacro modifyConfigEntry "listen_unix_socket_path" 	"#listen_unix_socket_path" 	"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "#listen_port_tcp=12345"		"listen_port_tcp=12345"		"$ConfigPath\etc\${NODE_NAME}.cfg"
 !insertmacro modifyConfigEntry "{PREFIX}" 	"$ConfigPath"	"$ConfigPath\etc\${NODE_NAME}.cfg"
