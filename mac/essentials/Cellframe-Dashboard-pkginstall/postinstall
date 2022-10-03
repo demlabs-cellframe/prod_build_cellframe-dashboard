@@ -13,11 +13,6 @@ EXEC_PREFIX=/Applications/$APP_NAME.app/Contents/Resources
 
 FLAG_CHAIN_DB_CLEAR="true"
 
-if [ "$FLAG_CHAIN_DB_CLEAR" = "true" ]; then
-    rm -r "$DAP_PREFIX/var/lib/network"
-    rm -r "$DAP_PREFIX/var/lib/global_db"
-fi
-
 mkdir -p $DAP_PREFIX
 sudo mv -f /Applications/$APP_NAME.app/Contents/Resources/etc $DAP_PREFIX
 sudo mv -f /Applications/$APP_NAME.app/Contents/Resources/share $DAP_PREFIX
@@ -63,7 +58,12 @@ sudo chmod 644 /Applications/"$APP_NAME".app/Contents/Resources/$NODE.plist
  sudo -u $USER launchctl load -w /Users/$USER/Library/LaunchAgents/$NODE.plist
  sudo -u $USER launchctl load -w /Users/$USER/Library/LaunchAgents/$SERVICE.plist
 
- rm -r /Users/$USER/Applications/"$APP_NAME".app/Contents/Resources/var/lib/global_db/gdb-cdb/
+ #rm -r /Users/$USER/Applications/"$APP_NAME".app/Contents/Resources/var/lib/global_db/gdb-cdb/
+
+if [ "$FLAG_CHAIN_DB_CLEAR" = "true" ]; then
+    rm -r "$DAP_PREFIX/var/lib/network"
+    rm -r "$DAP_PREFIX/var/lib/global_db"
+fi
 
  sudo -u $USER launchctl start $NODE
  sudo -u $USER launchctl start $SERVICE

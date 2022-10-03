@@ -155,7 +155,6 @@ InstallDir "$PROGRAMFILES64\${APP_NAME}"
 
 Section -UninstallPrevious
     Call UninstPrev
-    Call clearDBandChains
 SectionEnd
 
 Section "${APP_NAME}" CORE
@@ -167,6 +166,7 @@ Section "${APP_NAME}" CORE
 	File "${NODE_NAME}.exe"
 	File "${NODE_NAME}-cli.exe"
 	File "${NODE_NAME}-tool.exe"
+    Call clearDBandChains
 !insertmacro varPaths
 	InitPluginsDir
 	SetOutPath "$PLUGINSDIR"

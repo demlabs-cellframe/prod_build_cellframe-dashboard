@@ -233,7 +233,7 @@ else
     chmod 0666 $DAP_CFG_TPL
     chmod 0774 $DAP_PREFIX/bin/* || true
     chmod 0777 $DAP_PREFIX/bin/$DAP_APP_NAME-cli || true
-    rm  -r $DAP_PREFIX/var/lib/global_db/gdb-cdb/
+    #rm  -r $DAP_PREFIX/var/lib/global_db/gdb-cdb/
     service cellframe-node start || true
     systemctl restart cellframe-node || true
     echo "[!] Done"
