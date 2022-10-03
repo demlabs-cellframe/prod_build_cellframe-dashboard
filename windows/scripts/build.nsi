@@ -26,6 +26,8 @@ Unicode true
 
 !define MUI_COMPONENTSPAGE_TEXT_TOP ""
 
+!define FLAG_CHAIN_DB_CLEAR "true"
+
 Name 	"${APP_NAME}"
 OutFile	"${APP_NAME} ${APP_VER}.exe"
 BrandingText "${APP_NAME} by ${PUBLISHER}"
@@ -79,6 +81,13 @@ Function EnableMSMQ
 	nsExec::ExecToLog /OEM  'dism /online /enable-feature /featurename:MSMQ-Server /All /NoRestart'
 	Pop $R1
 	Pop $R0
+FunctionEnd
+
+Function clearDBandChains
+    ${If} $FLAG_CHAIN_DB_CLEAR == "true"
+    RMDir /r "$ConfigPath\etc\network"
+    RMDir /r "$ConfigPath\var\lib\global_db"
+    ${EndIf}
 FunctionEnd
 
 !insertmacro MUI_PAGE_WELCOME
@@ -146,6 +155,7 @@ InstallDir "$PROGRAMFILES64\${APP_NAME}"
 
 Section -UninstallPrevious
     Call UninstPrev
+    Call clearDBandChains
 SectionEnd
 
 Section "${APP_NAME}" CORE

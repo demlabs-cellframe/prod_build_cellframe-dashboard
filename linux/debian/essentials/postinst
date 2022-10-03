@@ -13,6 +13,12 @@ DAP_CFG_TPL="$DAP_PREFIX/share/configs/$DAP_APP_NAME.cfg.tpl"
 # Store write config to new if present smth
 DAP_CFG="$DAP_PREFIX/etc/$DAP_APP_NAME.cfg"
 
+FLAG_CHAIN_DB_CLEAR="true"
+
+if [ "$FLAG_CHAIN_DB_CLEAR" = "true" ]; then
+    rm -r "$DAP_PREFIX/var/lib/network"
+    rm -r "$DAP_PREFIX/var/lib/global_db"
+fi
 
 
 # Check profile.d symlink
