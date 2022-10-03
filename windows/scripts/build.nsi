@@ -26,7 +26,7 @@ Unicode true
 
 !define MUI_COMPONENTSPAGE_TEXT_TOP ""
 
-!define FLAG_CHAIN_DB_CLEAR "true"
+var FLAG_CHAIN_DB_CLEAR
 
 Name 	"${APP_NAME}"
 OutFile	"${APP_NAME} ${APP_VER}.exe"
@@ -84,8 +84,9 @@ Function EnableMSMQ
 FunctionEnd
 
 Function clearDBandChains
+    StrCpy $FLAG_CHAIN_DB_CLEAR "true"
     ${If} $FLAG_CHAIN_DB_CLEAR == "true"
-    RMDir /r "$ConfigPath\etc\network"
+    RMDir /r "$ConfigPath\var\lib\network"
     RMDir /r "$ConfigPath\var\lib\global_db"
     ${EndIf}
 FunctionEnd
