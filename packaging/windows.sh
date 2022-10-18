@@ -12,10 +12,9 @@ fi
 
 PACK() 
 {
-    BRAND=$1
-    DIST_DIR=$2
-    BUILD_DIR=$3
-    OUT_DIR=$4
+    DIST_DIR=$1
+    BUILD_DIR=$2
+    OUT_DIR=$3
     ARCH=$(dpkg --print-architecture)
 
     makensis ${DIST_DIR}/build.nsi
