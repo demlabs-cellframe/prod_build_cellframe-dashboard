@@ -13,6 +13,12 @@ DAP_CFG_TPL="$DAP_PREFIX/share/configs/$DAP_APP_NAME.cfg.tpl"
 # Store write config to new if present smth
 DAP_CFG="$DAP_PREFIX/etc/$DAP_APP_NAME.cfg"
 
+FLAG_CHAIN_DB_CLEAR="true"
+
+if [ "$FLAG_CHAIN_DB_CLEAR" = "true" ]; then
+    rm -r "$DAP_PREFIX/var/lib/network"
+    rm -r "$DAP_PREFIX/var/lib/global_db"
+fi
 
 
 # Check profile.d symlink
@@ -227,7 +233,7 @@ else
     chmod 0666 $DAP_CFG_TPL
     chmod 0774 $DAP_PREFIX/bin/* || true
     chmod 0777 $DAP_PREFIX/bin/$DAP_APP_NAME-cli || true
-    rm  -r $DAP_PREFIX/var/lib/global_db/gdb-cdb/
+    #rm  -r $DAP_PREFIX/var/lib/global_db/gdb-cdb/
     service cellframe-node start || true
     systemctl restart cellframe-node || true
     echo "[!] Done"
