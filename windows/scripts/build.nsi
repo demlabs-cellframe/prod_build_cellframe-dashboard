@@ -67,21 +67,6 @@ Function UninstPrev
 	Fin:
 FunctionEnd
 
-Function EnableMSMQ
-	Push $R0
-	Push $R1
-	ReadRegStr $R0 HKLM "SOFTWARE\Microsoft\Windows NT\CurrentVersion" CurrentVersion
-	${DisableX64FSRedirection}
-	StrCpy $R1 $R0 3
-	DetailPrint "WinNT version: $R1"
-	StrCmp $R1 '6.0' +1 0
-	StrCmp $R1 '6.1' 0 +1
-	nsExec::ExecToLog /OEM  'dism /online /enable-feature /featurename:MSMQ-Container /featurename:MSMQ-Server /featurename:MSMQ-Multicast /NoRestart'
-	Goto +2
-	nsExec::ExecToLog /OEM  'dism /online /enable-feature /featurename:MSMQ-Server /All /NoRestart'
-	Pop $R1
-	Pop $R0
-FunctionEnd
 
 Function clearDBandChains
     StrCpy $FLAG_CHAIN_DB_CLEAR "true"
@@ -206,7 +191,6 @@ Section "${APP_NAME}" CORE
 SectionEnd
 
 Section -startNode
-	Call EnableMSMQ
 	Exec '"$INSTDIR\${NODE_NAME}.exe"'
 	;Exec '"$INSTDIR\${APP_NAME}Service.exe"'
 	nsExec::ExecToLog /OEM '"$INSTDIR\${APP_NAME}Service.exe" install'
