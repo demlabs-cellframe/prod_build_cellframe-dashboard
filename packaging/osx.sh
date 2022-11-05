@@ -47,6 +47,7 @@ PACK()
     BUILD_DIR=$2
     OUT_DIR=$3
 
+	BRAND=Cellframe-Dashboard
 
     #USED FOR PREPARATION OF UNIFIED BUNDLE
     #all binaries and some structure files are threre
@@ -67,28 +68,22 @@ PACK()
     #path to it in BRAND_OSX_BUNDLE_DIR
     cp -r ${DIST_DIR}/${BRAND}.app ${PACKAGE_DIR}
 
-    #copy service binary
-    cp ${DIST_DIR}/${BRAND}Service.app/Contents/MacOS/${BRAND}Service ${BRAND_OSX_BUNDLE_DIR}/Contents/MacOS/
+    #copy service binarys and resources
+    cp -r ${DIST_DIR}/${BRAND}Service.app/Contents/MacOS/* ${BRAND_OSX_BUNDLE_DIR}/Contents/MacOS/
+	cp -r ${DIST_DIR}/${BRAND}Service.app/Contents/Resources/* ${BRAND_OSX_BUNDLE_DIR}/Contents/Resources/
 
-    #copy service plists
-    cp  ${HERE}/../brand/${BRAND}/os/macos/com.${BRAND}Service.plist ${BRAND_OSX_BUNDLE_DIR}/Contents/Resources/
 
-    ##copy tray binary
-    #cp ${DIST_DIR}/${BRAND}Tray.app/Contents/MacOS/${BRAND}Tray ${BRAND_OSX_BUNDLE_DIR}/Contents/MacOS/
-
-    #copy tray plists
-    #cp  ${HERE}/../brand/${BRAND}/os/macos/com.${BRAND}Tray.plist ${BRAND_OSX_BUNDLE_DIR}/Contents/Resources/
-
-    #copy cleanup scripts
-    cp  -r ${HERE}/../brand/${BRAND}/os/macos/cleanup ${BRAND_OSX_BUNDLE_DIR}/Contents/Resources/
+    #copy node binaries and resources
+    cp -r ${DIST_DIR}/Cellframe.app/Contents/MacOS/* ${BRAND_OSX_BUNDLE_DIR}/Contents/MacOS/
+	cp -r ${DIST_DIR}/Cellframe.app/Contents/Resources/* ${BRAND_OSX_BUNDLE_DIR}/Contents/Resources/
 
     #copy pkginstall
-	cp  ${HERE}/../brand/${BRAND}/os/macos/PKGINSTALL/* ${PACKAGE_DIR}
+	cp  ${DIST_DIR}/PKGINSTALL/* ${PACKAGE_DIR}
 
 
 	echo "Do packaging magic in [$PACKAGE_DIR]"
 	cd $wd
-
+	
 	#get version info
 	source "${HERE}/../version.mk"
     PACKAGE_NAME="${BRAND}-${VERSION_MAJOR}.${VERSION_MINOR}-${VERSION_PATCH}.pkg"
