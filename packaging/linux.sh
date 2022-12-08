@@ -37,7 +37,7 @@ PACK()
     ARCH=$(dpkg --print-architecture)
 
     source "${HERE}/../version.mk"
-    PACKAGE_NAME="cellframe-dashboard-${VERSION_MAJOR}.${VERSION_MINOR}-${VERSION_PATCH}-${ARCH}.deb"
+    PACKAGE_NAME="cellframe-dashboard_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}_${ARCH}.deb"
 
     mkdir -p ${DIST_DIR}/DEBIAN
 

@@ -86,8 +86,8 @@ PACK()
 	
 	#get version info
 	source "${HERE}/../version.mk"
-    PACKAGE_NAME="${BRAND}-${VERSION_MAJOR}.${VERSION_MINOR}-${VERSION_PATCH}.pkg"
-	PACKAGE_NAME_SIGNED="${BRAND}-${VERSION_MAJOR}.${VERSION_MINOR}-${VERSION_PATCH}-signed.pkg"
+    PACKAGE_NAME="cellframe-dashboard_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}_amd64.pkg"
+	PACKAGE_NAME_SIGNED="cellframe-dashboard_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}_amd64-signed.pkg"
     echo "Building package [$PACKAGE_NAME]"
 
 	#prepare
