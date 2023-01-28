@@ -1,0 +1,5 @@
+ARCH_VERSIONS="arm64-v8a"
+PACKAGE_PATH="/home/gitlab-runner/production-docker/builds/apk"
+CELLFRAME_FILESERVER_CREDS="admin@pub.cellframe.net"
+CELLFRAME_FILESERVER_KEY="~/.ssh/demlabs_publish"
+CELLFRAME_FILESERVER_PATH="~/web/pub.cellframe.net/public_html/android"
