@@ -105,6 +105,9 @@ PACK()
 	cp ${PACKAGE_DIR}/postinstall ${SCRIPTS_BUILD}
 
 	#create .pkg struture to further xar coommand
+	
+	#modify plist cause of destination of node-binaries
+	sed -i "s/CellframeNode/${BRAND}/g" ${PAYLOAD_BUILD}/${BRAND}.app/Contents/Resources/com.demlabs.cellframe-node.plist
 
 	#code-sign binaries
 	if [ "$PKG_SIGN_POSSIBLE" -eq "1" ]; then
