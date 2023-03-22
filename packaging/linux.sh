@@ -43,6 +43,7 @@ PACK()
 
     #dashboard pkg configs
     cp ${HERE}/../os/debian/control ${DIST_DIR}/DEBIAN
+    cp ${HERE}/../os/debian/preinst ${DIST_DIR}/DEBIAN
     cp ${HERE}/../os/debian/postinst ${DIST_DIR}/DEBIAN
     cp ${HERE}/../os/debian/postrm  ${DIST_DIR}/DEBIAN
     
