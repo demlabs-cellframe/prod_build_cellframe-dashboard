@@ -33,11 +33,17 @@ PACK()
     DIST_DIR=$1
     BUILD_DIR=$2
     OUT_DIR=$3
+    BUILD_TYPE=$4
 
     ARCH=$(dpkg --print-architecture)
 
     source "${HERE}/../version.mk"
-    PACKAGE_NAME="cellframe-dashboard_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}_${ARCH}.deb"
+    
+    if [ "${BUILD_TYPE}" = "rwd" ]; then
+        PACKAGE_NAME="cellframe-dashboard_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}-rwd_${ARCH}.deb"
+    else
+        PACKAGE_NAME="cellframe-dashboard_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}_${ARCH}.deb"
+    fi
 
     mkdir -p ${DIST_DIR}/DEBIAN
 
