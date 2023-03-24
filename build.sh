@@ -59,6 +59,8 @@ VALIDATE_BUILD_TYPE $BUILD_TYPE
 #append qmake debug\release qmake options for this
 if [ "${BUILD_TYPE}" = "debug" ]; then
     BUILD_OPTIONS[${#BUILD_OPTIONS[@]}]="CONFIG+=debug"
+elif [ "${BUILD_TYPE}" = "rwd" ]; then
+    BUILD_OPTIONS[${#BUILD_OPTIONS[@]}]="CONFIG+=force_debug_info"
 else
     BUILD_OPTIONS[${#BUILD_OPTIONS[@]}]="CONFIG+=release"
 fi
