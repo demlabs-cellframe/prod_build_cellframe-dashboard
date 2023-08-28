@@ -48,7 +48,35 @@ set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 BUILD_TYPE="${1:-release}"
 BUILD_OPTIONS="${@:2}"
 
-BUILD_TARGET="${TARGET:-linux}"
+NAME_OUT="$(uname -s)"
+case "${NAME_OUT}" in
+    Linux*)     MACHINE=Linux;;
+    Darwin*)    MACHINE=Mac;;
+    CYGWIN*)    MACHINE=Cygwin;;
+    MINGW*)     MACHINE=MinGw;;
+    MSYS_NT*)   MACHINE=Git;;
+    *)          MACHINE="UNKNOWN:${NAME_OUT}"
+esac
+
+
+DEFAULT_TARGET="linux"
+if [ "$MACHINE" == "Mac" ]
+then
+  DEFAULT_TARGET="osx"
+fi
+
+if [ "$MACHINE" == "Linux" ]
+then
+  DEFAULT_TARGET="linux"
+fi
+
+if [ "$MACHINE" == "Git" ]
+then
+  DEFAULT_TARGET="windows"
+fi
+
+
+BUILD_TARGET="${TARGET:-$DEFAULT_TARGET}"
 
 BUILD_DIR=${PWD}/build_${BUILD_TARGET}_${BUILD_TYPE}
 
