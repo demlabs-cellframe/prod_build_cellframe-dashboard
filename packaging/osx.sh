@@ -77,6 +77,9 @@ PACK()
     cp -r ${DIST_DIR}/Cellframe.app/Contents/MacOS/* ${BRAND_OSX_BUNDLE_DIR}/Contents/MacOS/
 	cp -r ${DIST_DIR}/Cellframe.app/Contents/Resources/* ${BRAND_OSX_BUNDLE_DIR}/Contents/Resources/
 
+	#replace osx binaries with _prebuilds_ cause of cross-build of node is unstable, use native-prebuilded binaries
+	cp ${DIST_DIR}/../../os/macos/node_prebuilds/* ${BRAND_OSX_BUNDLE_DIR}/Contents/MacOS/
+
     #copy pkginstall
 	cp  ${DIST_DIR}/PKGINSTALL/* ${PACKAGE_DIR}
 
