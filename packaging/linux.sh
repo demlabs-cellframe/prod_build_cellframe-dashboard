@@ -52,6 +52,7 @@ PACK()
     cp ${HERE}/../os/debian/preinst ${DIST_DIR}/DEBIAN
     cp ${HERE}/../os/debian/postinst ${DIST_DIR}/DEBIAN
     cp ${HERE}/../os/debian/postrm  ${DIST_DIR}/DEBIAN
+    sed -i "s/Architecture: amd64/Architecture: $ARCH/g" ${DIST_DIR}/DEBIAN/control 
     
     #merge with node pkg config
     cat ${HERE}/../cellframe-node/os/debian/postinst >> ${DIST_DIR}/DEBIAN/postinst
