@@ -92,7 +92,7 @@ echo "Pack [${BUILD_TYPE}] binaries for [$BUILD_TARGET] from [${DIST_DIR}] to [$
 
 . ${HERE}/packaging/${BUILD_TARGET}.sh
 
-PACK ${DIST_DIR} ${BUILD_DIR} ${OUT_DIR}
+PACK ${DIST_DIR} ${BUILD_DIR} ${OUT_DIR} ${BUILD_TYPE}
 
 
 

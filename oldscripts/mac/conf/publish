@@ -1,3 +1,0 @@
-ARCH_VERSIONS="x86_64 arm64e"
-PACKAGE_PATH=/home/gitlab-runner/production-docker/builds/pkg
-BRAND="Cellframe-Dashboard"
