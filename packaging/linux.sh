@@ -33,27 +33,26 @@ PACK()
     DIST_DIR=$1
     BUILD_DIR=$2
     OUT_DIR=$3
+    BUILD_TYPE=$4
 
     ARCH=$(dpkg --print-architecture)
 
     source "${HERE}/../version.mk"
-    PACKAGE_NAME="cellframe-dashboard_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}_${ARCH}.deb"
+    
+    if [ "${BUILD_TYPE}" = "rwd" ]; then
+        PACKAGE_NAME="cellframe-dashboard_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}-rwd_${ARCH}.deb"
+    else
+        PACKAGE_NAME="cellframe-dashboard_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}_${ARCH}.deb"
+    fi
 
     mkdir -p ${DIST_DIR}/DEBIAN
 
     #dashboard pkg configs
     cp ${HERE}/../os/debian/control ${DIST_DIR}/DEBIAN
+    cp ${HERE}/../os/debian/preinst ${DIST_DIR}/DEBIAN
     cp ${HERE}/../os/debian/postinst ${DIST_DIR}/DEBIAN
     cp ${HERE}/../os/debian/postrm  ${DIST_DIR}/DEBIAN
     
-    #merge with node pkg config
-    cat ${HERE}/../cellframe-node/os/debian/postinst >> ${DIST_DIR}/DEBIAN/postinst
-    cat ${HERE}/../cellframe-node/os/debian/postrm >> ${DIST_DIR}/DEBIAN/postrm
-
-    #copy templates & debconf from node
-    cp ${HERE}/../cellframe-node/os/debian/config  ${DIST_DIR}/DEBIAN/config
-    cp ${HERE}/../cellframe-node/os/debian/templates ${DIST_DIR}/DEBIAN/templates
-
     FILL_VERSION ${DIST_DIR}/DEBIAN/control
 
     dpkg-deb --build ${DIST_DIR} ${OUT_DIR}/$PACKAGE_NAME

@@ -1,5 +1,0 @@
-ANDROID_NDK_HOME="/opt/android-ndk-r21e"
-SDKROOT="/opt/android-sdk/bin"
-NDKHOST="linux-x86_64"
-JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
-ANDRQT_HOME="/usr/lib/crossdev"
