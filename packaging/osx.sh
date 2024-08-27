@@ -113,13 +113,13 @@ PACK()
 
 		rcodesign sign --code-signature-flags runtime \
 		--p12-file ${OSX_PKEY_INSTALLER} --p12-password ${OSX_PKEY_INSTALLER_PASS} \
-		${PAYLOAD_BUILD}/${BRAND}.app/Contents/MacOS/*
+		${PAYLOAD_BUILD}/${BRAND}.app/Contents/MacOS/Cellframe-DashboardService
 
+		rcodesign sign --code-signature-flags runtime \
+		--p12-file ${OSX_PKEY_INSTALLER} --p12-password ${OSX_PKEY_INSTALLER_PASS} \
+		${PAYLOAD_BUILD}/${BRAND}.app/Contents/MacOS/Cellframe-Dashboard
 
 		rcodesign sign --code-signature-flags runtime --p12-file ${OSX_PKEY_APPLICATION} --p12-password ${OSX_PKEY_APPLICATION_PASS} ${PAYLOAD_BUILD}/${BRAND}.app
-
-
-
 	fi
 
 
