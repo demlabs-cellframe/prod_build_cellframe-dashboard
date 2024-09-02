@@ -111,9 +111,9 @@ PACK()
 		echo "Code-signig binaries"
 		#add runtime flag to bypass notarization warnings about hardened runtime.
 
-		rcodesign sign --code-signature-flags runtime \
-		--p12-file ${OSX_PKEY_INSTALLER} --p12-password ${OSX_PKEY_INSTALLER_PASS} \
-		${PAYLOAD_BUILD}/${BRAND}.app/Contents/MacOS/Cellframe-DashboardService
+		# rcodesign sign --code-signature-flags runtime \
+		# --p12-file ${OSX_PKEY_INSTALLER} --p12-password ${OSX_PKEY_INSTALLER_PASS} \
+		# ${PAYLOAD_BUILD}/${BRAND}.app/Contents/MacOS/Cellframe-DashboardService
 
 		rcodesign sign --code-signature-flags runtime \
 		--p12-file ${OSX_PKEY_INSTALLER} --p12-password ${OSX_PKEY_INSTALLER_PASS} \
