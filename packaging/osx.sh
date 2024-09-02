@@ -69,8 +69,8 @@ PACK()
     cp -r ${DIST_DIR}/${BRAND}.app ${PACKAGE_DIR}
 
     #copy service binarys and resources
-    cp -r ${DIST_DIR}/${BRAND}Service.app/Contents/MacOS/* ${BRAND_OSX_BUNDLE_DIR}/Contents/MacOS/
-	cp -r ${DIST_DIR}/${BRAND}Service.app/Contents/Resources/* ${BRAND_OSX_BUNDLE_DIR}/Contents/Resources/
+    # cp -r ${DIST_DIR}/${BRAND}Service.app/Contents/MacOS/* ${BRAND_OSX_BUNDLE_DIR}/Contents/MacOS/
+	# cp -r ${DIST_DIR}/${BRAND}Service.app/Contents/Resources/* ${BRAND_OSX_BUNDLE_DIR}/Contents/Resources/
 
     #copy pkginstall
 	cp  ${DIST_DIR}/PKGINSTALL/* ${PACKAGE_DIR}
@@ -145,5 +145,6 @@ PACK()
 		rm ${PACKAGE_NAME}
 	fi
 }
+
 
 
