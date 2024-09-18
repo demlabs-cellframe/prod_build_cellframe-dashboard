@@ -19,16 +19,9 @@ then
       exit 255
 fi
 
+echo "Using QT from ${OSXCROSS_QT_ROOT}"
 
-if [ -z "$OSXCROSS_QT_VERSION" ]
-then
-      echo "Please, export OSXCROSS_QT_VERSION variable, scpecifying Qt-version in OSXCROSS_QT_ROOT directory."
-      exit 255
-fi
-
-echo "Using QT ${OSXCROSS_QT_VERSION} from ${OSXCROSS_QT_ROOT}/${OSXCROSS_QT_VERSION}"
-
-[ ! -d ${OSXCROSS_QT_ROOT}/${OSXCROSS_QT_VERSION} ] && { echo "No QT ${OSXCROSS_QT_VERSION} found in ${OSXCROSS_QT_ROOT}" && exit 255; }
+[ ! -d ${OSXCROSS_QT_ROOT} ] && { echo "No QT found in ${OSXCROSS_QT_ROOT}" && exit 255; }
 
 #define QMAKE & MAKE commands for build.sh script
 

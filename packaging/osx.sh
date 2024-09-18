@@ -72,11 +72,6 @@ PACK()
     cp -r ${DIST_DIR}/${BRAND}Service.app/Contents/MacOS/* ${BRAND_OSX_BUNDLE_DIR}/Contents/MacOS/
 	cp -r ${DIST_DIR}/${BRAND}Service.app/Contents/Resources/* ${BRAND_OSX_BUNDLE_DIR}/Contents/Resources/
 
-
-    #copy node binaries and resources
-    cp -r ${DIST_DIR}/Cellframe.app/Contents/MacOS/* ${BRAND_OSX_BUNDLE_DIR}/Contents/MacOS/
-	cp -r ${DIST_DIR}/Cellframe.app/Contents/Resources/* ${BRAND_OSX_BUNDLE_DIR}/Contents/Resources/
-
     #copy pkginstall
 	cp  ${DIST_DIR}/PKGINSTALL/* ${PACKAGE_DIR}
 
@@ -110,11 +105,23 @@ PACK()
 	sed -i "s/CellframeNode/${BRAND}/g" ${PAYLOAD_BUILD}/${BRAND}.app/Contents/Resources/com.demlabs.cellframe-node.plist
 
 	#code-sign binaries
+
+	 #code-sign binaries
 	if [ "$PKG_SIGN_POSSIBLE" -eq "1" ]; then
 		echo "Code-signig binaries"
 		#add runtime flag to bypass notarization warnings about hardened runtime.
+
+		rcodesign sign --code-signature-flags runtime \
+		--p12-file ${OSX_PKEY_INSTALLER} --p12-password ${OSX_PKEY_INSTALLER_PASS} \
+		${PAYLOAD_BUILD}/${BRAND}.app/Contents/MacOS/Cellframe-DashboardService
+
+		rcodesign sign --code-signature-flags runtime \
+		--p12-file ${OSX_PKEY_INSTALLER} --p12-password ${OSX_PKEY_INSTALLER_PASS} \
+		${PAYLOAD_BUILD}/${BRAND}.app/Contents/MacOS/Cellframe-Dashboard
+
 		rcodesign sign --code-signature-flags runtime --p12-file ${OSX_PKEY_APPLICATION} --p12-password ${OSX_PKEY_APPLICATION_PASS} ${PAYLOAD_BUILD}/${BRAND}.app
 	fi
+
 
 	# create bom file
 	mkbom -u 0 -g 80 ${PAYLOAD_BUILD} ${OSX_PKG_DIR}/Bom

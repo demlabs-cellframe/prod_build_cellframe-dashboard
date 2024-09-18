@@ -53,14 +53,6 @@ PACK()
     cp ${HERE}/../os/debian/postinst ${DIST_DIR}/DEBIAN
     cp ${HERE}/../os/debian/postrm  ${DIST_DIR}/DEBIAN
     
-    #merge with node pkg config
-    cat ${HERE}/../cellframe-node/os/debian/postinst >> ${DIST_DIR}/DEBIAN/postinst
-    cat ${HERE}/../cellframe-node/os/debian/postrm >> ${DIST_DIR}/DEBIAN/postrm
-
-    #copy templates & debconf from node
-    cp ${HERE}/../cellframe-node/os/debian/config  ${DIST_DIR}/DEBIAN/config
-    cp ${HERE}/../cellframe-node/os/debian/templates ${DIST_DIR}/DEBIAN/templates
-
     FILL_VERSION ${DIST_DIR}/DEBIAN/control
 
     dpkg-deb --build ${DIST_DIR} ${OUT_DIR}/$PACKAGE_NAME
