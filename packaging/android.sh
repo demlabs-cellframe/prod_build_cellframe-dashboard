@@ -51,10 +51,10 @@ echo "Using QT ${ANDROID_QT_VERSION} from ${ANDROID_QT_ROOT}/${ANDROID_QT_VERSIO
 
 PACK() 
 {
-    BRAND=$1
-    DIST_DIR=$2
-    BUILD_DIR=$3
-    OUT_DIR=$4
+    BRAND="CellframeWallet"
+    DIST_DIR=$1
+    BUILD_DIR=$2
+    OUT_DIR=$3
 
     SDK_VERSION=20
 
@@ -85,13 +85,13 @@ PACK()
 	echo "${ANDROID_QT_ROOT}/${ANDROID_QT_VERSION}/bin/androiddeployqt --output ${DIST_DIR} \
                                                                   --verbose \
                                                                   --release \
-                                                                  --input ${BUILD_DIR}/CellFrameWallet/*.json SIGN_PARAMS_HIDDEN ${QT_DEPLOY_APKNAME_PARAMS}"
+                                                                  --input ${BUILD_DIR}/CellFrameDashboard/*.json SIGN_PARAMS_HIDDEN ${QT_DEPLOY_APKNAME_PARAMS}"
 																
 	
 	${ANDROID_QT_ROOT}/${ANDROID_QT_VERSION}/bin/androiddeployqt --output ${DIST_DIR} \
                                                                   --verbose \
                                                                   --release \
-                                                                  --input ${BUILD_DIR}/CellFrameWallet/*.json  \
+                                                                  --input ${BUILD_DIR}/CellFrameDashboard/*.json  \
 																  ${QT_DEPLOY_SIGN_PARAMS} \
                                                                                                   ${QT_DEPLOY_APKNAME_PARAMS}
                                                      
