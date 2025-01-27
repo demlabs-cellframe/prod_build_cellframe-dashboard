@@ -55,5 +55,7 @@ PACK()
     
     FILL_VERSION ${DIST_DIR}/DEBIAN/control
 
+    sed -i "s/{ARCH}/${ARCH}/g" ${DIST_DIR}/DEBIAN/control
+
     dpkg-deb --build ${DIST_DIR} ${OUT_DIR}/$PACKAGE_NAME
 }
