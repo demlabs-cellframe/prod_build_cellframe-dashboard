@@ -16,21 +16,33 @@ done
 echo "SOURCE is '$SOURCE'"
 RDIR=$( dirname "$SOURCE" )
 DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
-HERE="$DIR"
+MHERE="$DIR"
 
-export SOURCES=${HERE}/../
+
+export SOURCES=${MHERE}/../
+
+NAME_OUT="$(uname -s)"
+case "${NAME_OUT}" in
+    Linux*)     MACHINE=Linux;;
+    Darwin*)    MACHINE=Mac;;
+    CYGWIN*)    MACHINE=Cygwin;;
+    MINGW*)     MACHINE=MinGw;;
+    MSYS_NT*)   MACHINE=Git;;
+    *)          MACHINE="UNKNOWN:${NAME_OUT}"
+esac
+
+
 
 #validate input params
-. ${HERE}/validate.sh
+. ${MHERE}/validate.sh
 
 Help()
 {
    echo "cellframe-dashboard build"
    echo "Usage: build.sh [--target ${TARGETS}] [${BUILD_TYPES}]  [OPTIONS]"
-   echo "options:   -DWHATEVER=ANYTHING will be passed to qmake as defines"
+   echo "options:   -DWHATEVER=ANYTHING will be passed to cmake as defines"
    echo
 }
-
 
 POSITIONAL_ARGS=()
 
@@ -58,10 +70,32 @@ set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 BUILD_TYPE="${1:-release}"
 BUILD_OPTIONS="${@:2}"
 
-BUILD_TARGET="${TARGET:-linux}"
 
-BUILD_DIR=${HERE}/../build_${BUILD_TARGET}_${BUILD_TYPE}
+DEFAULT_TARGET="linux"
+if [ "$MACHINE" == "Mac" ]
+then
+  DEFAULT_TARGET="osx"
+fi
 
+if [ "$MACHINE" == "Linux" ]
+then
+  DEFAULT_TARGET="linux"
+fi
+
+if [ "$MACHINE" == "Git" ]
+then
+  DEFAULT_TARGET="windows"
+fi
+
+if [ "$MACHINE" == "MinGw" ]
+then
+  DEFAULT_TARGET="windows"
+fi
+
+echo "Host machin is $MACHINE"
+BUILD_TARGET="${TARGET:-$DEFAULT_TARGET}"
+
+BUILD_DIR=${PWD}/build_${BUILD_TARGET}_${BUILD_TYPE}
 
 VALIDATE_TARGET $TARGET
 VALIDATE_BUILD_TYPE $BUILD_TYPE
@@ -81,16 +115,20 @@ fi
 mkdir -p ${BUILD_DIR}/build
 mkdir -p ${BUILD_DIR}/dist
 
-echo "Build [${BUILD_TYPE}] binaries for [$BUILD_TARGET] in [${BUILD_DIR}] on $(nproc) threads"
+if [ "$MACHINE" != "Mac" ]
+then
+  NPROC="$(nproc)"
+else
+  NPROC="$(sysctl -n hw.ncpu)"
+fi
+
+echo "Build [${BUILD_TYPE}] binaries for [$BUILD_TARGET] in [${BUILD_DIR}] on $NPROC threads"
 echo "with options: [${BUILD_OPTIONS[@]}]"
 
 cd ${BUILD_DIR}/build
 
 #this will install all to DIST folder for futher packaging
 export INSTALL_ROOT=${BUILD_DIR}/dist
-
-#debug out
-echo "$QMAKE $HERE/../*.pro  ${BUILD_OPTIONS[@]}"
 
 "${QMAKE[@]}" $HERE/../*.pro  ${BUILD_OPTIONS[@]}
 "${MAKE[@]}" -j$(nproc)
