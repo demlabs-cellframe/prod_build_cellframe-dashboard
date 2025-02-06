@@ -129,7 +129,7 @@ cd ${BUILD_DIR}/build
 
 #this will install all to DIST folder for futher packaging
 export INSTALL_ROOT=${BUILD_DIR}/dist
-
-"${QMAKE[@]}" $HERE/../*.pro  ${BUILD_OPTIONS[@]}
-"${MAKE[@]}" -j$(nproc)
+echo "$MHERE"
+"${QMAKE[@]}" $MHERE/../*.pro  ${BUILD_OPTIONS[@]}
+"${MAKE[@]}" -j4
 "${MAKE[@]}" install
