@@ -11,6 +11,18 @@ fi
 
 export SOURCES=${HERE}/../
 
+NAME_OUT="$(uname -s)"
+case "${NAME_OUT}" in
+    Linux*)     MACHINE=Linux;;
+    Darwin*)    MACHINE=Mac;;
+    CYGWIN*)    MACHINE=Cygwin;;
+    MINGW*)     MACHINE=MinGw;;
+    MSYS_NT*)   MACHINE=Git;;
+    *)          MACHINE="UNKNOWN:${NAME_OUT}"
+esac
+
+
+
 containsElement () {
   local e match="$1"
   shift
@@ -54,11 +66,33 @@ done
 set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 
 #all base logic from here
+DEFAULT_TARGET="linux"
+if [ "$MACHINE" == "Mac" ]
+then
+  DEFAULT_TARGET="osx"
+fi
+
+if [ "$MACHINE" == "Linux" ]
+then
+  DEFAULT_TARGET="linux"
+fi
+
+if [ "$MACHINE" == "Git" ]
+then
+  DEFAULT_TARGET="windows"
+fi
+
+if [ "$MACHINE" == "MinGw" ]
+then
+  DEFAULT_TARGET="windows"
+fi
+
+echo "Host machin is $MACHINE"
+BUILD_TARGET="${TARGET:-$DEFAULT_TARGET}"
 
 BUILD_TYPE="${1:-release}"
 BUILD_OPTIONS="${@:2}"
 
-BUILD_TARGET="${TARGET:-linux}"
 
 #validate input params
 . ${HERE}/validate.sh
