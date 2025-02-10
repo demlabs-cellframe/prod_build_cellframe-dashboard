@@ -15,7 +15,6 @@ containsElement () {
   return 1
 }
 
-
 TARGETS=(linux windows osx android ) 
 BUILD_TYPES=(release debug rwd)
 
